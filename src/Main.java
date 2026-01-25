@@ -13,9 +13,9 @@ public class Main {
             NPC npc = parser.readValue(input, NPC.class);
             System.out.println(npc);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("file was not found");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("error");
         }
 
     }
