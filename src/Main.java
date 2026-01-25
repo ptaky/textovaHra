@@ -15,7 +15,7 @@ public class Main {
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
         } catch (Exception e) {
-            throw new RuntimeException("error");
+            throw new RuntimeException("error ");
         }
 
     }
