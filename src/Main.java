@@ -9,14 +9,14 @@ public class Main {
         ObjectMapper parser = new ObjectMapper();
 
         try {
-            InputStream input = new FileInputStream("resource/NPC.json");
+            InputStream input = new FileInputStream("resource/characters.json");
             NPC npc = parser.readValue(input, NPC.class);
             System.out.println(npc);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("FileNotFoundException");
+            throw new RuntimeException(e);
         } catch (Exception e) {
-            throw new RuntimeException("Exception");
+            throw new RuntimeException(e);
         }
-        System.out.println("Hello world!");
+
     }
 }

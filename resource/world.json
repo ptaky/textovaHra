@@ -1,0 +1,66 @@
+{
+    "world": [
+        {
+            "name":"kryokomora",
+            "isLocked": false,
+            "nextRooms": [
+                "lekarskyTrakt"
+            ]
+        },
+        {
+            "name":"lekarskyTrakt",
+            "isLocked": false,
+            "nextRooms": [
+                "kryokomora",
+                "dilna",
+                "chodba"
+            ]
+        },
+        {
+            "name":"dilna",
+            "isLocked": false,
+            "nextRooms": [
+                "lekarskyTrakt"
+            ]
+        },
+        {
+            "name":"chodba",
+            "isLocked": false,
+            "nextRooms": [
+                "lekarskyTrakt",
+                "botanickaZahrada",
+                "karantena"
+            ]
+        },
+        {
+            "name":"botanickaZahrada",
+            "isLocked": false,
+            "nextRooms": [
+                "chodba"
+            ]
+        },
+        {
+            "name":"karantena",
+            "isLocked": false,
+            "nextRooms": [
+                "chodba",
+                "serverovna",
+                "vysilaciVez"
+            ]
+        },
+        {
+            "name":"serverovna",
+            "isLocked": true,
+            "nextRooms": [
+                "karantena"
+            ]
+        },
+        {
+            "name":"vysilaciVez",
+            "isLocked": true,
+            "nextRooms": [
+                "karantena"
+            ]
+        }
+    ]
+}
