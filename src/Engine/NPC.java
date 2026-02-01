@@ -1,3 +1,5 @@
+package Engine;
+
 import java.util.List;
 import java.util.Map;
 
@@ -146,7 +148,7 @@ public class NPC {
 
     @Override
     public String toString() {
-        return "NPC{" +
+        return "Engine.NPC{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", nickname='" + nickname + '\'' +

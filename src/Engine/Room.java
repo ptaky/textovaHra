@@ -1,3 +1,5 @@
+package Engine;
+
 import java.util.List;
 
 public class Room {
@@ -68,7 +70,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
+        return "Engine.Room{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", isLocked=" + isLocked +

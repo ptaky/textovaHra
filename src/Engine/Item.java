@@ -1,3 +1,5 @@
+package Engine;
+
 import java.util.Map;
 
 public class Item {
@@ -16,7 +18,7 @@ public class Item {
     private boolean isUsable;
     private String useAction;
 
-    // vazby na questy / NPC
+    // vazby na questy / Engine.NPC
     private String requiredByNpc;
     private String givenByNpc;
 

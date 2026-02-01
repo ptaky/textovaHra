@@ -1,3 +1,5 @@
+package Engine;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,7 +29,7 @@ public class DataLoader {
         parser = new ObjectMapper();
 
         try {
-            InputStream input = new FileInputStream("resource/NPC.json");
+            InputStream input = new FileInputStream("resource/Engine.NPC.json");
             List<NPC> NPCs = parser.readValue(input, new TypeReference<List<NPC>>() {});
 
         } catch (FileNotFoundException e) {
