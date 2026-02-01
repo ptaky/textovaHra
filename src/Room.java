@@ -7,13 +7,16 @@ public class Room {
     private String description;
     private String advancedDescription;
     private List<String> nextRooms;
+    private List<String> items; // nové pole pro předměty v místnosti
 
     public Room() {}
 
+    // Metoda pro kontrolu, zda existuje připojená místnost
     public boolean thereIsNextRoom(String roomId) {
-        return nextRooms.contains(roomId);
+        return nextRooms != null && nextRooms.contains(roomId);
     }
 
+    // Gettery a settery
     public String getId() {
         return id;
     }
@@ -32,7 +35,7 @@ public class Room {
         return isLocked;
     }
     public void setIsLocked(boolean locked) {
-        isLocked = locked;
+        this.isLocked = locked;
     }
 
     public String getDescription() {
@@ -56,6 +59,13 @@ public class Room {
         this.nextRooms = nextRooms;
     }
 
+    public List<String> getItems() {
+        return items;
+    }
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -65,6 +75,7 @@ public class Room {
                 ", description='" + description + '\'' +
                 ", advancedDescription='" + advancedDescription + '\'' +
                 ", nextRooms=" + nextRooms +
+                ", items=" + items +
                 '}';
     }
 }
