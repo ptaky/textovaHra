@@ -55,4 +55,16 @@ public class Room {
     public void setNextRooms(List<String> nextRooms) {
         this.nextRooms = nextRooms;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", isLocked=" + isLocked +
+                ", description='" + description + '\'' +
+                ", advancedDescription='" + advancedDescription + '\'' +
+                ", nextRooms=" + nextRooms +
+                '}';
+    }
 }

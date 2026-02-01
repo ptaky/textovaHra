@@ -1,0 +1,109 @@
+[
+  {
+    "id": "AEQRD-01",
+    "name": "AEQRD-01",
+    "nickname": "Spark",
+    "type": "drone",
+    "location": "lekarsky_trakt",
+    "description": "Poškozený servisní dron s jiskřícími obvody. Po opravě slouží jako navigátor a rádce.",
+    "isRepaired": false,
+    "requiresItem": "baterie",
+    "dialogues": {
+      "broken": [
+        "BZZT… systémy offline… potřebuji energii…"
+      ],
+      "repaired": [
+        "Systémy obnoveny. Ahoj, Elara.",
+        "Doporučení: obnovit elektrickou síť stanice.",
+        "Čas do kolapsu jádra se zkracuje."
+      ]
+    },
+    "functions": [
+      "napoveda",
+      "navigace"
+    ]
+  },
+  {
+    "id": "milan",
+    "name": "Milan",
+    "type": "robot",
+    "location": "dilna",
+    "description": "Technický robot, který má přehled o celé stanici. Mluví věcně a bez emocí.",
+    "dialogues": {
+      "default": [
+        "Vítej v dílně. Hlásím kritický stav stanice.",
+        "Pokud něco potřebuješ opravit, jsem tu."
+      ],
+      "afterFilter": [
+        "Filtr detekován. Mohu vyrobit plynovou masku."
+      ]
+    },
+    "givesItems": [
+      "baterie",
+      "karta_od_serverovny",
+      "nahradni_pojistky",
+      "uv_lampa",
+      "plynova_maska"
+    ],
+    "conditions": {
+      "plynova_maska": {
+        "requiresItem": "filtr"
+      }
+    }
+  },
+  {
+    "id": "anicka",
+    "name": "babička Anička",
+    "type": "human",
+    "location": "botanicka_zahrada",
+    "description": "Starší paní, která se stará o zahradu. Svět kolem sebe téměř nevnímá.",
+    "plantNeedsLight": true,
+    "dialogues": {
+      "default": [
+        "Kytičky… ony mi dnes nějak vadnou…",
+        "Světla je tu málo, viď děvče?"
+      ],
+      "afterUVLamp": [
+        "Ach! Podívej, jak krásně svítí!",
+        "Za odměnu ti uvařím speciální čajíček…"
+      ]
+    },
+    "givesItem": "uspavaci_lektvar",
+    "conditions": {
+      "uspavaci_lektvar": {
+        "requiresAction": "nainstaluj_uv_lampu"
+      }
+    }
+  },
+  {
+    "id": "viktor",
+    "name": "Viktor",
+    "type": "human",
+    "location": "karantena",
+    "description": "Zmatený muž pod vlivem plynu. Považuje každého za vetřelce.",
+    "hostile": true,
+    "dialogues": {
+      "aggressive": [
+        "Stůj! Ty sem nepatříš!",
+        "Vypadni, než ti ublížím!"
+      ],
+      "asleep": [
+        "Viktor leží na zemi a hlasitě chrápe."
+      ],
+      "confused": [
+        "Co… co se to děje… kde jsem?"
+      ]
+    },
+    "bypassMethods": {
+      "mirror": {
+        "item": "rucni_zrcatko",
+        "successChance": 0.7
+      },
+      "sleep": {
+        "item": "uspavaci_lektvar",
+        "successChance": 1.0
+      }
+    }
+  }
+]
+
