@@ -11,13 +11,13 @@ import java.util.List;
 public class DataLoader {
     ObjectMapper parser;
 
-    public void loadRoomsData(){
+    public List<Room> loadRoomsData(){
          parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/rooms.json");
             List<Room> rooms = parser.readValue(input, new TypeReference<List<Room>>() {});
-
+            return rooms;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
         } catch (Exception e) {
@@ -25,13 +25,13 @@ public class DataLoader {
         }
     }
 
-    public void loadNPCData(){
+    public List<NPC> loadNPCData(){
         parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/NPC.json");
             List<NPC> NPCs = parser.readValue(input, new TypeReference<List<NPC>>() {});
-
+            return NPCs;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
         } catch (Exception e) {
@@ -39,13 +39,13 @@ public class DataLoader {
         }
     }
 
-    public void loadItemsData(){
+    public List<Item> loadItemsData(){
         parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/items.json");
             List<Item> Items = parser.readValue(input, new TypeReference<List<Item>>() {});
-
+            return Items;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
         } catch (Exception e) {

@@ -1,8 +1,17 @@
 package Command;
 
+import Data.Game;
+
 public class Take_Command implements Command {
+    private Game game;
+
+    public Take_Command(Game game) {
+        this.game = game;
+    }
+
     @Override
     public String execute(String command) {
+        //TODO dodelat
         return "";
     }
 

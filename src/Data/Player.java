@@ -1,11 +1,9 @@
 package Data;
 
 public class Player {
-    private int id;
     private Inventory inventory;
 
-    public Player(int id) {
-        this.id = id;
+    public Player() {
         this.inventory = new Inventory();
     }
 
