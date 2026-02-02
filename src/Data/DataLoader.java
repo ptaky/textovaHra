@@ -29,7 +29,7 @@ public class DataLoader {
         parser = new ObjectMapper();
 
         try {
-            InputStream input = new FileInputStream("resource/Engine.NPC.json");
+            InputStream input = new FileInputStream("resource/NPC.json");
             List<NPC> NPCs = parser.readValue(input, new TypeReference<List<NPC>>() {});
 
         } catch (FileNotFoundException e) {

@@ -9,7 +9,7 @@ public class Room {
     private String description;
     private String advancedDescription;
     private List<String> nextRooms;
-    private List<String> items; // nové pole pro předměty v místnosti
+    private List<String> items;
 
     public Room() {}
 
