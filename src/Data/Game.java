@@ -1,11 +1,10 @@
 package Data;
 
-import java.sql.Time;
 import java.util.List;
 
 public class Game {
     private Player player;
-    private Time timeleft;
+    private int checkpoint;
     private List<Room> rooms;
     private Room currentRoom;
     private List<NPC> NPCs;
@@ -19,14 +18,33 @@ public class Game {
         rooms = dataLoader.loadRoomsData();
         NPCs = dataLoader.loadNPCData();
         items = dataLoader.loadItemsData();
+        checkpoint = 0;
     }
 
     public void quitGame() {
         //TODO dodelat to
     }
 
-    public void shorterTime() {
-        //TODO dodelat to
+    public String getCheckpoint(int checkpoint) {
+        switch (checkpoint) {
+            case 0 :
+                return "17h 32min 42s";
+            case 1:
+                return "1";
+            case 2:
+                return "2";
+            case 3:
+                return "3";
+            case 4:
+                return "4";
+            case 5:
+                return "5";
+            default:
+                return "error";
+        }
+    }
+    public void setAnotherCheckpoint() {
+        checkpoint++;
     }
 
     public Room getCurrentRoom() {

@@ -1,5 +1,5 @@
 import Command.*;
-import Data.Game;
+import Data.*;
 
 import java.util.HashMap;
 import java.util.Scanner;
