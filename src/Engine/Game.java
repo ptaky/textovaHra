@@ -12,6 +12,8 @@ public class Game {
     private List<NPC> NPCs;
     private List<Item> items;
     private boolean gameOver;
+    private boolean playerWon;
+    private boolean playerLost;
     private String introduction;
     private String winningText;
 
@@ -20,11 +22,9 @@ public class Game {
         rooms = dataLoader.loadRoomsData();
         NPCs = dataLoader.loadNPCData();
         items = dataLoader.loadItemsData();
-        checkpoint = 0;
-    }
 
-    public void quitGame() {
-        //TODO dodelat to
+        gameOver = false;
+        checkpoint = 0;
     }
 
     public String getCheckpoint(int checkpoint) {
@@ -49,6 +49,20 @@ public class Game {
         checkpoint++;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public Room getCurrentRoom() {
         return currentRoom;
     }
@@ -56,11 +70,39 @@ public class Game {
         this.currentRoom = currentRoom;
     }
 
+    public List<NPC> getNPCs() {
+        return NPCs;
+    }
+    public void setNPCs(List<NPC> NPCs) {
+        this.NPCs = NPCs;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     public boolean isGameOver() {
         return gameOver;
     }
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
+    public void quitGame() {
+        this.gameOver = true;
+    }
+
+    public boolean playerWon() {
+        return playerWon;
+    }
+    public void setPlayerWon(boolean playerWon) {
+        this.playerWon = playerWon;
+    }
+
+    public boolean playerLost() {
+        return playerLost;
+    }
+    public void setPlayerLost(boolean playerLost) {
+        this.playerLost = playerLost;
     }
 
     public String getIntroduction() {

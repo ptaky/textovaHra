@@ -10,8 +10,8 @@ public class End_Command implements Command {
 
     @Override
     public String execute(String command) {
-        //TODO dodelat
-        return "";
+        game.quitGame();
+        return "konec hry";
     }
 
     @Override
