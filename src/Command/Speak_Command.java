@@ -1,6 +1,5 @@
 package Command;
-
-import Data.Game;
+import Data.*;
 
 public class Speak_Command implements Command {
     private Game game;

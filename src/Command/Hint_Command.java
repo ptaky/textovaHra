@@ -1,6 +1,5 @@
 package Command;
-
-import Data.Game;
+import Data.*;
 
 public class Hint_Command implements Command {
     private Game game;

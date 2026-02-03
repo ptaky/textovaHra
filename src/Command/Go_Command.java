@@ -1,5 +1,5 @@
 package Command;
-import Data.Game;
+import Data.*;
 
 public class Go_Command implements Command {
     private Game game;
