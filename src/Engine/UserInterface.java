@@ -1,17 +1,18 @@
+package Engine;
+
 import Command.*;
-import Data.*;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserInterface {
     private HashMap<String, Command> commands;
-    private Game game;
+    private final Game game;
     Scanner scn = new Scanner(System.in);
 
-    public UserInterface(Game game) {
+    public UserInterface() {
         commands = new HashMap<String, Command>();
-        this.game = game;
+        this.game = new Game();
     }
 
     public void print(String input) {

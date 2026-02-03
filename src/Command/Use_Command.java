@@ -1,5 +1,5 @@
 package Command;
-import Data.*;
+import Engine.Game;
 
 public class Use_Command implements Command {
     private Game game;
