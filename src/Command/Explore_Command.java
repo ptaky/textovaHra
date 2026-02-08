@@ -10,8 +10,9 @@ public class Explore_Command implements Command {
 
     @Override
     public String execute(String command) {
-        //TODO dodelat
-        return "";
+        return
+                game.getCurrentRoom().getAdvancedDescription() +"\n"+
+                game.getLine(true);
     }
 
     @Override

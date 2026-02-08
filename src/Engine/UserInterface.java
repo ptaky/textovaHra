@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserInterface {
-    private HashMap<String, Command> commands;
+    private final HashMap<String, Command> commands;
     private final Game game;
     Scanner scn = new Scanner(System.in);
 
@@ -74,7 +74,7 @@ public class UserInterface {
         commands.put("konec", new End_Command(game));
         commands.put("prozkoumej", new Explore_Command(game));
         commands.put("jdi", new Go_Command(game));
-        commands.put("help", new Help_Command(game));
+        commands.put("pomoc", new Help_Command(game));
         commands.put("napoveda", new Hint_Command(game));
         commands.put("poloz", new Place_Command(game));
         commands.put("mluv", new Speak_Command(game));

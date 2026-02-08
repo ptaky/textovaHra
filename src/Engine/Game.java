@@ -31,7 +31,7 @@ public class Game {
 
     public String getLine(boolean withNextLine) {
         String line = "________________________________________________________________________________________________________________________________________________________________________________________________________";
-        if (withNextLine) return line + "/n";
+        if (withNextLine) return line + "\n";
         else return line;
     }
 

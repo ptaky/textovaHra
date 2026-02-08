@@ -11,7 +11,13 @@ public class Help_Command implements Command {
     @Override
     public String execute(String command) {
         //TODO dodelat
-        return "";
+        return
+                "Můžeš použít tyto příkazy:\n" +
+                "  - jdi 'mistnost', prozkoumej\n" +
+                "  - vezmi 'predmet', poloz 'predmet', pouzij 'predmet'\n" +
+                "  - mluv 'postava', napoveda (od Sparka)\n" +
+                "  - pomoc, konec\n" +
+                game.getLine(true);
     }
 
     @Override
