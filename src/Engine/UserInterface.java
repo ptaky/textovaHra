@@ -17,7 +17,7 @@ public class UserInterface {
 
     public void play() {
         game.setup();
-        game.getIntroduction();
+        print(game.getIntroduction());
         do {
             System.out.print(">> ");
             String input = scn.nextLine();

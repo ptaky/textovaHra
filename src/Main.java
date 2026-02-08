@@ -1,9 +1,10 @@
 import Engine.Game;
+import Engine.UserInterface;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
-        game.setup();
+        UserInterface ui = new UserInterface();
+        ui.play();
 
     }
 }

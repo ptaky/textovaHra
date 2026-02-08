@@ -25,6 +25,11 @@ public class Game {
 
         gameOver = false;
         checkpoint = 0;
+        setIntroduction();
+    }
+
+    public String getLine() {
+        return "________________________________________________________________________________________________________________________________________________________________________________________________________\n";
     }
 
     public String getCheckpoint(int checkpoint) {
@@ -108,8 +113,24 @@ public class Game {
     public String getIntroduction() {
         return introduction;
     }
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
+    public void setIntroduction() {
+        this.introduction =
+                getLine() +
+                "Ticho. Tma. A pak alarm.\n" +
+                "\n" +
+                "Probouzíš se z kryospánku dřív, než bylo plánováno. Nouzová světla blikají a počítač stanice Boreas chladně oznamuje: posádka – mrtvá. Stabilita jádra planety – kritická.\n" +
+                "Do rozpadu planety zbývá jen omezený čas.\n" +
+                "\n" +
+                "Stanice je bez energie, chodby jsou ponořené do temnoty a něco tu není v pořádku. Jsi tu sama.\n" +
+                "Nebo… skoro sama.\n" +
+                "\n" +
+                "Pokud se ti nepodaří zprovoznit systémy a odeslat SOS signál, Boreas – i ty – zmizíte v explozi.\n" +
+                "Čas běží. Každé rozhodnutí se počítá.\n" +
+                "\n" +
+                "Vítej na stanici Boreas.\n" +
+                "\n" +
+                "prikazy pis ve tvaru: 'prikaz popis'\n" +
+                getLine();
     }
 
     public String getWinningText() {
