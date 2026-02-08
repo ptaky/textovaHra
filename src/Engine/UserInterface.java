@@ -17,13 +17,14 @@ public class UserInterface {
 
     public void play() {
         game.setup();
+        commandLoader();
         print(game.getIntroduction());
         do {
             System.out.print(">> ");
             String input = scn.nextLine();
             if (checkCommand(input)) {
                 commandExecute(input);
-            } else return;
+            }
 
         } while (!game.isGameOver());
 
@@ -31,7 +32,7 @@ public class UserInterface {
             print(game.getWinningText());
         }
         if (game.playerLost()) {
-            //TODO make lost text
+            print(game.getLosingText());
         }
     }
 
@@ -40,7 +41,10 @@ public class UserInterface {
     }
 
     public boolean checkCommand(String input) {
-        if (input.isEmpty()) return false;
+        if (input.isEmpty()) {
+            print("prikaz je prazdny");
+            return false;
+        };
 
         String[] commandInput = input.split(" ");
         String command = commandInput[0];
@@ -53,9 +57,15 @@ public class UserInterface {
     }
 
     public void commandExecute(String input) {
-        String[] commandInput = input.split(" ");
-        String command = commandInput[0];
-        String commandParam = commandInput[1];
+        String command = null;
+        String commandParam = null;
+        if (input.contains(" ")) {
+            String[] commandInput = input.split(" ");
+            command = commandInput[0];
+            commandParam = commandInput[1];
+        } else {
+            command = input;
+        }
 
         print(commands.get(command).execute(commandParam));
     }

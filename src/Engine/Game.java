@@ -16,6 +16,7 @@ public class Game {
     private boolean playerLost;
     private String introduction;
     private String winningText;
+    private String losingText;
 
     public void setup() {
         DataLoader dataLoader = new DataLoader();
@@ -28,8 +29,10 @@ public class Game {
         setIntroduction();
     }
 
-    public String getLine() {
-        return "________________________________________________________________________________________________________________________________________________________________________________________________________\n";
+    public String getLine(boolean withNextLine) {
+        String line = "________________________________________________________________________________________________________________________________________________________________________________________________________";
+        if (withNextLine) return line + "/n";
+        else return line;
     }
 
     public String getCheckpoint(int checkpoint) {
@@ -115,28 +118,53 @@ public class Game {
     }
     public void setIntroduction() {
         this.introduction =
-                getLine() +
+                getLine(true) +
                 "Ticho. Tma. A pak alarm.\n" +
                 "\n" +
                 "Probouzíš se z kryospánku dřív, než bylo plánováno. Nouzová světla blikají a počítač stanice Boreas chladně oznamuje: posádka – mrtvá. Stabilita jádra planety – kritická.\n" +
-                "Do rozpadu planety zbývá jen omezený čas.\n" +
+                "Do rozpadu planety zbývá jen 17h 32min 42s.\n" +
                 "\n" +
                 "Stanice je bez energie, chodby jsou ponořené do temnoty a něco tu není v pořádku. Jsi tu sama.\n" +
                 "Nebo… skoro sama.\n" +
                 "\n" +
-                "Pokud se ti nepodaří zprovoznit systémy a odeslat SOS signál, Boreas – i ty – zmizíte v explozi.\n" +
+                "Pokud se ti v čas nepodaří zprovoznit systémy a odeslat SOS signál, Boreas – i ty – zmizíte v explozi.\n" +
                 "Čas běží. Každé rozhodnutí se počítá.\n" +
                 "\n" +
                 "Vítej na stanici Boreas.\n" +
                 "\n" +
                 "prikazy pis ve tvaru: 'prikaz popis'\n" +
-                getLine();
+                getLine(false);
     }
 
     public String getWinningText() {
         return winningText;
     }
-    public void setWinningText(String winningText) {
-        this.winningText = winningText;
+    public void setWinningText() {
+        this.winningText =
+                getLine(true) +
+                "Signál odeslán.\n" +
+                "\n" +
+                "Anténa se probouzí k životu a stanice se po dlouhé době znovu rozzáří. Nouzový signál míří do hlubokého vesmíru – a tentokrát nezůstane bez odpovědi.\n" +
+                "Záchrana je na cestě.\n" +
+                "Stanice Boreas žije – díky tobě.\n" +
+                getLine(true);
+    }
+
+    public String getLosingText() {
+        return losingText;
+    }
+    public void setLosingText() {
+        this.losingText =
+                getLine(true) +
+                "Čas vypršel.\n" +
+                "\n" +
+                "Varovné systémy jeden po druhém umlkají. Jádro planety se hroutí a stanice Boreas se rozpadá v oslepujícím záblesku.\n" +
+                "Tvůj signál už nikdo neuslyší.\n" +
+                "\n" +
+                "Ticho.\n" +
+                "Tma.\n" +
+                "\n" +
+                "Mise selhala.\n" +
+                getLine(true);
     }
 }
