@@ -2,12 +2,13 @@ package Engine;
 
 import Data.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Game {
     private Player player;
     private int checkpoint;
-    private List<Room> rooms;
+    private HashMap<String,Room> rooms;
     private Room currentRoom;
     private List<NPC> NPCs;
     private List<Item> items;
@@ -24,6 +25,7 @@ public class Game {
         NPCs = dataLoader.loadNPCData();
         items = dataLoader.loadItemsData();
 
+        currentRoom = rooms.get("kryokomora");
         gameOver = false;
         checkpoint = 0;
         setIntroduction();
@@ -33,6 +35,30 @@ public class Game {
         String line = "________________________________________________________________________________________________________________________________________________________________________________________________________";
         if (withNextLine) return line + "\n";
         else return line;
+    }
+
+    public String getInvalidCommand() {
+        return "neplatny prikaz";
+    }
+
+    public String getMap() {
+        return "        [ VYSÍLACÍ VĚŽ ]\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "         [ KARANTÉNA ]-------[ SERVEROVNA ]\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "        [ CHODBA ALFA ]------[ BOTANICKÁ ZAHRADA ]\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "      [ LÉKAŘSKÝ TRAKT ]------[ DÍLNA ]\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "        [ KRYOKOMORA ]\n";
     }
 
     public String getCheckpoint(int checkpoint) {
@@ -64,10 +90,10 @@ public class Game {
         this.player = player;
     }
 
-    public List<Room> getRooms() {
+    public HashMap<String,Room> getRooms() {
         return rooms;
     }
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(HashMap<String,Room> rooms) {
         this.rooms = rooms;
     }
 
@@ -132,8 +158,7 @@ public class Game {
                 "\n" +
                 "Vítej na stanici Boreas.\n" +
                 "\n" +
-                "prikazy pis ve tvaru: 'prikaz popis'\n" +
-                getLine(false);
+                "prikazy pis ve tvaru: 'prikaz popis'\n";
     }
 
     public String getWinningText() {
@@ -146,8 +171,7 @@ public class Game {
                 "\n" +
                 "Anténa se probouzí k životu a stanice se po dlouhé době znovu rozzáří. Nouzový signál míří do hlubokého vesmíru – a tentokrát nezůstane bez odpovědi.\n" +
                 "Záchrana je na cestě.\n" +
-                "Stanice Boreas žije – díky tobě.\n" +
-                getLine(true);
+                "Stanice Boreas žije – díky tobě.\n";
     }
 
     public String getLosingText() {
@@ -164,7 +188,6 @@ public class Game {
                 "Ticho.\n" +
                 "Tma.\n" +
                 "\n" +
-                "Mise selhala.\n" +
-                getLine(true);
+                "Mise selhala.\n";
     }
 }

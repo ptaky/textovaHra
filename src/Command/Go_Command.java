@@ -10,8 +10,14 @@ public class Go_Command implements Command {
 
     @Override
     public String execute(String command) {
-        //TODO dodelat
-        return "";
+        if (command == null) return game.getInvalidCommand();
+        command = command.toLowerCase();
+        if (game.getCurrentRoom().getId().equals(command)) return "to nejde, tam se ted nachazis";
+        if (game.getCurrentRoom().getNextRooms().contains(command)) {
+            game.setCurrentRoom(game.getRooms().get(command));
+            return game.getMap();
+        }
+        return game.getInvalidCommand();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Data;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Room {
@@ -70,14 +71,10 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Engine.Room{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", isLocked=" + isLocked +
-                ", description='" + description + '\'' +
-                ", advancedDescription='" + advancedDescription + '\'' +
-                ", nextRooms=" + nextRooms +
-                ", items=" + items +
-                '}';
+                String txt = description;
+                if (!items.isEmpty()) {
+                    return txt + "\n  - itemy v teto mistnosti: " + items;
+                }
+            return txt;
     }
 }

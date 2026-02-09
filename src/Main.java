@@ -1,4 +1,3 @@
-import Engine.Game;
 import Engine.UserInterface;
 
 public class Main {

@@ -19,7 +19,11 @@ public class UserInterface {
         game.setup();
         commandLoader();
         print(game.getIntroduction());
+        print(game.getLine(true));
+        print(game.getMap());
         do {
+            print(game.getLine(false));
+            print(game.getCurrentRoom().toString());
             System.out.print(">> ");
             String input = scn.nextLine();
             if (checkCommand(input)) {
@@ -50,7 +54,7 @@ public class UserInterface {
         String command = commandInput[0];
 
         if (!commands.containsKey(command)) {
-            print("neplatny prikaz");
+            print(game.getInvalidCommand());
             return false;
         }
         return true;

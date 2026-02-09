@@ -1,5 +1,5 @@
-[
-    {
+{
+    "kryokomora": {
         "id": "kryokomora",
         "name": "Kryokomora",
         "isLocked": false,
@@ -8,7 +8,7 @@
         "nextRooms": ["lekarsky_trakt"],
         "items": []
     },
-    {
+    "lekarsky_trakt": {
         "id": "lekarsky_trakt",
         "name": "Lékařský trakt",
         "isLocked": false,
@@ -17,7 +17,7 @@
         "nextRooms": ["kryokomora", "dilna", "chodba"],
         "items": ["rucni_zrcatko"]
     },
-    {
+    "dilna": {
         "id": "dilna",
         "name": "Dílna",
         "isLocked": false,
@@ -26,7 +26,7 @@
         "nextRooms": ["lekarsky_trakt"],
         "items": ["baterie", "nahradni_pojistky", "uv_lampa", "karta_od_serverovny"]
     },
-    {
+    "chodba": {
         "id": "chodba",
         "name": "Chodba",
         "isLocked": false,
@@ -35,7 +35,7 @@
         "nextRooms": ["lekarsky_trakt", "botanicka_zahrada", "karantena"],
         "items": []
     },
-    {
+    "botanicka_zahrada": {
         "id": "botanicka_zahrada",
         "name": "Botanická zahrada",
         "isLocked": false,
@@ -44,7 +44,7 @@
         "nextRooms": ["chodba"],
         "items": ["filtr", "uspavaci_lektvar"]
     },
-    {
+    "karantena": {
         "id": "karantena",
         "name": "Karanténa",
         "isLocked": false,
@@ -53,7 +53,7 @@
         "nextRooms": ["chodba", "serverovna", "vysilaci_vez"],
         "items": []
     },
-    {
+    "serverovna": {
         "id": "serverovna",
         "name": "Serverovna",
         "isLocked": true,
@@ -62,7 +62,7 @@
         "nextRooms": ["karantena"],
         "items": ["sifrovaci_karta"]
     },
-    {
+    "vysilaci_vez": {
         "id": "vysilaci_vez",
         "name": "Vysílací věž",
         "isLocked": true,
@@ -71,4 +71,4 @@
         "nextRooms": ["karantena"],
         "items": []
     }
-]
+}
