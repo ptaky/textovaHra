@@ -77,6 +77,12 @@ public class Room {
     public void setItems(List<String> items) {
         this.items = items;
     }
+    public void addItem(String item) {
+        items.add(item);
+    }
+    public void removeItem(String item) {
+        items.remove(item);
+    }
 
     public List<String> getNpcs() {
         return npcs;

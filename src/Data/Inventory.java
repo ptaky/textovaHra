@@ -24,4 +24,13 @@ public class Inventory {
     public boolean isFull() {
         return items.size() == size;
     }
+
+    public Item findItemByName(String name) {
+        for (Item item : items) {
+            if (item.getName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
+    }
 }
