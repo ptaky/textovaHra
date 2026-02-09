@@ -3,7 +3,7 @@
         "id": "kryokomora",
         "name": "Kryokomora",
         "isLocked": false,
-        "description": "Probouzíš se v kryokomoře výzkumné stanice Boreas. Světla poblikávají a vzduch je chladný a tichý.",
+        "description": "Nacházíš se v kryokomoře výzkumné stanice Boreas. Světla poblikávají a vzduch je chladný a tichý.",
         "advancedDescription": "Kryokomora je zaplněná řadami kryokapslí, většina z nich je otevřená a nefunkční. Výstražné kontrolky na stěnách hlásí kritické selhání systémů a nestabilitu jádra planety. Podlaha je namrzlá a v rozích místnosti se drží chladná pára.",
         "nextRooms": ["lekarsky_trakt"],
         "items": []
@@ -13,7 +13,7 @@
         "name": "Lékařský trakt",
         "isLocked": false,
         "description": "Vstupuješ do lékařského traktu ponořeného do šera. Ve vzduchu je cítit dezinfekce.",
-        "advancedDescription": "Rozbitá světla osvětlují lékařská lůžka a převržené vozíky s nástroji. Na zemi leží poškozený servisní dron AEQRD-01, z jehož těla občas vyšlehne jiskra. Skříňky s léky jsou otevřené a prázdné, na zemi si všímáš malého ručního zrcátka.",
+        "advancedDescription": "Rozbitá světla osvětlují lékařská lůžka a převržené vozíky s nástroji. Na zemi leží poškozený servisní dron AEQRD-01, vypadá to, že mu došly baterie. Skříňky s léky jsou otevřené a prázdné, na zemi si všímáš malého ručního zrcátka.",
         "nextRooms": ["kryokomora", "dilna", "chodba"],
         "items": ["rucni_zrcatko"]
     },

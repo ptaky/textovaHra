@@ -42,7 +42,8 @@ public class Game {
     }
 
     public String getMap() {
-        return "        [ VYSÍLACÍ VĚŽ ]\n" +
+        return
+                "\n        [ VYSÍLACÍ VĚŽ ]\n" +
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
@@ -158,7 +159,8 @@ public class Game {
                 "\n" +
                 "Vítej na stanici Boreas.\n" +
                 "\n" +
-                "prikazy pis ve tvaru: 'prikaz popis'\n";
+                "prikazy pis ve tvaru: 'prikaz popis'\n" +
+                "  - mistnosti pis ve tvaru: 'velka_loznice'";
     }
 
     public String getWinningText() {

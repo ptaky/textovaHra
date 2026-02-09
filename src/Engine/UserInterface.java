@@ -19,7 +19,7 @@ public class UserInterface {
         game.setup();
         commandLoader();
         print(game.getIntroduction());
-        print(game.getLine(true));
+        print(game.getLine(false));
         print(game.getMap());
         do {
             print(game.getLine(false));

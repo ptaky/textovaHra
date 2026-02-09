@@ -7,6 +7,7 @@ public class Room {
     private String id;
     private String name;
     private boolean isLocked;
+    private boolean isExplored = false;
     private String description;
     private String advancedDescription;
     private List<String> nextRooms;
@@ -41,6 +42,13 @@ public class Room {
         this.isLocked = locked;
     }
 
+    public boolean isExplored() {
+        return isExplored;
+    }
+    public void setExplored(boolean explored) {
+        isExplored = explored;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -72,7 +80,7 @@ public class Room {
     @Override
     public String toString() {
                 String txt = description;
-                if (!items.isEmpty()) {
+                if (!items.isEmpty() && isExplored) {
                     return txt + "\n  - itemy v teto mistnosti: " + items;
                 }
             return txt;
