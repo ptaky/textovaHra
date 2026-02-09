@@ -13,8 +13,8 @@
         "id": "lekarsky_trakt",
         "name": "Lékařský trakt",
         "isLocked": false,
-        "description": "Vstupuješ do lékařského traktu ponořeného do šera. Ve vzduchu je cítit dezinfekce.",
-        "advancedDescription": "Rozbitá světla osvětlují lékařská lůžka a převržené vozíky s nástroji. Na zemi leží poškozený servisní dron AEQRD-01, vypadá to, že mu došly baterie. Skříňky s léky jsou otevřené a prázdné, na zemi si všímáš malého ručního zrcátka.",
+        "description": "Vstupuješ do lékařského traktu ponořeného do šera. Ve vzduchu je cítit dezinfekce a na zemi vidis neco divneho, neco jako robot ?",
+        "advancedDescription": "Rozbitá světla osvětlují lékařská lůžka a převržené vozíky s nástroji. Na zemi leží poškozený servisní dron AEQRD-01, vypadá to, že mu došly baterie.\nSkříňky s léky jsou otevřené a prázdné, na zemi si všímáš malého ručního zrcátka.",
         "nextRooms": ["kryokomora", "dilna", "chodba"],
         "items": ["rucni_zrcatko"],
         "npcs": ["spark"]

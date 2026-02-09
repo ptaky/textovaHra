@@ -126,4 +126,9 @@ public class Item {
     public void setConditions(Map<String, Object> conditions) {
         this.conditions = conditions;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
