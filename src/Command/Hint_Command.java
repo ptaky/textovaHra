@@ -1,8 +1,14 @@
 package Command;
+import Data.NPC;
 import Engine.Game;
 
+import java.util.List;
+import java.util.Random;
+
 public class Hint_Command implements Command {
-    private Game game;
+
+    private final Game game;
+    private final Random random = new Random();
 
     public Hint_Command(Game game) {
         this.game = game;
@@ -10,8 +16,29 @@ public class Hint_Command implements Command {
 
     @Override
     public String execute(String command) {
-        //TODO dodelat
-        return "";
+        if (command != null) return game.getInvalidCommand();
+
+        int cp = game.getCheckpoint();
+
+//TODO ISSUE        game.getNPCs().get("spark").getHints().get(String.valueOf(cp));
+
+        // 0 = ještě není opravený Spark (nebo aspoň nemáš splněný 1. checkpoint)
+
+        // 1 = Spark opraven, další krok: elektřina/pojistky
+
+        // 2 = elektřina hotová, další: zdroje na karanténu (filtr → maska)
+
+        // 3 = maska hotová, další: obejít Viktora (zrcátko / uspání)
+
+        // 4 = věž připravená / serverovna / finále
+
+
+        // fallback
+        return "Analyzuji situaci… drž se hlavního cíle: odeslat SOS signál.";
+    }
+
+    private String randomFrom(List<String> list) {
+        return list.get(random.nextInt(list.size()));
     }
 
     @Override

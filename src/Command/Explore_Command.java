@@ -10,6 +10,7 @@ public class Explore_Command implements Command {
 
     @Override
     public String execute(String command) {
+        if (command != null) return game.getInvalidCommand();
         game.getCurrentRoom().setExplored(false);
         return game.getCurrentRoom().getAdvancedDescription();
     }

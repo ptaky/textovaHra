@@ -1,6 +1,6 @@
-[
-  {
-    "id": "AEQRD-01",
+{
+  "spark": {
+    "id": "spark",
     "name": "AEQRD-01",
     "nickname": "Spark",
     "type": "drone",
@@ -18,12 +18,42 @@
         "Čas do kolapsu jádra se zkracuje."
       ]
     },
+    "hints": {
+      "0": [
+        "BZZT… Spark je offline… potřebuju baterii… (zkus dílnu)",
+        "…bez energie ti neporadím… najdi baterii a oprav mě…",
+        "Jiskřím. To je špatné znamení. Baterie by to vyřešila."
+      ],
+      "1": [
+        "Doporučení: obnovit elektrickou síť stanice. Začni pojistkami v chodbě.",
+        "Stanice je pořád mrtvá. Najdi náhradní pojistky (pravděpodobně v dílně) a vyměň je v chodbě.",
+        "Bez proudu se nikam neposuneme. Pojistky jsou teď priorita."
+      ],
+      "2": [
+        "Další problém: karanténa. Omamný plyn. Budeš potřebovat ochranu.",
+        "Najdi filtr (zkus botanickou zahradu) a dones ho Milanovi. Může vyrobit plynovou masku.",
+        "Karanténa bez masky = špatný nápad. Sežeň filtr a nech si vyrobit masku."
+      ],
+      "3": [
+        "V karanténě je Viktor. Přímý střet nedoporučuji.",
+        "Možnost A: ruční zrcátko z lékařského traktu (není jistota). Možnost B: uspávací lektvar od Aničky (jistota).",
+        "Pokud chceš jistotu, pomoz Aničce se světlem (UV lampa) a získej uspávací lektvar."
+      ],
+      "4": [
+        "Jsi blízko. Potřebuješ šifrovací kartu a aktivovat vysílání na věži.",
+        "Priorita: získat šifrovací kartu a použít ji ve vysílací věži.",
+        "Finále: odeslat SOS signál. Nezdržuj se vedlejšími věcmi."
+      ],
+      "default": [
+        "Analyzuji situaci… drž se hlavního cíle: odeslat SOS signál."
+      ]
+    },
     "functions": [
       "napoveda",
       "navigace"
     ]
   },
-  {
+  "milan": {
     "id": "milan",
     "name": "Milan",
     "type": "robot",
@@ -51,8 +81,8 @@
       }
     }
   },
-  {
-    "id": "anicka",
+  "babicka": {
+    "id": "babicka",
     "name": "babička Anička",
     "type": "human",
     "location": "botanicka_zahrada",
@@ -75,7 +105,7 @@
       }
     }
   },
-  {
+  "viktor": {
     "id": "viktor",
     "name": "Viktor",
     "type": "human",
@@ -105,5 +135,4 @@
       }
     }
   }
-]
-
+}

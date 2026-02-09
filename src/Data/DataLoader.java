@@ -26,12 +26,12 @@ public class DataLoader {
         }
     }
 
-    public List<NPC> loadNPCData(){
+    public HashMap<String,NPC> loadNPCData(){
         parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/NPC.json");
-            List<NPC> NPCs = parser.readValue(input, new TypeReference<List<NPC>>() {});
+            HashMap<String,NPC> NPCs = parser.readValue(input, new TypeReference<HashMap<String,NPC>>() {});
             return NPCs;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");

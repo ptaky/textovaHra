@@ -12,6 +12,7 @@ public class Room {
     private String advancedDescription;
     private List<String> nextRooms;
     private List<String> items;
+    private List<String> npcs;
 
     public Room() {}
 
@@ -75,6 +76,13 @@ public class Room {
     }
     public void setItems(List<String> items) {
         this.items = items;
+    }
+
+    public List<String> getNpcs() {
+        return npcs;
+    }
+    public void setNpcs(List<String> npcs) {
+        this.npcs = npcs;
     }
 
     @Override

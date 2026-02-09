@@ -6,7 +6,8 @@
         "description": "Nacházíš se v kryokomoře výzkumné stanice Boreas. Světla poblikávají a vzduch je chladný a tichý.",
         "advancedDescription": "Kryokomora je zaplněná řadami kryokapslí, většina z nich je otevřená a nefunkční. Výstražné kontrolky na stěnách hlásí kritické selhání systémů a nestabilitu jádra planety. Podlaha je namrzlá a v rozích místnosti se drží chladná pára.",
         "nextRooms": ["lekarsky_trakt"],
-        "items": []
+        "items": [],
+        "npcs": []
     },
     "lekarsky_trakt": {
         "id": "lekarsky_trakt",
@@ -15,7 +16,8 @@
         "description": "Vstupuješ do lékařského traktu ponořeného do šera. Ve vzduchu je cítit dezinfekce.",
         "advancedDescription": "Rozbitá světla osvětlují lékařská lůžka a převržené vozíky s nástroji. Na zemi leží poškozený servisní dron AEQRD-01, vypadá to, že mu došly baterie. Skříňky s léky jsou otevřené a prázdné, na zemi si všímáš malého ručního zrcátka.",
         "nextRooms": ["kryokomora", "dilna", "chodba"],
-        "items": ["rucni_zrcatko"]
+        "items": ["rucni_zrcatko"],
+        "npcs": ["spark"]
     },
     "dilna": {
         "id": "dilna",
@@ -24,7 +26,8 @@
         "description": "Vcházíš do technické dílny plné nářadí a rozebraných zařízení.",
         "advancedDescription": "Dílna je zaplněná pracovními stoly, kabely a elektronickými součástkami. V rohu místnosti pracuje Milan, který pečlivě kontroluje vybavení. Na policích jsou baterie, pojistky a další technické nástroje. Vzduch je cítit olejem a spálenou elektronikou.",
         "nextRooms": ["lekarsky_trakt"],
-        "items": ["baterie", "nahradni_pojistky", "uv_lampa", "karta_od_serverovny"]
+        "items": ["baterie", "nahradni_pojistky", "uv_lampa", "karta_od_serverovny"],
+        "npcs": ["milan"]
     },
     "chodba": {
         "id": "chodba",
@@ -33,7 +36,8 @@
         "description": "Nacházíš se v hlavní chodbě stanice, odkud vedou cesty do dalších částí Boreasu.",
         "advancedDescription": "Dlouhá chodba je lemovaná servisními panely a kabelovými rozvody. Některé pojistky jsou vyhozené a z rozvaděče se ozývá slabé praskání. Nouzové značení slabě svítí a ukazuje směry k ostatním lokacím.",
         "nextRooms": ["lekarsky_trakt", "botanicka_zahrada", "karantena"],
-        "items": []
+        "items": [],
+        "npcs": []
     },
     "botanicka_zahrada": {
         "id": "botanicka_zahrada",
@@ -42,7 +46,8 @@
         "description": "Ocitáš se v botanické zahradě stanice. Navzdory chaosu působí tohle místo klidně.",
         "advancedDescription": "Skleněné stěny jsou porostlé rostlinami nejrůznějších tvarů. Některé květiny však uvadají kvůli nedostatku světla. Mezi záhony se pohybuje babička Anička, která si tiše mumlá a stará se o své kytičky. Zavlažování i osvětlení sotva fungují.",
         "nextRooms": ["chodba"],
-        "items": ["filtr", "uspavaci_lektvar"]
+        "items": ["filtr", "uspavaci_lektvar"],
+        "npcs": ["babicka"]
     },
     "karantena": {
         "id": "karantena",
@@ -51,7 +56,8 @@
         "description": "Vstupuješ do karanténní zóny. Vzduch je těžký a plný neznámého plynu.",
         "advancedDescription": "Karanténa je zahalená v mlhavém oparu, který dráždí oči a ztěžuje dýchání. Varovné nápisy na stěnách blikají červeně. Prostorem se pohybuje Viktor, jehož chování je nepředvídatelné a agresivní. Bez ochrany je pobyt zde smrtelně nebezpečný.",
         "nextRooms": ["chodba", "serverovna", "vysilaci_vez"],
-        "items": []
+        "items": [],
+        "npcs": ["viktor"]
     },
     "serverovna": {
         "id": "serverovna",
@@ -60,7 +66,8 @@
         "description": "Stojíš před serverovnou, srdcem celé stanice Boreas.",
         "advancedDescription": "Řady serverových skříní hučí a vibrují, obrazovky zobrazují chaotická data. Vzduch je přehřátý a chlazení sotva funguje. Na centrálním pultu se nachází šifrovací karta a ovládání vysílací věže. Tohle místo rozhodne o osudu stanice.",
         "nextRooms": ["karantena"],
-        "items": ["sifrovaci_karta"]
+        "items": ["sifrovaci_karta"],
+        "npcs": []
     },
     "vysilaci_vez": {
         "id": "vysilaci_vez",
@@ -69,6 +76,7 @@
         "description": "Dorazil jsi do vysílací věže. Odtud lze vyslat signál o pomoc.",
         "advancedDescription": "Vysoká místnost je plná antén, kabelů a ovládacích panelů. Skrze konstrukci je vidět temný povrch planety hluboko pod tebou. Terminál čeká na aktivaci šifrovací kartou. Jediný správný krok může zachránit tvůj život.",
         "nextRooms": ["karantena"],
-        "items": []
+        "items": [],
+        "npcs": []
     }
 }

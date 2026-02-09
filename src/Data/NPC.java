@@ -27,6 +27,9 @@ public class NPC {
     private Map<String, List<String>> dialogues;
     private List<String> functions;
 
+    // hinty pro hint_command (keys jsou v JSONu jako "0","1","2","3","4","default")
+    private Map<String, List<String>> hints;
+
     // podmínky a speciální mechaniky
     private Map<String, Object> conditions;
     private Map<String, Object> bypassMethods;
@@ -80,7 +83,7 @@ public class NPC {
         return isRepaired;
     }
     public void setIsRepaired(boolean isRepaired) {
-        isRepaired = isRepaired;
+        this.isRepaired = isRepaired;
     }
 
     public boolean isPlantNeedsLight() {
@@ -132,6 +135,13 @@ public class NPC {
         this.functions = functions;
     }
 
+    public Map<String, List<String>> getHints() {
+        return hints;
+    }
+    public void setHints(Map<String, List<String>> hints) {
+        this.hints = hints;
+    }
+
     public Map<String, Object> getConditions() {
         return conditions;
     }
@@ -163,6 +173,7 @@ public class NPC {
                 ", givesItems=" + givesItems +
                 ", dialogues=" + dialogues +
                 ", functions=" + functions +
+                ", hintsByCheckpoint=" + hints +
                 ", conditions=" + conditions +
                 ", bypassMethods=" + bypassMethods +
                 '}';

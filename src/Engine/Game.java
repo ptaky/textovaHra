@@ -10,7 +10,7 @@ public class Game {
     private int checkpoint;
     private HashMap<String,Room> rooms;
     private Room currentRoom;
-    private List<NPC> NPCs;
+    private HashMap<String,NPC> NPCs;
     private List<Item> items;
     private boolean gameOver;
     private boolean playerWon;
@@ -51,7 +51,7 @@ public class Game {
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
-                "        [ CHODBA ALFA ]------[ BOTANICKÁ ZAHRADA ]\n" +
+                "          [ CHODBA ]------[ BOTANICKÁ ZAHRADA ]\n" +
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
@@ -62,7 +62,10 @@ public class Game {
                 "        [ KRYOKOMORA ]\n";
     }
 
-    public String getCheckpoint(int checkpoint) {
+    public int getCheckpoint() {
+        return checkpoint;
+    }
+    public String getTimeAtCheckpoint(int checkpoint) {
         switch (checkpoint) {
             case 0 :
                 return "17h 32min 42s";
@@ -105,10 +108,10 @@ public class Game {
         this.currentRoom = currentRoom;
     }
 
-    public List<NPC> getNPCs() {
+    public HashMap<String,NPC> getNPCs() {
         return NPCs;
     }
-    public void setNPCs(List<NPC> NPCs) {
+    public void setNPCs(HashMap<String,NPC> NPCs) {
         this.NPCs = NPCs;
     }
 
