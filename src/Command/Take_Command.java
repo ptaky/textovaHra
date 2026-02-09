@@ -10,8 +10,15 @@ public class Take_Command implements Command {
 
     @Override
     public String execute(String command) {
-        //TODO dodelat
-        return "";
+        if (command == null) return game.getInvalidCommand();
+        command = command.toLowerCase();
+        if (!game.getCurrentRoom().isExplored()) return "není co sebrat";
+        if (game.getCurrentRoom().getItems().contains(command)) {
+            game.getPlayer().getInventory().addItem(game.getPlayer().getInventory().findItemByName(command));
+            game.getCurrentRoom().getItems().remove(command);
+            return game.getMap();
+        }
+        return "není co sebrat";
     }
 
     @Override
