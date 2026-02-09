@@ -21,20 +21,6 @@ public class Hint_Command implements Command {
         int cp = game.getCheckpoint();
 
         return String.valueOf(game.getNPCs().get("spark").getHints().get(String.valueOf(cp)));
-
-        // 0 = ještě není opravený Spark (nebo aspoň nemáš splněný 1. checkpoint)
-
-        // 1 = Spark opraven, další krok: elektřina/pojistky
-
-        // 2 = elektřina hotová, další: zdroje na karanténu (filtr → maska)
-
-        // 3 = maska hotová, další: obejít Viktora (zrcátko / uspání)
-
-        // 4 = věž připravená / serverovna / finále
-
-
-        // fallback
-        // return "Analyzuji situaci… drž se hlavního cíle: odeslat SOS signál.";
     }
 
     private String randomFrom(List<String> list) {

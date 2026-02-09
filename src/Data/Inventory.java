@@ -24,13 +24,23 @@ public class Inventory {
     public boolean isFull() {
         return items.size() == size;
     }
-
-    public Item findItemByName(String name) {
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+    public Item getItem(Item item) {
+        return item;
+    }
+    public Item findItemById(String itemId) {
         for (Item item : items) {
-            if (item.getName().equals(name)) {
+            if (item.getId().equals(itemId)) {
                 return item;
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return items.toString();
     }
 }

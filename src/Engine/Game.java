@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Game {
-    private Player player;
+    private Player player = new Player();
     private int checkpoint;
     private HashMap<String,Room> rooms;
     private Room currentRoom;
@@ -60,6 +60,14 @@ public class Game {
                 "               |\n" +
                 "               |\n" +
                 "        [ KRYOKOMORA ]\n";
+    }
+
+    public String getInventory() {
+        if (!player.getInventory().isEmpty()) {
+            return " = Tvůj inventář obsahuje: " + player.getInventory();
+        } else {
+            return " = máš prázdné kapsy/nic neneseš";
+        }
     }
 
     public int getCheckpoint() {
@@ -120,6 +128,14 @@ public class Game {
     }
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+    public Item getItemById(String id) {
+        for (Item item : items) {
+            if (item.getId().equals(id)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public boolean isGameOver() {

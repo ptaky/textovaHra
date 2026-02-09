@@ -16,11 +16,6 @@ public class Room {
 
     public Room() {}
 
-    // Metoda pro kontrolu, zda existuje připojená místnost
-    public boolean thereIsNextRoom(String roomId) {
-        return nextRooms != null && nextRooms.contains(roomId);
-    }
-
     // Gettery a settery
     public String getId() {
         return id;

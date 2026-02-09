@@ -24,8 +24,10 @@ public class UserInterface {
         do {
             print(game.getLine(false));
             print(game.getCurrentRoom().toString());
+            print(game.getInventory());
             System.out.print(">> ");
             String input = scn.nextLine();
+            print("");
             if (checkCommand(input)) {
                 commandExecute(input);
             }

@@ -80,8 +80,8 @@
     "conditions": {}
   },
   {
-    "id": "rucni_zrcatko",
-    "name": "Ruční zrcátko",
+    "id": "zrcatko",
+    "name": "Zrcátko",
     "description": "Malé zrcátko, které může zmást Viktora.",
     "location": "lekarsky_trakt",
     "portable": true,

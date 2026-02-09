@@ -1,4 +1,7 @@
 package Command;
+import Data.Inventory;
+import Data.Item;
+import Data.Room;
 import Engine.Game;
 
 public class Take_Command implements Command {
@@ -12,11 +15,17 @@ public class Take_Command implements Command {
     public String execute(String command) {
         if (command == null) return game.getInvalidCommand();
         command = command.toLowerCase();
-        if (!game.getCurrentRoom().isExplored()) return "není co sebrat";
-        if (game.getCurrentRoom().getItems().contains(command)) {
-            game.getPlayer().getInventory().addItem(game.getPlayer().getInventory().findItemByName(command));
-            game.getCurrentRoom().getItems().remove(command);
-            return game.getMap();
+        Room room = game.getCurrentRoom();
+        Item item = game.getItemById(command);
+        Inventory inv = game.getPlayer().getInventory();
+
+        if (!room.isExplored()) return "není co sebrat";
+        if (room.getItems() == null) return "není co sebrat";
+        if (inv.isFull()) return "plný invetnář";
+        if (item != null) {
+            inv.addItem(item);
+            room.getItems().remove(command);
+            return "sebral jsi " + item.getName();
         }
         return "není co sebrat";
     }

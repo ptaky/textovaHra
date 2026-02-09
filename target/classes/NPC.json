@@ -126,7 +126,7 @@
     },
     "bypassMethods": {
       "mirror": {
-        "item": "rucni_zrcatko",
+        "item": "zrcatko",
         "successChance": 0.7
       },
       "sleep": {
