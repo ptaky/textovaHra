@@ -10,12 +10,17 @@
     "requiresItem": "baterie",
     "dialogues": {
       "broken": [
-        "BZZT… systémy offline… potřebuji energii…"
+        "BZZT… systémy offline… potřebuji energii…",
+        "…napájení kritické… bez baterie nefunkční…",
+        "BZZT… diagnostika selhala… připoj zdroj energie…"
       ],
       "repaired": [
         "Systémy obnoveny. Ahoj, Elara.",
-        "Doporučení: obnovit elektrickou síť stanice.",
-        "Čas do kolapsu jádra se zkracuje."
+        "Restart dokončen. Doporučení: obnovit elektrickou síť stanice.",
+        "Napájení stabilní. Čas do kolapsu jádra se zkracuje."
+      ],
+      "default": [
+        "Čekám na další instrukce."
       ]
     },
     "hints": {
@@ -36,7 +41,7 @@
       ],
       "3": [
         "V karanténě je Viktor. Přímý střet nedoporučuji.",
-        "Možnost A: ruční zrcátko z lékařského traktu (není jistota). Možnost B: uspávací lektvar od Aničky (jistota).",
+        "Možnost A: zrcátko z lékařského traktu (není jistota). Možnost B: uspávací lektvar od Aničky (jistota).",
         "Pokud chceš jistotu, pomoz Aničce se světlem (UV lampa) a získej uspávací lektvar."
       ],
       "4": [
@@ -62,10 +67,19 @@
     "dialogues": {
       "default": [
         "Vítej v dílně. Hlásím kritický stav stanice.",
-        "Pokud něco potřebuješ opravit, jsem tu."
+        "Pokud něco potřebuješ opravit, jsem tu.",
+        "Bez stabilního napájení a ochrany v karanténě se dál nedostaneš."
       ],
       "afterFilter": [
-        "Filtr detekován. Mohu vyrobit plynovou masku."
+        "Filtr detekován. Výroba plynové masky dokončena. Vezmi si ji.",
+        "Dobře. S tímhle filtrem jde masku složit. Hotovo. Použij ji v karanténě."
+      ],
+      "afterMask": [
+        "Plynovou masku už máš. Další krok je karanténa.",
+        "Ochrana před plynem je připravena. Pokračuj opatrně."
+      ],
+      "errorMaskMissing": [
+        "Nemohu vyrobit plynovou masku. Chybí mi v databázi položka 'plynova_maska'."
       ]
     },
     "givesItems": [
@@ -91,11 +105,13 @@
     "dialogues": {
       "default": [
         "Kytičky… ony mi dnes nějak vadnou…",
-        "Světla je tu málo, viď děvče?"
+        "Světla je tu málo, viď děvče?",
+        "Ty lampy… kdysi tu svítily pořád…"
       ],
       "afterUVLamp": [
         "Ach! Podívej, jak krásně svítí!",
-        "Za odměnu ti uvařím speciální čajíček…"
+        "To je ono… kytičky se zase nadechnou.",
+        "Za odměnu ti uvařím speciální čajíček… budeš ho možná potřebovat."
       ]
     },
     "givesItem": "uspavaci_lektvar",
@@ -115,13 +131,20 @@
     "dialogues": {
       "aggressive": [
         "Stůj! Ty sem nepatříš!",
-        "Vypadni, než ti ublížím!"
+        "Vypadni, než ti ublížím!",
+        "Nejseš jeden z nich? Drž se dál!"
       ],
       "asleep": [
-        "Viktor leží na zemi a hlasitě chrápe."
+        "Viktor leží na zemi a hlasitě chrápe.",
+        "Je v bezvědomí. Nehýbe se."
       ],
       "confused": [
-        "Co… co se to děje… kde jsem?"
+        "Co… co se to děje… kde jsem?",
+        "To světlo… já… já nevím…",
+        "Počkej… kdo jsi…?"
+      ],
+      "default": [
+        "Viktor tě sleduje mlčky."
       ]
     },
     "bypassMethods": {
