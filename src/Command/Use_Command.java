@@ -84,7 +84,7 @@ public class Use_Command implements Command {
         if (npcId == null) return fail("Item nemá nastavené repairNpc.");
 
         if (!roomHasNpc(room, npcId)) {
-            return fail("Tady to nemáš do čeho zapojit (cílové NPC tu není).");
+            return fail("Tady to nemáš do čeho zapojit.");
         }
 
         NPC npc = game.getNPCs().get(npcId);
@@ -264,9 +264,6 @@ public class Use_Command implements Command {
     private String normalizeNpcId(String npcId) {
         if (npcId == null) return null;
         npcId = npcId.toLowerCase().trim();
-
-        // tolerance, kdybys někde měl staré id
-        if (npcId.equals("sparky")) return "spark";
 
         return npcId;
     }
