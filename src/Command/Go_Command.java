@@ -1,4 +1,5 @@
 package Command;
+import Data.Room;
 import Engine.Game;
 
 public class Go_Command implements Command {
@@ -12,8 +13,11 @@ public class Go_Command implements Command {
     public String execute(String command) {
         if (command == null) return game.getInvalidCommand();
         command = command.toLowerCase();
-        if (game.getCurrentRoom().getId().equals(command)) return "to nejde, tam se ted nachazis";
-        if (game.getCurrentRoom().getNextRooms().contains(command)) {
+        Room room = game.getCurrentRoom();
+
+        if (command.equals("karantena") && game.getPlayer().getInventory().findItemById("plynova_maska") == null) return "Bez plynové masky sem nemůžeš vstoupit!";
+        if (room.getId().equals(command)) return "to nejde, tam se ted nachazis";
+        if (room.getNextRooms().contains(command)) {
             game.setCurrentRoom(game.getRooms().get(command));
             return game.getMap();
         }

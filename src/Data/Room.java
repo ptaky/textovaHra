@@ -90,7 +90,10 @@ public class Room {
     public String toString() {
                 String txt = description;
                 if (!items.isEmpty() && isExplored) {
-                    return txt + "\n  - itemy v teto mistnosti: " + items;
+                    txt += "\n  - itemy v teto mistnosti: " + items;
+                }
+                if (!npcs.isEmpty() && isExplored) {
+                    txt += "\n  - npc v teto mistnosti: " + npcs;
                 }
             return txt;
     }

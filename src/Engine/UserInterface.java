@@ -61,7 +61,7 @@ public class UserInterface {
         }
         return true;
     }
-
+//TODO zkusit pouzit .trim() u checkCommand() & commandExecute()
     public void commandExecute(String input) {
         String command = null;
         String commandParam = null;

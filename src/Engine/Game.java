@@ -64,9 +64,9 @@ public class Game {
 
     public String getInventory() {
         if (!player.getInventory().isEmpty()) {
-            return " = Tvůj inventář obsahuje: " + player.getInventory();
+            return "= Tvůj inventář obsahuje: " + player.getInventory();
         } else {
-            return " = máš prázdné kapsy/nic neneseš";
+            return "= nic neneseš";
         }
     }
 
@@ -78,15 +78,13 @@ public class Game {
             case 0 :
                 return "17h 32min 42s";
             case 1:
-                return "1";
+                return "13h 45min 53s";
             case 2:
-                return "2";
+                return "10h 10min 04s";
             case 3:
-                return "3";
+                return "06h 40min 42s";
             case 4:
-                return "4";
-            case 5:
-                return "5";
+                return "02h 15min 28s";
             default:
                 return "error";
         }

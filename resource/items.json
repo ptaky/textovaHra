@@ -11,7 +11,7 @@
     "isUsable": true,
     "useAction": "repair_drone",
     "effects": {
-      "repairNpc": "AEQRD-01"
+      "repairNpc": "spark"
     },
     "conditions": {}
   },
@@ -58,7 +58,7 @@
     "isUsable": true,
     "useAction": "install_uv_lamp",
     "effects": {
-      "satisfyNpc": "anicka"
+      "satisfyNpc": "babicka"
     },
     "conditions": {}
   },
@@ -126,6 +126,19 @@
     "effects": {
       "winGame": true
     },
+    "conditions": {}
+  },
+  {
+    "id": "plynova_maska",
+    "name": "Plynová maska",
+    "description": "Maska chránící před omamným plynem v karanténě.",
+    "location": "dilna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": false,
+    "questItem": true,
+    "isUsable": false,
+    "effects": {},
     "conditions": {}
   }
 ]
