@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class UserInterface {
     private final HashMap<String, Command> commands;
+    private final HashMap<String, Integer> expectedArgs = new HashMap<>();
     private final Game game;
     Scanner scn = new Scanner(System.in);
 
@@ -28,9 +29,8 @@ public class UserInterface {
             System.out.print(">> ");
             String input = scn.nextLine();
             print("");
-            if (checkCommand(input)) {
-                commandExecute(input);
-            }
+
+            commandExecute(input);
 
         } while (!game.isGameOver());
 
@@ -46,34 +46,36 @@ public class UserInterface {
         System.out.println(input);
     }
 
-    public boolean checkCommand(String input) {
+    public void commandExecute(String input) {
+        input = input.trim();
         if (input.isEmpty()) {
             print("prikaz je prazdny");
-            return false;
-        };
+            return;
+        }
 
-        String[] commandInput = input.split(" ");
-        String command = commandInput[0];
+        String[] parts = input.split("\\s+");
+        String cmdName = parts[0];
 
-        if (!commands.containsKey(command)) {
+        Command cmd = commands.get(cmdName);
+        if (cmd == null) {
             print(game.getInvalidCommand());
-            return false;
-        }
-        return true;
-    }
-//TODO zkusit pouzit .trim() u checkCommand() & commandExecute()
-    public void commandExecute(String input) {
-        String command = null;
-        String commandParam = null;
-        if (input.contains(" ")) {
-            String[] commandInput = input.split(" ");
-            command = commandInput[0];
-            commandParam = commandInput[1];
-        } else {
-            command = input;
+            return;
         }
 
-        print(commands.get(command).execute(commandParam));
+        int expected = expectedArgs.getOrDefault(cmdName, 0);
+        int actual = parts.length - 1;
+
+        if (actual != expected) {
+            if (expected == 0) {
+                print("Prikaz '" + cmdName + "' nebere zadny parametr.");
+            } else {
+                print("Prikaz '" + cmdName + "' vyzaduje presne " + expected + " parametr.");
+            }
+            return;
+        }
+
+        String param = (expected == 1) ? parts[1] : null;
+        print(cmd.execute(param));
     }
 
     public void commandLoader() {
@@ -86,5 +88,15 @@ public class UserInterface {
         commands.put("mluv", new Speak_Command(game));
         commands.put("vezmi", new Take_Command(game));
         commands.put("pouzij", new Use_Command(game));
+
+        expectedArgs.put("konec", 0);
+        expectedArgs.put("prozkoumej", 0);
+        expectedArgs.put("jdi", 1);
+        expectedArgs.put("pomoc", 0);
+        expectedArgs.put("napoveda", 0);
+        expectedArgs.put("poloz", 1);
+        expectedArgs.put("mluv", 1);
+        expectedArgs.put("vezmi", 1);
+        expectedArgs.put("pouzij", 1);
     }
 }
