@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserInterface {
-    private final HashMap<String, Command> commands;
+    private final HashMap<String, Command> commands = new HashMap<>();
     private final HashMap<String, Integer> expectedArgs = new HashMap<>();
     private final Game game;
     Scanner scn = new Scanner(System.in);
 
     public UserInterface() {
-        commands = new HashMap<String, Command>();
         this.game = new Game();
     }
 
@@ -74,7 +73,13 @@ public class UserInterface {
             return;
         }
 
-        String param = (expected == 1) ? parts[1] : null;
+        String param;
+        if (expected == 1) {
+            param = parts[1];
+        } else {
+            param = null;
+        }
+
         print(cmd.execute(param));
     }
 
