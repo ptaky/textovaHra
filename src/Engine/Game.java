@@ -29,6 +29,8 @@ public class Game {
         gameOver = false;
         checkpoint = 0;
         setIntroduction();
+        setWinningText();
+        setLosingText();
     }
 
     public String getLine(boolean withNextLine) {
@@ -41,8 +43,8 @@ public class Game {
         return "neplatny prikaz";
     }
 
-    public String getMap() {
-        return
+    public String getMap(boolean withHelpCommand) {
+        if (!withHelpCommand) return
                 "\n        [ VYSÍLACÍ VĚŽ ]\n" +
                 "               |\n" +
                 "               |\n" +
@@ -60,11 +62,30 @@ public class Game {
                 "               |\n" +
                 "               |\n" +
                 "        [ KRYOKOMORA ]\n";
+
+        return
+                "        [ VYSÍLACÍ VĚŽ ]\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "         [ KARANTÉNA ]-------[ SERVEROVNA ]            Můžeš použít tyto příkazy:\n" +
+                "               |                                       - jdi 'mistnost', prozkoumej\n" +
+                "               |                                       - vezmi 'predmet', poloz 'predmet', pouzij 'predmet'\n" +
+                "               |                                       - mluv 'postava', napoveda (od Sparka)\n" +
+                "          [ CHODBA ]------[ BOTANICKÁ ZAHRADA ]        - pomoc, konec\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "      [ LÉKAŘSKÝ TRAKT ]------[ DÍLNA ]\n" +
+                "               |\n" +
+                "               |\n" +
+                "               |\n" +
+                "        [ KRYOKOMORA ]";
     }
 
     public String getInventory() {
         if (!player.getInventory().isEmpty()) {
-            return "= Tvůj inventář obsahuje: " + player.getInventory();
+            return "= neseš: " + player.getInventory();
         } else {
             return "= nic neneseš";
         }

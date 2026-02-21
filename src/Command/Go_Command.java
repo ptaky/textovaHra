@@ -19,7 +19,7 @@ public class Go_Command implements Command {
         if (room.getId().equals(command)) return "to nejde, tam se ted nachazis";
         if (room.getNextRooms().contains(command)) {
             game.setCurrentRoom(game.getRooms().get(command));
-            return game.getMap();
+            return game.getMap(false);
         }
         return game.getInvalidCommand();
     }

@@ -41,6 +41,9 @@ public class Inventory {
 
     @Override
     public String toString() {
+        if (items.size() == 1) return "[" + items.get(0) + ", - , - ]";
+        if (items.size() == 2) return "[" + items.get(0) + ", " + items.get(1) +", - ]";
+        if (items.size() == 3) return "[" + items.get(0) + ", " + items.get(1) + ", " + items.get(2) + "]";
         return items.toString();
     }
 }

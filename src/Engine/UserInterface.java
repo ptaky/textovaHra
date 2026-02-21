@@ -20,7 +20,7 @@ public class UserInterface {
         commandLoader();
         print(game.getIntroduction());
         print(game.getLine(false));
-        print(game.getMap());
+        print(game.getMap(true));
         do {
             print(game.getLine(false));
             print(game.getCurrentRoom().toString());
