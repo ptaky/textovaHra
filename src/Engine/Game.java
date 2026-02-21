@@ -19,6 +19,9 @@ public class Game {
     private String winningText;
     private String losingText;
 
+    /**
+     * This metod prepares and presets the whole game.
+     */
     public void setup() {
         DataLoader dataLoader = new DataLoader();
         rooms = dataLoader.loadRoomsData();
@@ -33,16 +36,29 @@ public class Game {
         setLosingText();
     }
 
+    /**
+     * just a line between text in terminal
+     * @param withNextLine if there is supposed to be 'enter'
+     * @return the line
+     */
     public String getLine(boolean withNextLine) {
         String line = "________________________________________________________________________________________________________________________________________________________________________________________________________";
         if (withNextLine) return line + "\n";
         else return line;
     }
 
+    /**
+     * @return error message
+     */
     public String getInvalidCommand() {
         return "neplatny prikaz";
     }
 
+    /**
+     * returns ascii map of the station
+     * @param withHelpCommand if there is supposed to be  text, which appears when help_cmd is called
+     * @return map of the station
+     */
     public String getMap(boolean withHelpCommand) {
         if (!withHelpCommand) return
                 "\n        [ VYSÍLACÍ VĚŽ ]\n" +
@@ -83,6 +99,9 @@ public class Game {
                 "        [ KRYOKOMORA ]";
     }
 
+    /**
+     * @return inventory
+     */
     public String getInventory() {
         if (!player.getInventory().isEmpty()) {
             return "= neseš: " + player.getInventory();

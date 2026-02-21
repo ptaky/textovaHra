@@ -15,9 +15,12 @@ public class UserInterface {
         this.game = new Game();
     }
 
+    /**
+     * whole game loop
+     */
     public void play() {
         game.setup();
-        commandLoader();
+        hashmapsLoader();
         print(game.getIntroduction());
         print(game.getLine(false));
         print(game.getMap(true));
@@ -45,6 +48,10 @@ public class UserInterface {
         System.out.println(input);
     }
 
+    /**
+     * This metod takes input and checks, if is usable -> calls cmd.execute, if not -> prints error message
+     * @param input user input, which is given by scanner
+     */
     public void commandExecute(String input) {
         input = input.trim();
         if (input.isEmpty()) {
@@ -83,7 +90,10 @@ public class UserInterface {
         print(cmd.execute(param));
     }
 
-    public void commandLoader() {
+    /**
+     * load hashmaps
+     */
+    public void hashmapsLoader() {
         commands.put("konec", new End_Command(game));
         commands.put("prozkoumej", new Explore_Command(game));
         commands.put("jdi", new Go_Command(game));
