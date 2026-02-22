@@ -31,12 +31,12 @@ public class Speak_Command implements Command {
 
         // NPC musí být v místnosti
         if (room.getNpcs() == null || !room.getNpcs().contains(npcId)) {
-            return "Nikdo takový tu není.";
+            return game.error("Nikdo takový tu není.");
         }
 
         NPC npc = game.getNPCs().get(npcId);
         if (npc == null) {
-            return "Chyba dat: NPC '" + npcId + "' neexistuje.";
+            return game.error("Chyba dat: NPC '" + npcId + "' neexistuje.");
         }
 
         // Speciální questové interakce při mluvení (Milan, babička)

@@ -21,15 +21,11 @@ public class Hint_Command implements Command {
      */
     @Override
     public String execute(String command) {
-        if (command != null) return game.getInvalidCommand();
+        if (command != null) return game.error(game.getInvalidCommand());
 
         int cp = game.getCheckpoint();
 
         return String.valueOf(game.getNPCs().get("spark").getHints().get(String.valueOf(cp)));
-    }
-
-    private String randomFrom(List<String> list) {
-        return list.get(random.nextInt(list.size()));
     }
 
     @Override

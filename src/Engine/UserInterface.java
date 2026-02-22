@@ -55,7 +55,7 @@ public class UserInterface {
     public void commandExecute(String input) {
         input = input.trim();
         if (input.isEmpty()) {
-            print("prikaz je prazdny");
+            print(game.error("prikaz je prazdny"));
             return;
         }
 
@@ -73,9 +73,9 @@ public class UserInterface {
 
         if (actual != expected) {
             if (expected == 0) {
-                print("Prikaz '" + cmdName + "' nebere zadny parametr.");
+                print(game.error("Prikaz '" + cmdName + "' nebere zadny parametr."));
             } else {
-                print("Prikaz '" + cmdName + "' vyzaduje presne " + expected + " parametr.");
+                print(game.error("Prikaz '" + cmdName + "' vyzaduje presne " + expected + " parametr."));
             }
             return;
         }

@@ -33,8 +33,8 @@ public class Use_Command implements Command {
         Room room = game.getCurrentRoom();
         Item item = game.getPlayer().getInventory().getItemById(itemId);
 
-        if (item == null) return "Tenhle předmět nemáš v inventáři.";
-        if (!item.isUsable()) return "Tenhle předmět se teď nedá použít.";
+        if (item == null) return game.error("Tenhle předmět nemáš v inventáři.");
+        if (!item.isUsable()) return game.error("Tenhle předmět se teď nedá použít.");
 
         String action = item.getUseAction();
         Map<String, Object> effects = item.getEffects();
@@ -72,7 +72,7 @@ public class Use_Command implements Command {
                 break;
 
             default:
-                result = "Tohle použití ještě není implementované: " + action;
+                result = game.error("Tohle použití ještě není implementované: " + action);
                 break;
         }
 

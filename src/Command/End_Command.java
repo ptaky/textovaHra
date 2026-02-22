@@ -15,7 +15,7 @@ public class End_Command implements Command {
      */
     @Override
     public String execute(String command) {
-        if (command != null) return game.getInvalidCommand();
+        if (command != null) return game.error(game.getInvalidCommand());
         game.quitGame();
         return "konec hry";
     }

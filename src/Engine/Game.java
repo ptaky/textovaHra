@@ -54,6 +54,10 @@ public class Game {
         return "neplatny prikaz";
     }
 
+    public String error(String message) {
+        return "ERROR: " + message;
+    }
+
     /**
      * returns ascii map of the station
      * @param withHelpCommand if there is supposed to be  text, which appears when help_cmd is called
@@ -134,7 +138,7 @@ public class Game {
             case 4:
                 txt += "02h 15min 28s";
             default:
-                txt += "error";
+                txt += "už došel čas";
         }
         return txt;
     }
