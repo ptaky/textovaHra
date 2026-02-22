@@ -18,6 +18,12 @@ public class Use_Command implements Command {
         this.game = game;
     }
 
+    /**
+     * Provede příkaz "use".
+     * Zkontroluje předmět a podle jeho akce provede správnou metodu.
+     * @param command název předmětu
+     * @return textová zpráva pro hráče
+     */
     @Override
     public String execute(String command) {
 
@@ -82,6 +88,9 @@ public class Use_Command implements Command {
         return false;
     }
 
+    /**
+     * Opravní dronu.
+     */
     private String useRepairDrone(Room room, Map<String, Object> effects) {
 
         String npcId = normalizeNpcId(effectString(effects, "repairNpc"));
@@ -105,6 +114,9 @@ public class Use_Command implements Command {
         return npc.getNickname() + ": " + line;
     }
 
+    /**
+     * Obnoví elektřinu v chodbě.
+     */
     private String useRestorePower(Room room, Map<String, Object> effects) {
 
         boolean restore = effectBoolean(effects, "restoreElectricity");
@@ -119,6 +131,9 @@ public class Use_Command implements Command {
         return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice částečně ožije.";
     }
 
+    /**
+     * Nainstaluje UV lampu v botanické zahradě.
+     */
     private String useInstallUVLamp(Room room, Map<String, Object> effects) {
 
         String npcId = normalizeNpcId(effectString(effects, "satisfyNpc"));
@@ -146,6 +161,9 @@ public class Use_Command implements Command {
     }
 
     // TODO nejspis to nefunguje, neni potreba kartu pouzit i kdyz by melo, podivat se na to
+    /**
+     * Odemkne serverovnu pomocí karty.
+     */
     private String useUnlockServerRoom(Room room, Map<String, Object> effects) {
 
         String locationId = effectString(effects, "unlockLocation");
@@ -164,6 +182,9 @@ public class Use_Command implements Command {
         return "Píp. Dveře do serverovny se odemknou.";
     }
 
+    /**
+     * Uspí nebo zmate Viktora.
+     */
     private String useAffectTarget(Room room, Map<String, Object> effects, String mode) {
 
         if (!"karantena".equals(room.getId())) {
@@ -180,7 +201,12 @@ public class Use_Command implements Command {
         if (viktor == null) return fail("Chyba dat: NPC '" + targetId + "' neexistuje.");
 
         if (!viktor.isHostile()) {
-            String key = "sleep".equals(mode) ? "asleep" : "confused";
+            String key;
+            if ("sleep".equals(mode)) {
+                key = "asleep";
+            } else {
+                key = "confused";
+            }
             return viktor.getName() + ": " + pickDialogue(viktor, key, "default");
         }
 
@@ -199,6 +225,9 @@ public class Use_Command implements Command {
         }
     }
 
+    /**
+     * Aktivuje vysílání a vyhraje hru.
+     */
     private String useActivateSignal(Room room, Map<String, Object> effects) {
 
         boolean win = effectBoolean(effects, "winGame");
@@ -216,11 +245,17 @@ public class Use_Command implements Command {
 
     // ---------------- helpers ----------------
 
+    /**
+     * Zjistí, jestli je v místnosti dané NPC.
+     */
     private boolean roomHasNpc(Room room, String npcId) {
         List<String> npcs = room.getNpcs();
         return npcs != null && npcs.contains(npcId);
     }
 
+    /**
+     * Vybere hlášku z dialogů NPC.
+     */
     private String pickDialogue(NPC npc, String key, String fallbackKey) {
         if (npc.getDialogues() == null) return "...";
 
@@ -236,6 +271,9 @@ public class Use_Command implements Command {
         return lines.get(rnd.nextInt(lines.size()));
     }
 
+    /**
+     * Vrátí hodnotu z mapy jako String.
+     */
     private String effectString(Map<String, Object> effects, String key) {
         if (effects == null) return null;
 
@@ -247,6 +285,9 @@ public class Use_Command implements Command {
         }
     }
 
+    /**
+     * Vrátí hodnotu z mapy jako boolean.
+     */
     private boolean effectBoolean(Map<String, Object> effects, String key) {
         if (effects == null) return false;
 
@@ -256,6 +297,9 @@ public class Use_Command implements Command {
         return v != null && Boolean.parseBoolean(String.valueOf(v));
     }
 
+    /**
+     * Vrátí hodnotu z mapy jako double.
+     */
     private double effectDouble(Map<String, Object> effects, String key, double fallback) {
         if (effects == null) return fallback;
 
@@ -269,16 +313,25 @@ public class Use_Command implements Command {
         }
     }
 
+    /**
+     * Upraví ID NPC na malá písmena a ořeže mezery.
+     */
     private String normalizeNpcId(String npcId) {
         if (npcId == null) return null;
         npcId = npcId.toLowerCase().trim();
         return npcId;
     }
 
+    /**
+     * Zjistí, jestli akce proběhla úspěšně.
+     */
     private boolean isSuccess(String msg) {
         return msg != null && !msg.startsWith("ERROR: ");
     }
 
+    /**
+     * Vytvoří chybovou hlášku.
+     */
     private String fail(String text) {
         return "ERROR: " + text;
     }
