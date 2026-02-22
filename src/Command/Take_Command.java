@@ -11,6 +11,11 @@ public class Take_Command implements Command {
         this.game = game;
     }
 
+    /**
+     * Provede příkaz "vezmi".
+     * @param command název předmětu
+     * @return textová zpráva pro hráče
+     */
     @Override
     public String execute(String command) {
         if (command == null) return game.getInvalidCommand();

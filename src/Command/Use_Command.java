@@ -19,7 +19,7 @@ public class Use_Command implements Command {
     }
 
     /**
-     * Provede příkaz "use".
+     * Provede příkaz "pouzij".
      * Zkontroluje předmět a podle jeho akce provede správnou metodu.
      * @param command název předmětu
      * @return textová zpráva pro hráče

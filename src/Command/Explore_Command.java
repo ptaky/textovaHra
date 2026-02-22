@@ -8,6 +8,11 @@ public class Explore_Command implements Command {
         this.game = game;
     }
 
+    /**
+     * Provede příkaz "prozkoumej".
+     * @param command název předmětu
+     * @return textová zpráva pro hráče
+     */
     @Override
     public String execute(String command) {
         if (command != null) return game.getInvalidCommand();

@@ -9,6 +9,11 @@ public class Go_Command implements Command {
         this.game = game;
     }
 
+    /**
+     * Provede příkaz "jdi".
+     * @param command název předmětu
+     * @return textová zpráva pro hráče
+     */
     @Override
     public String execute(String command) {
         if (command == null) return game.getInvalidCommand();
