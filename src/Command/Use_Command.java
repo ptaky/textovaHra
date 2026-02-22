@@ -160,7 +160,6 @@ public class Use_Command implements Command {
         return babicka.getName() + ": " + pickDialogue(babicka, "afterUVLamp", "default");
     }
 
-    // TODO nejspis to nefunguje, neni potreba kartu pouzit i kdyz by melo, podivat se na to
     /**
      * Odemkne serverovnu pomocí karty.
      */
