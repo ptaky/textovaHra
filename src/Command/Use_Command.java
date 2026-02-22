@@ -34,31 +34,31 @@ public class Use_Command implements Command {
         switch (action) {
 
             case "repair_drone":
-                result = useRepairDrone(room, item, effects);
+                result = useRepairDrone(room, effects);
                 break;
 
             case "restore_power":
-                result = useRestorePower(room, item, effects);
+                result = useRestorePower(room, effects);
                 break;
 
             case "install_uv_lamp":
-                result = useInstallUVLamp(room, item, effects);
+                result = useInstallUVLamp(room, effects);
                 break;
 
             case "unlock_server_room":
-                result = useUnlockServerRoom(room, item, effects);
+                result = useUnlockServerRoom(room, effects);
                 break;
 
             case "sleep_target":
-                result = useAffectTarget(room, item, effects, "sleep");
+                result = useAffectTarget(room, effects, "sleep");
                 break;
 
             case "confuse_target":
-                result = useAffectTarget(room, item, effects, "confuse");
+                result = useAffectTarget(room, effects, "confuse");
                 break;
 
             case "activate_signal":
-                result = useActivateSignal(room, item, effects);
+                result = useActivateSignal(room, effects);
                 break;
 
             default:
@@ -78,8 +78,7 @@ public class Use_Command implements Command {
         return false;
     }
 
-    // baterie -> opraví Sparka -> checkpoint 0 -> 1
-    private String useRepairDrone(Room room, Item item, Map<String, Object> effects) {
+    private String useRepairDrone(Room room, Map<String, Object> effects) {
         String npcId = normalizeNpcId(effectString(effects, "repairNpc"));
         if (npcId == null) return fail("Item nemá nastavené repairNpc.");
 
@@ -96,124 +95,163 @@ public class Use_Command implements Command {
 
         npc.setIsRepaired(true);
 
-        if (game.getCheckpoint() == 0) game.setAnotherCheckpoint();
+        game.setAnotherCheckpoint();
 
-        // Texty bereme z NPC.json
         String line = pickDialogue(npc, "repaired", "broken");
         return npc.getNickname() + ": " + line;
     }
 
-    // pojistky -> jen v chodbě -> checkpoint 1 -> 2
-    private String useRestorePower(Room room, Item item, Map<String, Object> effects) {
+    private String useRestorePower(Room room, Map<String, Object> effects) {
+
         boolean restore = effectBoolean(effects, "restoreElectricity");
-        if (!restore) return fail("Item neumí obnovit elektřinu.");
 
         if (!"chodba".equals(room.getId())) {
             return fail("Pojistky dávají smysl použít v chodbě u rozvaděče.");
         }
 
-        if (game.getCheckpoint() == 1) game.setAnotherCheckpoint();
+        game.setAnotherCheckpoint();
 
-        // Systémová hláška (není v NPC.json)
         return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice částečně ožije.";
     }
 
-    // UV lampa -> botanicka_zahrada -> babicka -> checkpoint 2 -> 3
-    private String useInstallUVLamp(Room room, Item item, Map<String, Object> effects) {
-        String npcId = normalizeNpcId(effectString(effects, "satisfyNpc"));
-        if (npcId == null) return fail("Item nemá nastavené satisfyNpc.");
+    private String useInstallUVLamp(Room room, Map<String, Object> effects) {
 
-        if (!"botanicka_zahrada".equals(room.getId())) {
+        String npcId = effectString(effects, "satisfyNpc");
+        npcId = normalizeNpcId(npcId);
+
+        if (npcId == null) {
+            return fail("Item nemá nastavené satisfyNpc.");
+        }
+
+        if (room.getId().equals("botanicka_zahrada") == false) {
             return fail("UV lampu je nejlepší použít v botanické zahradě.");
         }
 
-        if (!roomHasNpc(room, npcId)) {
+        if (roomHasNpc(room, npcId) == false) {
             return fail("Nikdo tu není, komu by to pomohlo.");
         }
 
         NPC babicka = game.getNPCs().get(npcId);
-        if (babicka == null) return fail("Chyba dat: NPC '" + npcId + "' neexistuje.");
+        if (babicka == null) {
+            return fail("Chyba dat: NPC '" + npcId + "' neexistuje.");
+        }
 
-        if (!babicka.isPlantNeedsLight()) {
-            // už je hotovo, vrať aspoň default repliku
-            return babicka.getName() + ": " + pickDialogue(babicka, "default", null);
+        if (babicka.isPlantNeedsLight() == false) {
+            String line = pickDialogue(babicka, "default", null);
+            return babicka.getName() + ": " + line;
         }
 
         babicka.setPlantNeedsLight(false);
 
-        if (game.getCheckpoint() == 2) game.setAnotherCheckpoint();
+        game.setAnotherCheckpoint();
 
-        return babicka.getName() + ": " + pickDialogue(babicka, "afterUVLamp", "default");
+        String line = pickDialogue(babicka, "afterUVLamp", "default");
+        return babicka.getName() + ": " + line;
     }
 
-    // karta_od_serverovny -> odemkne serverovnu (doporučené: použít v karanténě u dveří)
-    private String useUnlockServerRoom(Room room, Item item, Map<String, Object> effects) {
-        String locationId = effectString(effects, "unlockLocation");
-        if (locationId == null) return fail("Item nemá nastavené unlockLocation.");
+    // TODO nejspis to nefunguje, neni potreba kartu pouzit i kdyz by melo, podivat se na to
+    private String useUnlockServerRoom(Room room, Map<String, Object> effects) {
 
-        if (!"karantena".equals(room.getId())) {
+        String locationId = effectString(effects, "unlockLocation");
+
+        if (locationId == null) {
+            return fail("Item nemá nastavené unlockLocation.");
+        }
+
+        if (room.getId().equals("karantena") == false) {
             return fail("Kartu musíš použít u dveří do serverovny (v karanténě).");
         }
 
         Room target = game.getRooms().get(locationId);
-        if (target == null) return fail("Chyba dat: místnost '" + locationId + "' neexistuje.");
+        if (target == null) {
+            return fail("Chyba dat: místnost '" + locationId + "' neexistuje.");
+        }
 
-        if (!target.isLocked()) return "Serverovna už je odemčená.";
+        if (target.isLocked() == false) {
+            return "Serverovna už je odemčená.";
+        }
 
         target.setIsLocked(false);
         return "Píp. Dveře do serverovny se odemknou.";
     }
 
-    // lektvar/zrcátko -> karantena -> viktor -> checkpoint 3 -> 4
-    private String useAffectTarget(Room room, Item item, Map<String, Object> effects, String mode) {
+    private String useAffectTarget(Room room, Map<String, Object> effects, String mode) {
         if (!"karantena".equals(room.getId())) {
             return fail("Tohle dává smysl použít v karanténě.");
         }
 
-        String targetId = normalizeNpcId(effectString(effects, "targetNpc"));
+        String targetId = effectString(effects, "targetNpc");
+        targetId = normalizeNpcId(targetId);
+
         double chance = effectDouble(effects, "successChance", 1.0);
 
-        if (targetId == null) return fail("Item nemá nastavené targetNpc.");
-
-        if (!roomHasNpc(room, targetId)) return fail("Cíl tu není.");
-
-        NPC viktor = game.getNPCs().get(targetId);
-        if (viktor == null) return fail("Chyba dat: NPC '" + targetId + "' neexistuje.");
-
-        // už není hostile -> vrať odpovídající text
-        if (!viktor.isHostile()) {
-            // v tvém NPC.json je "asleep" pro stav po uspání; u zrcátka může být i "confused"
-            String key = "sleep".equals(mode) ? "asleep" : "confused";
-            return viktor.getName() + ": " + pickDialogue(viktor, key, "default");
+        if (targetId == null) {
+            return fail("Item nemá nastavené targetNpc.");
         }
 
-        boolean success = rnd.nextDouble() <= chance;
-        if (!success) {
-            return viktor.getName() + ": " + pickDialogue(viktor, "aggressive", "default");
+        if (roomHasNpc(room, targetId) == false) {
+            return fail("Cíl tu není.");
+        }
+
+        NPC viktor = game.getNPCs().get(targetId);
+        if (viktor == null) {
+            return fail("Chyba dat: NPC '" + targetId + "' neexistuje.");
+        }
+
+        if (viktor.isHostile() == false) {
+            String key = "";
+            if (mode.equals("sleep")) {
+                key = "asleep";
+            } else {
+                key = "confused";
+            }
+
+            String line = pickDialogue(viktor, key, "default");
+            return viktor.getName() + ": " + line;
+        }
+
+        double roll = rnd.nextDouble();
+        boolean success = false;
+
+        if (roll <= chance) {
+            success = true;
+        } else {
+            success = false;
+        }
+
+        if (success == false) {
+            String line = pickDialogue(viktor, "aggressive", "default");
+            return viktor.getName() + ": " + line;
         }
 
         viktor.setHostile(false);
 
-        if (game.getCheckpoint() == 3) game.setAnotherCheckpoint();
+        game.setAnotherCheckpoint();
 
-        if ("sleep".equals(mode)) {
-            return viktor.getName() + ": " + pickDialogue(viktor, "asleep", "confused");
+        if (mode.equals("sleep")) {
+            String line = pickDialogue(viktor, "asleep", "confused");
+            return viktor.getName() + ": " + line;
         } else {
-            return viktor.getName() + ": " + pickDialogue(viktor, "confused", "aggressive");
+            String line = pickDialogue(viktor, "confused", "aggressive");
+            return viktor.getName() + ": " + line;
         }
     }
 
-    // sifrovaci_karta -> jen ve vysilaci_vez -> win
-    private String useActivateSignal(Room room, Item item, Map<String, Object> effects) {
-        boolean win = effectBoolean(effects, "winGame");
-        if (!win) return fail("Tenhle předmět neumí spustit vysílání.");
+    private String useActivateSignal(Room room, Map<String, Object> effects) {
 
-        if (!"vysilaci_vez".equals(room.getId())) {
+        boolean win = effectBoolean(effects, "winGame");
+
+        if (win == false) {
+            return fail("Tenhle předmět neumí spustit vysílání.");
+        }
+
+        if (room.getId().equals("vysilaci_vez") == false) {
             return fail("Šifrovací kartu musíš použít ve vysílací věži.");
         }
 
         game.setPlayerWon(true);
         game.quitGame();
+
         return "Vložíš šifrovací kartu do terminálu. Antény ožívají a SOS signál je odeslán.";
     }
 
@@ -221,20 +259,39 @@ public class Use_Command implements Command {
 
     private boolean roomHasNpc(Room room, String npcId) {
         List<String> npcs = room.getNpcs();
-        return npcs != null && npcs.contains(npcId);
+
+        if (npcs == null) {
+            return false;
+        }
+
+        if (npcs.contains(npcId)) {
+            return true;
+        }
+
+        return false;
     }
 
     private String pickDialogue(NPC npc, String key, String fallbackKey) {
-        if (npc.getDialogues() == null) return "...";
+
+        if (npc.getDialogues() == null) {
+            return "...";
+        }
 
         List<String> lines = npc.getDialogues().get(key);
+
         if (lines == null || lines.isEmpty()) {
-            if (fallbackKey == null) return "...";
+            if (fallbackKey == null) {
+                return "...";
+            }
             lines = npc.getDialogues().get(fallbackKey);
         }
 
-        if (lines == null || lines.isEmpty()) return "...";
-        return lines.get(rnd.nextInt(lines.size()));
+        if (lines == null || lines.isEmpty()) {
+            return "...";
+        }
+
+        int index = rnd.nextInt(lines.size());
+        return lines.get(index);
     }
 
     private String effectString(Map<String, Object> effects, String key) {

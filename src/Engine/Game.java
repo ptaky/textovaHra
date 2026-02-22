@@ -113,21 +113,25 @@ public class Game {
     public int getCheckpoint() {
         return checkpoint;
     }
-    public String getTimeAtCheckpoint(int checkpoint) {
-        switch (checkpoint) {
+    public String getTimeAtCheckpoint() {
+        int cp = getCheckpoint();
+        String txt = "Zbývá ještě ";
+
+        switch (cp) {
             case 0 :
-                return "17h 32min 42s";
+                txt += "17h 32min 42s";
             case 1:
-                return "13h 45min 53s";
+                txt += "13h 45min 53s";
             case 2:
-                return "10h 10min 04s";
+                txt += "10h 10min 04s";
             case 3:
-                return "06h 40min 42s";
+                txt += "06h 40min 42s";
             case 4:
-                return "02h 15min 28s";
+                txt += "02h 15min 28s";
             default:
-                return "error";
+                txt += "error";
         }
+        return txt;
     }
     public void setAnotherCheckpoint() {
         checkpoint++;
