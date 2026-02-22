@@ -1,5 +1,5 @@
-[
-  {
+{
+  "baterie": {
     "id": "baterie",
     "name": "Baterie",
     "description": "Energetická baterie použitelná k opravě zařízení.",
@@ -15,7 +15,7 @@
     },
     "conditions": {}
   },
-  {
+  "nahradni_pojistky": {
     "id": "nahradni_pojistky",
     "name": "Náhradní pojistky",
     "description": "Sada funkčních pojistek pro obnovení elektrické sítě.",
@@ -31,7 +31,7 @@
     },
     "conditions": {}
   },
-  {
+  "filtr": {
     "id": "filtr",
     "name": "Filtr",
     "description": "Filtr schopný zachytit omamné plyny.",
@@ -46,7 +46,7 @@
       "requiredByNpc": "milan"
     }
   },
-  {
+  "uv_lampa": {
     "id": "uv_lampa",
     "name": "UV lampa",
     "description": "Silná UV lampa vhodná pro pěstování rostlin.",
@@ -62,7 +62,7 @@
     },
     "conditions": {}
   },
-  {
+  "uspavaci_lektvar": {
     "id": "uspavaci_lektvar",
     "name": "Uspávací lektvar",
     "description": "Silný uspávací nápoj připravený babičkou Aničkou.",
@@ -79,7 +79,7 @@
     },
     "conditions": {}
   },
-  {
+  "zrcatko": {
     "id": "zrcatko",
     "name": "Zrcátko",
     "description": "Malé zrcátko, které může zmást Viktora.",
@@ -96,7 +96,7 @@
     },
     "conditions": {}
   },
-  {
+  "karta_od_serverovny": {
     "id": "karta_od_serverovny",
     "name": "Karta od serverovny",
     "description": "Přístupová karta k serverovně stanice.",
@@ -112,7 +112,7 @@
     },
     "conditions": {}
   },
-  {
+  "sifrovaci_karta": {
     "id": "sifrovaci_karta",
     "name": "Šifrovací karta",
     "description": "Klíčová karta nutná k aktivaci vysílací věže.",
@@ -128,7 +128,7 @@
     },
     "conditions": {}
   },
-  {
+  "plynova_maska": {
     "id": "plynova_maska",
     "name": "Plynová maska",
     "description": "Maska chránící před omamným plynem v karanténě.",
@@ -141,4 +141,4 @@
     "effects": {},
     "conditions": {}
   }
-]
+}
