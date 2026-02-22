@@ -113,6 +113,11 @@ public class Game {
     public int getCheckpoint() {
         return checkpoint;
     }
+
+    /**
+     * Returns remaining time text based on the current checkpoint.
+     * @return remaining time string for the current checkpoint
+     */
     public String getTimeAtCheckpoint() {
         int cp = getCheckpoint();
         String txt = "Zbývá ještě ";
@@ -133,6 +138,10 @@ public class Game {
         }
         return txt;
     }
+
+    /**
+     * Increases the checkpoint value by 1.
+     */
     public void setAnotherCheckpoint() {
         checkpoint++;
     }
@@ -171,6 +180,12 @@ public class Game {
     public void setItems(HashMap<String, Item> items) {
         this.items = items;
     }
+
+    /**
+     * Finds an item in the loaded items by its ID.
+     * @param id item ID
+     * @return the item if found, otherwise null
+     */
     public Item getItemById(String id) {
         for (Item item : items.values()) {
             if (item.getId().equals(id)) {
@@ -179,6 +194,12 @@ public class Game {
         }
         return null;
     }
+
+    /**
+     * Checks if the current room contains an item with the given ID.
+     * @param itemId item ID
+     * @return true if the item is in the current room, otherwise false
+     */
     public boolean roomContains(String itemId) {
         return currentRoom.containsItem(itemId);
     }
