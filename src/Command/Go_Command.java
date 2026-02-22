@@ -20,8 +20,9 @@ public class Go_Command implements Command {
         command = command.toLowerCase();
         Room room = game.getCurrentRoom();
 
-        if (command.equals("karantena") && game.getPlayer().getInventory().findItemById("plynova_maska") == null) return "Bez plynové masky sem nemůžeš vstoupit!";
         if (room.getId().equals(command)) return "to nejde, tam se ted nachazis";
+        if (game.getRooms().containsKey(command) && !room.getNextRooms().contains(command)) return "tam to teď nepůjde, musíš tam dojít postupně";
+        if (command.equals("karantena") && game.getPlayer().getInventory().getItemById("plynova_maska") == null) return "Bez plynové masky sem nemůžeš vstoupit!";
         if (room.getNextRooms().contains(command)) {
             game.setCurrentRoom(game.getRooms().get(command));
             return game.getMap(false);

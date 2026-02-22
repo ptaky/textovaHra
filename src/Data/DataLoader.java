@@ -52,13 +52,13 @@ public class DataLoader {
      * Načte data o předmětech ze souboru items.json.
      * @return List s předměty ve hře
      */
-    public List<Item> loadItemsData() {
+    public HashMap<String, Item> loadItemsData() {
         parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/items.json");
-            List<Item> Items = parser.readValue(input, new TypeReference<List<Item>>() {});
-            return Items;
+            HashMap<String, Item> items = parser.readValue(input, new TypeReference<HashMap<String, Item>>() {});
+            return items;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
         } catch (Exception e) {

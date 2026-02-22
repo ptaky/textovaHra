@@ -8,10 +8,10 @@ import java.util.List;
 public class Game {
     private Player player = new Player();
     private int checkpoint;
-    private HashMap<String,Room> rooms;
+    private HashMap<String, Room> rooms;
     private Room currentRoom;
-    private HashMap<String,NPC> NPCs;
-    private List<Item> items;
+    private HashMap<String, NPC> NPCs;
+    private HashMap<String, Item> items;
     private boolean gameOver;
     private boolean playerWon;
     private boolean playerLost;
@@ -48,7 +48,7 @@ public class Game {
     }
 
     /**
-     * @return error message
+     * @return error cmd message
      */
     public String getInvalidCommand() {
         return "neplatny prikaz";
@@ -165,19 +165,22 @@ public class Game {
         this.NPCs = NPCs;
     }
 
-    public List<Item> getItems() {
+    public HashMap<String, Item> getItems() {
         return items;
     }
-    public void setItems(List<Item> items) {
+    public void setItems(HashMap<String, Item> items) {
         this.items = items;
     }
     public Item getItemById(String id) {
-        for (Item item : items) {
+        for (Item item : items.values()) {
             if (item.getId().equals(id)) {
                 return item;
             }
         }
         return null;
+    }
+    public boolean roomContains(String itemId) {
+        return currentRoom.containsItem(itemId);
     }
 
     public boolean isGameOver() {

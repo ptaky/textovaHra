@@ -19,13 +19,13 @@ public class Place_Command implements Command {
     @Override
     public String execute(String command) {
         if (command == null) return game.getInvalidCommand();
+        if (!game.getCurrentRoom().isExplored()) return "nejdřív to tu musíš prozkoumat";
         command = command.toLowerCase();
         Room room = game.getCurrentRoom();
         Item item = game.getItemById(command);
         Inventory inv = game.getPlayer().getInventory();
 
-        if (!room.isExplored()) return "zkus to tu nejdřív prozkoumat";
-        if (inv == null) return "není co položit";
+        if (inv == null || !inv.contains(item)) return "není co položit";
         if (item != null) {
             room.addItem(command);
             inv.removeItem(item);

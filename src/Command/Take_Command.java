@@ -19,12 +19,14 @@ public class Take_Command implements Command {
     @Override
     public String execute(String command) {
         if (command == null) return game.getInvalidCommand();
+        if (!game.getCurrentRoom().isExplored()) return "nejdřív to tu musíš prozkoumat";
+        if (!game.roomContains(command)) return "takový předmět tu není";
         command = command.toLowerCase();
         Room room = game.getCurrentRoom();
+        if (room.containsItem(command)) return game.getInvalidCommand();
         Item item = game.getItemById(command);
         Inventory inv = game.getPlayer().getInventory();
 
-        if (!room.isExplored()) return "není co sebrat";
         if (room.getItems() == null) return "není co sebrat";
         if (inv.isFull()) return "plný invetnář";
         if (item != null) {

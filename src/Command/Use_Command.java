@@ -31,7 +31,7 @@ public class Use_Command implements Command {
 
         String itemId = command.toLowerCase();
         Room room = game.getCurrentRoom();
-        Item item = game.getPlayer().getInventory().findItemById(itemId);
+        Item item = game.getPlayer().getInventory().getItemById(itemId);
 
         if (item == null) return "Tenhle předmět nemáš v inventáři.";
         if (!item.isUsable()) return "Tenhle předmět se teď nedá použít.";

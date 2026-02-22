@@ -19,6 +19,9 @@ public class Inventory {
     public void removeItem(Item item) {
         this.items.remove(item);
     }
+    public boolean contains(Item item) {
+        return this.items.contains(item);
+    }
     public boolean isFull() {
         return items.size() == size;
     }
@@ -31,7 +34,7 @@ public class Inventory {
      * @param itemId ID hledaného předmětu
      * @return nalezený předmět nebo null, pokud neexistuje
      */
-    public Item findItemById(String itemId) {
+    public Item getItemById(String itemId) {
         for (Item item : items) {
             if (item.getId().equals(itemId)) {
                 return item;

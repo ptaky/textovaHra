@@ -1,6 +1,5 @@
 package Data;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class Room {
@@ -77,6 +76,9 @@ public class Room {
     }
     public void removeItem(String item) {
         items.remove(item);
+    }
+    public boolean containsItem(String id) {
+        return items.contains(id);
     }
 
     public List<String> getNpcs() {

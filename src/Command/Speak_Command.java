@@ -65,9 +65,9 @@ public class Speak_Command implements Command {
     // ---------- Milan ----------
     private String speakMilan(NPC milan) {
         // Pokud hráč má filtr, Milan nabídne vyrobit masku
-        Item filtr = game.getPlayer().getInventory().findItemById("filtr");
+        Item filtr = game.getPlayer().getInventory().getItemById("filtr");
 
-        boolean hasMask = game.getPlayer().getInventory().findItemById("plynova_maska") != null;
+        boolean hasMask = game.getPlayer().getInventory().getItemById("plynova_maska") != null;
 
         // Pokud už má masku, jen default dialog
         if (hasMask) {
@@ -106,7 +106,7 @@ public class Speak_Command implements Command {
     private String speakBabicka(NPC babicka) {
         Room room = game.getCurrentRoom();
 
-        boolean lektvarInInventory = game.getPlayer().getInventory().findItemById("uspavaci_lektvar") != null;
+        boolean lektvarInInventory = game.getPlayer().getInventory().getItemById("uspavaci_lektvar") != null;
         boolean lektvarInRoom = room.getItems() != null && room.getItems().contains("uspavaci_lektvar");
 
         // Pokud je pořád potřeba světlo -> default dialog
