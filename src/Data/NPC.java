@@ -37,6 +37,7 @@ public class NPC {
     public NPC() {
     }
 
+    // Gettery a settery
     public String getId() {
         return id;
     }

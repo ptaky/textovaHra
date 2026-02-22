@@ -7,6 +7,7 @@ public class Player {
         this.inventory = new Inventory();
     }
 
+    // getter
     public Inventory getInventory() {
         return inventory;
     }

@@ -12,12 +12,16 @@ import java.util.List;
 public class DataLoader {
     ObjectMapper parser;
 
-    public HashMap<String,Room> loadRoomsData(){
-         parser = new ObjectMapper();
+    /**
+     * Načte data o místnostech ze souboru rooms.json.
+     * @return HashMap s místnostmi, kde klíč je ID místnosti
+     */
+    public HashMap<String, Room> loadRoomsData() {
+        parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/rooms.json");
-            HashMap<String,Room> rooms = parser.readValue(input, new TypeReference<HashMap<String,Room>>() {});
+            HashMap<String, Room> rooms = parser.readValue(input, new TypeReference<HashMap<String, Room>>() {});
             return rooms;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
@@ -26,12 +30,16 @@ public class DataLoader {
         }
     }
 
-    public HashMap<String,NPC> loadNPCData(){
+    /**
+     * Načte data o NPC ze souboru NPC.json.
+     * @return HashMap s NPC, kde klíč je ID NPC
+     */
+    public HashMap<String, NPC> loadNPCData() {
         parser = new ObjectMapper();
 
         try {
             InputStream input = new FileInputStream("resource/NPC.json");
-            HashMap<String,NPC> NPCs = parser.readValue(input, new TypeReference<HashMap<String,NPC>>() {});
+            HashMap<String, NPC> NPCs = parser.readValue(input, new TypeReference<HashMap<String, NPC>>() {});
             return NPCs;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("file was not found");
@@ -40,7 +48,11 @@ public class DataLoader {
         }
     }
 
-    public List<Item> loadItemsData(){
+    /**
+     * Načte data o předmětech ze souboru items.json.
+     * @return List s předměty ve hře
+     */
+    public List<Item> loadItemsData() {
         parser = new ObjectMapper();
 
         try {

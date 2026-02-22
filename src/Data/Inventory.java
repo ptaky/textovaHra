@@ -12,14 +12,12 @@ public class Inventory {
         this.items = new ArrayList<Item>();
     }
 
+    // Gettery a settery
     public void addItem(Item item) {
         this.items.add(item);
     }
     public void removeItem(Item item) {
         this.items.remove(item);
-    }
-    public boolean contains(Item item) {
-        return items.contains(item);
     }
     public boolean isFull() {
         return items.size() == size;
@@ -27,9 +25,12 @@ public class Inventory {
     public boolean isEmpty() {
         return items.isEmpty();
     }
-    public Item getItem(Item item) {
-        return item;
-    }
+
+    /**
+     * Najde předmět v inventáři podle jeho ID.
+     * @param itemId ID hledaného předmětu
+     * @return nalezený předmět nebo null, pokud neexistuje
+     */
     public Item findItemById(String itemId) {
         for (Item item : items) {
             if (item.getId().equals(itemId)) {

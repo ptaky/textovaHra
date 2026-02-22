@@ -29,6 +29,7 @@ public class Item {
     public Item() {
     }
 
+    // Gettery a settery
     public String getId() {
         return id;
     }
