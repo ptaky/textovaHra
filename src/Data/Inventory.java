@@ -18,6 +18,7 @@ public class Inventory {
 
     // Gettery a settery
     public void addItem(Item item) {
+        if (item == null) return;
         this.items.add(item);
     }
     public void removeItem(Item item) {
