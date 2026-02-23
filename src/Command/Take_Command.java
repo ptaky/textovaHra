@@ -23,7 +23,7 @@ public class Take_Command implements Command {
         if (!game.roomContains(command)) return game.error("takový předmět tu není");
         command = command.toLowerCase();
         Room room = game.getCurrentRoom();
-        if (room.containsItem(command)) return game.error(game.getInvalidCommand());
+        if (!room.containsItem(command)) return game.error(game.getInvalidCommand());
         Item item = game.getItemById(command);
         Inventory inv = game.getPlayer().getInventory();
 
