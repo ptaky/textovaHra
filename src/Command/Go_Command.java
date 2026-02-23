@@ -5,14 +5,18 @@ import Engine.Game;
 public class Go_Command implements Command {
     private Game game;
 
+    /**
+     * Command for go from current room to the next one.
+     * @author Ondřej Ptáček
+     */
     public Go_Command(Game game) {
         this.game = game;
     }
 
     /**
-     * Provede příkaz "jdi".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "jdi".
+     * @param command room that player wants to go in
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

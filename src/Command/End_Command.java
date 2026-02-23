@@ -1,6 +1,10 @@
 package Command;
 import Engine.Game;
 
+/**
+ * Command for exit game.
+ * @author Ondřej Ptáček
+ */
 public class End_Command implements Command {
     private Game game;
 
@@ -9,9 +13,9 @@ public class End_Command implements Command {
     }
 
     /**
-     * Provede příkaz "konec".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "konec".
+     * @param command null
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

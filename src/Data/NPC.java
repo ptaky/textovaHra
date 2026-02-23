@@ -3,6 +3,10 @@ package Data;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * NPCs in the game.
+ * @author Ondřej Ptáček
+ */
 public class NPC {
     private String id;
     private String name;

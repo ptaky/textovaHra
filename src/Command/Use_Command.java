@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Command for using an item that is supposed to be used.
+ * @author Ondřej Ptáček
+ */
 public class Use_Command implements Command {
 
     private Game game;
@@ -19,10 +23,9 @@ public class Use_Command implements Command {
     }
 
     /**
-     * Provede příkaz "pouzij".
-     * Zkontroluje předmět a podle jeho akce provede správnou metodu.
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "pouzij".
+     * @param command item that player wants to use
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

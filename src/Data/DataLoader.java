@@ -9,12 +9,16 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Loader for all data.
+ * @author Ondřej Ptáček
+ */
 public class DataLoader {
     ObjectMapper parser;
 
     /**
-     * Načte data o místnostech ze souboru rooms.json.
-     * @return HashMap s místnostmi, kde klíč je ID místnosti
+     * Loads room data from the rooms.json file.
+     * @return HashMap with rooms, where the key is the room ID
      */
     public HashMap<String, Room> loadRoomsData() {
         parser = new ObjectMapper();
@@ -31,8 +35,8 @@ public class DataLoader {
     }
 
     /**
-     * Načte data o NPC ze souboru NPC.json.
-     * @return HashMap s NPC, kde klíč je ID NPC
+     * Loads NPC data from the NPC.json file.
+     * @return HashMap with NPCs, where the key is the NPC ID
      */
     public HashMap<String, NPC> loadNPCData() {
         parser = new ObjectMapper();
@@ -49,8 +53,8 @@ public class DataLoader {
     }
 
     /**
-     * Načte data o předmětech ze souboru items.json.
-     * @return List s předměty ve hře
+     * Loads item data from the items.json file.
+     * @return HashMap with items in the game
      */
     public HashMap<String, Item> loadItemsData() {
         parser = new ObjectMapper();

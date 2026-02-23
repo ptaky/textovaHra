@@ -2,6 +2,10 @@ package Data;
 
 import java.util.List;
 
+/**
+ * Rooms in the world.
+ * @author Ondřej Ptáček
+ */
 public class Room {
     private String id;
     private String name;

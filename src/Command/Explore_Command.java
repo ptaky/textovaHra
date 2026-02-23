@@ -1,6 +1,10 @@
 package Command;
 import Engine.Game;
 
+/**
+ * Command for explore current room.
+ * @author Ondřej Ptáček
+ */
 public class Explore_Command implements Command {
     private Game game;
 
@@ -9,9 +13,9 @@ public class Explore_Command implements Command {
     }
 
     /**
-     * Provede příkaz "prozkoumej".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "prozkoumej".
+     * @param command null
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

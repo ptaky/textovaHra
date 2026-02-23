@@ -1,10 +1,12 @@
 package Command;
-import Data.NPC;
 import Engine.Game;
 
-import java.util.List;
 import java.util.Random;
 
+/**
+ * Command for giving player a hint.
+ * @author Ondřej Ptáček
+ */
 public class Hint_Command implements Command {
 
     private final Game game;
@@ -15,9 +17,9 @@ public class Hint_Command implements Command {
     }
 
     /**
-     * Provede příkaz "napoveda".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "napoveda".
+     * @param command null
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

@@ -1,5 +1,9 @@
 package Data;
 
+/**
+ * Player that plays the game.
+ * @author Ondřej Ptáček
+ */
 public class Player {
     private Inventory inventory;
 

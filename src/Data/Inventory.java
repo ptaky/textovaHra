@@ -3,6 +3,10 @@ package Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Inventory of the player.
+ * @author Ondřej Ptáček
+ */
 public class Inventory {
     private int size;
     private List<Item> items;
@@ -30,9 +34,9 @@ public class Inventory {
     }
 
     /**
-     * Najde předmět v inventáři podle jeho ID.
-     * @param itemId ID hledaného předmětu
-     * @return nalezený předmět nebo null, pokud neexistuje
+     * Finds an item in the inventory by its ID.
+     * @param itemId ID of the searched item
+     * @return found item or null if it does not exist
      */
     public Item getItemById(String itemId) {
         for (Item item : items) {

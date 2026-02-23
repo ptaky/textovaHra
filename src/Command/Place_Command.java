@@ -4,6 +4,10 @@ import Data.Item;
 import Data.Room;
 import Engine.Game;
 
+/**
+ * Command for placing item in current room.
+ * @author Ondřej Ptáček
+ */
 public class Place_Command implements Command {
     private Game game;
 
@@ -12,9 +16,9 @@ public class Place_Command implements Command {
     }
 
     /**
-     * Provede příkaz "poloz".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "poloz".
+     * @param command item that player wants to place in the current room
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

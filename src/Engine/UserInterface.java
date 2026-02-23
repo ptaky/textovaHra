@@ -5,6 +5,10 @@ import Command.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * This class makes it all readable and communicates with the player.
+ * @author Ondřej Ptáček
+ */
 public class UserInterface {
     private final HashMap<String, Command> commands = new HashMap<>();
     private final HashMap<String, Integer> expectedArgs = new HashMap<>();
@@ -16,7 +20,7 @@ public class UserInterface {
     }
 
     /**
-     * whole game loop
+     * The main game loop.
      */
     public void play() {
         game.setup();
@@ -49,8 +53,9 @@ public class UserInterface {
     }
 
     /**
-     * This metod takes input and checks, if is usable -> calls cmd.execute, if not -> prints error message
-     * @param input user input, which is given by scanner
+     * This method takes the input and checks if it is usable.
+     * If it is valid, it calls cmd.execute, otherwise it prints an error message.
+     * @param input user input given by the scanner
      */
     public void commandExecute(String input) {
         input = input.trim();
@@ -91,7 +96,7 @@ public class UserInterface {
     }
 
     /**
-     * load hashmaps
+     * Loads the hash maps with commands and their expected arguments.
      */
     public void hashmapsLoader() {
         commands.put("konec", new End_Command(game));

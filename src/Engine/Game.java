@@ -5,6 +5,10 @@ import Data.*;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Game logics.
+ * @author Ondřej Ptáček
+ */
 public class Game {
     private Player player = new Player();
     private int checkpoint;
@@ -20,7 +24,7 @@ public class Game {
     private String losingText;
 
     /**
-     * This metod prepares and presets the whole game.
+     * This method prepares and sets up the whole game.
      */
     public void setup() {
         DataLoader dataLoader = new DataLoader();
@@ -37,8 +41,8 @@ public class Game {
     }
 
     /**
-     * just a line between text in terminal
-     * @param withNextLine if there is supposed to be 'enter'
+     * Just a line between texts in the terminal.
+     * @param withNextLine if a new line should be added
      * @return the line
      */
     public String getLine(boolean withNextLine) {
@@ -48,7 +52,7 @@ public class Game {
     }
 
     /**
-     * @return error cmd message
+     * @return error command message
      */
     public String getInvalidCommand() {
         return "neplatny prikaz";
@@ -59,8 +63,8 @@ public class Game {
     }
 
     /**
-     * returns ascii map of the station
-     * @param withHelpCommand if there is supposed to be  text, which appears when help_cmd is called
+     * Returns an ASCII map of the station.
+     * @param withHelpCommand if the help text should be shown
      * @return map of the station
      */
     public String getMap(boolean withHelpCommand) {

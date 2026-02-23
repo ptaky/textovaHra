@@ -2,6 +2,10 @@ package Data;
 
 import java.util.Map;
 
+/**
+ * Items in the game.
+ * @author Ondřej Ptáček
+ */
 public class Item {
     private String id;
     private String name;

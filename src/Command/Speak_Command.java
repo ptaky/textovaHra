@@ -8,6 +8,10 @@ import Engine.Game;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Command for talking with NPC in current room.
+ * @author Ondřej Ptáček
+ */
 public class Speak_Command implements Command {
 
     private final Game game;
@@ -18,9 +22,9 @@ public class Speak_Command implements Command {
     }
 
     /**
-     * Provede příkaz "mluv".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "mluv".
+     * @param command who does plauer want to talk with
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

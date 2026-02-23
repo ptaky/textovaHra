@@ -4,6 +4,10 @@ import Data.Item;
 import Data.Room;
 import Engine.Game;
 
+/**
+ * Command for taking an item from current room.
+ * @author Ondřej Ptáček
+ */
 public class Take_Command implements Command {
     private Game game;
 
@@ -12,9 +16,9 @@ public class Take_Command implements Command {
     }
 
     /**
-     * Provede příkaz "vezmi".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "vezmi".
+     * @param command item that player wants to pick up
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {

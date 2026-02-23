@@ -1,6 +1,10 @@
 package Command;
 import Engine.Game;
 
+/**
+ * Command for giving player all possible commands available.
+ * @author Ondřej Ptáček
+ */
 public class Help_Command implements Command {
     private Game game;
 
@@ -9,9 +13,9 @@ public class Help_Command implements Command {
     }
 
     /**
-     * Provede příkaz "pomoc".
-     * @param command název předmětu
-     * @return textová zpráva pro hráče
+     * Executes command "pomoc".
+     * @param command null
+     * @return text msg for player
      */
     @Override
     public String execute(String command) {
