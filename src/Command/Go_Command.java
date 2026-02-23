@@ -2,13 +2,13 @@ package Command;
 import Data.Room;
 import Engine.Game;
 
+/**
+ * Command for go from current room to the next one.
+ * @author Ondřej Ptáček
+ */
 public class Go_Command implements Command {
     private Game game;
 
-    /**
-     * Command for go from current room to the next one.
-     * @author Ondřej Ptáček
-     */
     public Go_Command(Game game) {
         this.game = game;
     }
