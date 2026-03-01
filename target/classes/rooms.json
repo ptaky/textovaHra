@@ -9,8 +9,8 @@
         "items": [],
         "npcs": []
     },
-    "lekarsky trakt": {
-        "id": "lekarsky trakt",
+    "lekarsky_trakt": {
+        "id": "lekarsky_trakt",
         "name": "Lékařský trakt",
         "isLocked": false,
         "description": "Vstupuješ do lékařského traktu ponořeného do šera. Ve vzduchu je cítit dezinfekce a na zemi vidis neco divneho, neco jako robot ?",
@@ -25,8 +25,8 @@
         "isLocked": false,
         "description": "Vcházíš do technické dílny plné nářadí a rozebraných zařízení.",
         "advancedDescription": "Dílna je zaplněná pracovními stoly, kabely a elektronickými součástkami. V rohu místnosti pracuje Milan, který pečlivě kontroluje vybavení. Na policích jsou baterie, pojistky a další technické nástroje. Vzduch je cítit olejem a spálenou elektronikou.",
-        "nextRooms": ["lekarsky trakt"],
-        "items": ["baterie", "nahradni pojistky", "uv lampa", "karta od serverovny"],
+        "nextRooms": ["lekarsky_trakt"],
+        "items": ["baterie", "nahradni_pojistky", "uv_lampa", "karta_od_serverovny"],
         "npcs": ["milan"]
     },
     "chodba": {
@@ -35,12 +35,12 @@
         "isLocked": false,
         "description": "Nacházíš se v hlavní chodbě stanice, odkud vedou cesty do dalších částí Boreasu.",
         "advancedDescription": "Dlouhá chodba je lemovaná servisními panely a kabelovými rozvody. Některé pojistky jsou vyhozené a z rozvaděče se ozývá slabé praskání. Nouzové značení slabě svítí a ukazuje směry k ostatním lokacím.",
-        "nextRooms": ["lekarsky trakt", "botanicka zahrada", "karantena"],
+        "nextRooms": ["lekarsky_trakt", "botanicka_zahrada", "karantena"],
         "items": [],
         "npcs": []
     },
-    "botanicka zahrada": {
-        "id": "botanicka zahrada",
+    "botanicka_zahrada": {
+        "id": "botanicka_zahrada",
         "name": "Botanická zahrada",
         "isLocked": false,
         "description": "Ocitáš se v botanické zahradě stanice. Navzdory chaosu působí tohle místo klidně.",
@@ -55,7 +55,7 @@
         "isLocked": false,
         "description": "Vstupuješ do karanténní zóny. Vzduch je těžký a plný neznámého plynu.",
         "advancedDescription": "Karanténa je zahalená v mlhavém oparu, který dráždí oči a ztěžuje dýchání. Varovné nápisy na stěnách blikají červeně. Prostorem se pohybuje Viktor, jehož chování je nepředvídatelné a agresivní. Bez ochrany je pobyt zde smrtelně nebezpečný.",
-        "nextRooms": ["chodba", "serverovna", "vysilaci vez"],
+        "nextRooms": ["chodba", "serverovna", "vysilaci_vez"],
         "items": [],
         "npcs": ["viktor"]
     },
@@ -66,11 +66,11 @@
         "description": "Stojíš před serverovnou, srdcem celé stanice Boreas.",
         "advancedDescription": "Řady serverových skříní hučí a vibrují, obrazovky zobrazují chaotická data. Vzduch je přehřátý a chlazení sotva funguje. Na centrálním pultu se nachází šifrovací karta a ovládání vysílací věže. Tohle místo rozhodne o osudu stanice.",
         "nextRooms": ["karantena"],
-        "items": ["sifrovaci karta"],
+        "items": ["sifrovaci_karta"],
         "npcs": []
     },
-    "vysilaci vez": {
-        "id": "vysilaci vez",
+    "vysilaci_vez": {
+        "id": "vysilaci_vez",
         "name": "Vysílací věž",
         "isLocked": true,
         "description": "Dorazil jsi do vysílací věže. Odtud lze vyslat signál o pomoc.",

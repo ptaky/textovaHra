@@ -4,7 +4,7 @@
     "name": "AEQRD-01",
     "nickname": "Spark",
     "type": "drone",
-    "location": "lekarsky trakt",
+    "location": "lekarsky_trakt",
     "description": "Poškozený servisní dron s jiskřícími obvody. Po opravě slouží jako navigátor a rádce.",
     "isRepaired": false,
     "requiresItem": "baterie",
@@ -79,18 +79,18 @@
         "Ochrana před plynem je připravena. Pokračuj opatrně."
       ],
       "errorMaskMissing": [
-        "Nemohu vyrobit plynovou masku. Chybí mi v databázi položka 'plynova maska'."
+        "Nemohu vyrobit plynovou masku. Chybí mi v databázi položka 'plynova_maska'."
       ]
     },
     "givesItems": [
       "baterie",
-      "karta od serverovny",
-      "nahradni pojistky",
-      "uv lampa",
-      "plynova maska"
+      "karta_od_serverovny",
+      "nahradni_pojistky",
+      "uv_lampa",
+      "plynova_maska"
     ],
     "conditions": {
-      "plynova maska": {
+      "plynova_maska": {
         "requiresItem": "filtr"
       }
     }
@@ -99,7 +99,7 @@
     "id": "babicka",
     "name": "babička Anička",
     "type": "human",
-    "location": "botanicka zahrada",
+    "location": "botanicka_zahrada",
     "description": "Starší paní, která se stará o zahradu. Svět kolem sebe téměř nevnímá.",
     "plantNeedsLight": true,
     "dialogues": {
@@ -114,10 +114,10 @@
         "Za odměnu ti uvařím speciální čajíček… budeš ho možná potřebovat."
       ]
     },
-    "givesItem": "uspavaci lektvar",
+    "givesItem": "uspavaci_lektvar",
     "conditions": {
-      "uspavaci lektvar": {
-        "requiresAction": "nainstaluj uv lampu"
+      "uspavaci_lektvar": {
+        "requiresAction": "nainstaluj_uv_lampu"
       }
     }
   },
@@ -153,7 +153,7 @@
         "successChance": 0.7
       },
       "sleep": {
-        "item": "uspavaci lektvar",
+        "item": "uspavaci_lektvar",
         "successChance": 1.0
       }
     }
