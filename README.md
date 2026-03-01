@@ -27,11 +27,11 @@ Hra se ovládá zadáváním textových příkazů do konzole:
 - konec – ukončí hru
 
 ## Herní mechaniky
-- herní svět je tvořen několika propojenými místnostmi,
-- hráč disponuje inventářem s omezenou kapacitou,
-- postup hrou závisí na plnění úkolů,
-- některé lokace vyžadují speciální vybavení,
-- hra obsahuje časový tlak před explozí jádra.
+- herní svět je tvořen několika propojenými místnostmi
+- hráč disponuje inventářem s omezenou kapacitou na 3 sloty
+- postup hrou závisí na plnění úkolů
+- některé lokace vyžadují speciální vybavení
+- hra obsahuje časový tlak před explozí jádra
 
 ## Spuštění hry
 Repozitář stačí stáhnout z GitHubu a projekt otevřít ve vývojovém prostředí. Hru lze spustit jako běžnou konzolovou Java aplikaci spuštěním hlavní třídy programu.
