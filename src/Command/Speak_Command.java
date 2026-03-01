@@ -97,10 +97,7 @@ public class Speak_Command implements Command {
         game.getPlayer().getInventory().removeItem(filtr);
         game.getPlayer().getInventory().addItem(maska);
 
-        // checkpoint: po pojistkách (cp2) -> maska (cp3)
-        if (game.getCheckpoint() == 2) {
-            game.setAnotherCheckpoint();
-        }
+        game.setCheckpoint(3);
 
         String line = pickDialogue(milan, "afterFilter", "default");
         return milan.getName() + ": " + line;

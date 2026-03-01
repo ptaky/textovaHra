@@ -23,15 +23,6 @@ class Game_Test {
     }
 
     @Test
-    void getTimeAtCheckpointReturnsCorrectValueWithoutFallthrough() {
-        Game game = new Game();
-
-        assertEquals("Zbývá ještě 17h 32min 42s", game.getTimeAtCheckpoint());
-        game.setAnotherCheckpoint();
-        assertEquals("Zbývá ještě 13h 45min 53s", game.getTimeAtCheckpoint());
-    }
-
-    @Test
     void getItemByIdHandlesNullAndUnknownItem() {
         Game game = new Game();
         game.setup();

@@ -21,7 +21,7 @@ public class Explore_Command implements Command {
     public String execute(String command) {
         if (command != null) return game.error(game.getInvalidCommand());
         game.getCurrentRoom().setExplored(true);
-        return game.getCurrentRoom().getAdvancedDescription();
+        return game.getCurrentRoom().toString();
     }
 
     @Override

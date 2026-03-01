@@ -94,13 +94,21 @@ public class Room {
 
     @Override
     public String toString() {
-                String txt = description;
-                if (!items.isEmpty() && isExplored) {
-                    txt += "\n  - itemy v teto mistnosti: " + items;
-                }
-                if (!npcs.isEmpty() && isExplored) {
-                    txt += "\n  - npc v teto mistnosti: " + npcs;
-                }
+        String txt;
+
+            if (!isExplored) {
+                txt = description;
+            } else {
+                txt = advancedDescription;
+            }
+
+            if (!items.isEmpty() && isExplored) {
+                txt += "\n  - itemy v teto mistnosti: " + items;
+            }
+            if (!npcs.isEmpty() && isExplored) {
+                txt += "\n  - npc v teto mistnosti: " + npcs;
+            }
+
             return txt;
     }
 }

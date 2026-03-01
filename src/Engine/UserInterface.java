@@ -28,10 +28,14 @@ public class UserInterface {
         print(game.getIntroduction());
         print(game.getLine(true));
         print(game.getMap(true));
+
+        print(game.getLine(false));
+        print(game.getCurrentRoom().getName().toUpperCase());
+        print(game.getCurrentRoom().toString());
+        print(game.getLeftTime());
+        print(game.getInventory());
+
         do {
-            print(game.getLine(false));
-            print(game.getCurrentRoom().toString());
-            print(game.getInventory());
             System.out.print(">> ");
             String input = scn.nextLine();
             print("");

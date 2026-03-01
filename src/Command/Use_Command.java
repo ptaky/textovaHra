@@ -111,7 +111,8 @@ public class Use_Command implements Command {
         }
 
         npc.setIsRepaired(true);
-        game.setAnotherCheckpoint();
+        game.setCheckpoint(1);
+        game.decreaseTimeLeft();
 
         String line = pickDialogue(npc, "repaired", "broken");
         return npc.getNickname() + ": " + line;
@@ -129,7 +130,8 @@ public class Use_Command implements Command {
             return fail("Pojistky dávají smysl použít v chodbě u rozvaděče.");
         }
 
-        game.setAnotherCheckpoint();
+        game.setCheckpoint(2);
+        game.decreaseTimeLeft();
 
         return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice částečně ožije.";
     }
@@ -158,7 +160,8 @@ public class Use_Command implements Command {
         }
 
         babicka.setPlantNeedsLight(false);
-        game.setAnotherCheckpoint();
+        game.setCheckpoint(3);
+        game.decreaseTimeLeft();
 
         return babicka.getName() + ": " + pickDialogue(babicka, "afterUVLamp", "default");
     }
@@ -218,7 +221,6 @@ public class Use_Command implements Command {
         }
 
         viktor.setHostile(false);
-        game.setAnotherCheckpoint();
 
         if ("sleep".equals(mode)) {
             return viktor.getName() + ": " + pickDialogue(viktor, "asleep", "confused");

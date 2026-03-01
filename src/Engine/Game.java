@@ -3,7 +3,6 @@ package Engine;
 import Data.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Game logics.
@@ -12,6 +11,7 @@ import java.util.List;
 public class Game {
     private Player player = new Player();
     private int checkpoint;
+    private int timeLeft;
     private HashMap<String, Room> rooms;
     private Room currentRoom;
     private HashMap<String, NPC> NPCs;
@@ -111,11 +111,8 @@ public class Game {
      * @return inventory
      */
     public String getInventory() {
-        if (!player.getInventory().isEmpty()) {
-            return "= neseš: " + player.getInventory();
-        } else {
-            return "= nic neneseš";
-        }
+        return "= tvuj inv: " + player.getInventory();
+
     }
 
     public int getCheckpoint() {
@@ -126,23 +123,28 @@ public class Game {
      * Returns remaining time text based on the current checkpoint.
      * @return remaining time string for the current checkpoint
      */
-    public String getTimeAtCheckpoint() {
-        int cp = getCheckpoint();
+    public String getLeftTime() {
         String txt = "Zbývá ještě ";
 
-        switch (cp) {
+        switch (timeLeft) {
             case 0 :
                 txt += "17h 32min 42s";
+                break;
             case 1:
                 txt += "13h 45min 53s";
+                break;
             case 2:
                 txt += "10h 10min 04s";
+                break;
             case 3:
                 txt += "06h 40min 42s";
+                break;
             case 4:
                 txt += "02h 15min 28s";
+                break;
             default:
                 txt += "už došel čas";
+                break;
         }
         return txt;
     }
@@ -150,8 +152,11 @@ public class Game {
     /**
      * Increases the checkpoint value by 1.
      */
-    public void setAnotherCheckpoint() {
-        checkpoint++;
+    public void setCheckpoint(int cp) {
+        this.checkpoint = cp;
+    }
+    public void decreaseTimeLeft() {
+        timeLeft++;
     }
 
     public Player getPlayer() {
@@ -231,6 +236,7 @@ public class Game {
     }
     public void setPlayerLost(boolean playerLost) {
         this.playerLost = playerLost;
+        gameOver = true;
     }
 
     public String getIntroduction() {
@@ -253,7 +259,7 @@ public class Game {
                 "Vítej na stanici Boreas.\n" +
                 "\n" +
                 "prikazy pis ve tvaru: 'prikaz popis'\n" +
-                "  - mistnosti pis ve tvaru: 'velka_loznice'";
+                "  - viceslovne nazvy pis ve tvaru: 'velka_loznice'";
     }
 
     public String getWinningText() {
