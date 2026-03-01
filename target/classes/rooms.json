@@ -46,7 +46,7 @@
         "description": "Ocitáš se v botanické zahradě stanice. Navzdory chaosu působí tohle místo klidně.",
         "advancedDescription": "Skleněné stěny jsou porostlé rostlinami nejrůznějších tvarů. Některé květiny však uvadají kvůli nedostatku světla. Mezi záhony se pohybuje babička Anička, která si tiše mumlá a stará se o své kytičky. Zavlažování i osvětlení sotva fungují.",
         "nextRooms": ["chodba"],
-        "items": ["filtr", "uspavaci_lektvar"],
+        "items": ["filtr"],
         "npcs": ["babicka"]
     },
     "karantena": {

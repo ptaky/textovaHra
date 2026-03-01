@@ -37,8 +37,7 @@ public class Go_Command implements Command {
         if (room.getNextRooms().contains(command)) {
             game.setCurrentRoom(game.getRooms().get(command));
             return
-                    game.getMap(false, room.getId()) +
-                    game.roomInfo();
+                    game.roomInfo() + '\n' + game.getMap(false, game.getCurrentRoom().getId());
         }
         return game.error(game.getInvalidCommand());
     }

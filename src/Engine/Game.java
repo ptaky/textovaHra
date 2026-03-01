@@ -136,7 +136,7 @@ public class Game {
                     "               |\n" +
                     "               |\n" +
                     "               |\n" +
-                    "        [ " + kryo + " ]";
+                    "        [ " + kryo + " ]\n";
 
 
         return
@@ -156,7 +156,7 @@ public class Game {
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
-                "        [ " + kryo + " ]";
+                "        [ " + kryo + " ]\n";
     }
 
     /**
