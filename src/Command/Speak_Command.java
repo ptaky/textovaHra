@@ -42,13 +42,9 @@ public class Speak_Command implements Command {
             return game.error("Chyba dat: NPC '" + npcId + "' neexistuje.");
         }
 
-        if ("milan".equals(npcId)) {
-            return speakMilan(npc);
-        }
-
-        if ("babicka".equals(npcId)) {
-            return speakBabicka(npc);
-        }
+        if ("spark".equals(npcId)) return game.error("Se Sparkem si nemůžeš povídat, lze ho pouze požádat o nápovědu.");
+        if ("milan".equals(npcId)) return speakMilan(npc);
+        if ("babicka".equals(npcId)) return speakBabicka(npc);
 
         String key = chooseDialogueKey(npc);
         String line = pickDialogue(npc, key, "default");

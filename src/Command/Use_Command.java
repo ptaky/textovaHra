@@ -94,7 +94,7 @@ public class Use_Command implements Command {
     // ---------------- ACTIONS ----------------
 
     /**
-     * Opravní dronu.
+     * Opravení dronu.
      */
     private String useRepairDrone(Room room, Map<String, Object> effects) {
 
@@ -135,7 +135,7 @@ public class Use_Command implements Command {
         game.setCheckpoint(2);
         game.decreaseTimeLeft();
 
-        return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice částečně ožije.";
+        return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice plně ožije.";
     }
 
     /**
