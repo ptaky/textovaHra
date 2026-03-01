@@ -27,13 +27,8 @@ public class UserInterface {
         hashmapsLoader();
         print(game.getIntroduction());
         print(game.getLine(true));
-        print(game.getMap(true));
-
-        print(game.getLine(false));
-        print(game.getCurrentRoom().getName().toUpperCase());
-        print(game.getCurrentRoom().toString());
-        print(game.getLeftTime());
-        print(game.getInventory());
+        print(game.getMap(true, game.getCurrentRoom().getId()));
+        print(game.roomInfo());
 
         do {
             System.out.print(">> ");
@@ -62,7 +57,7 @@ public class UserInterface {
      * @param input user input given by the scanner
      */
     public void commandExecute(String input) {
-        input = input.trim();
+        input = input.trim().toLowerCase();
         if (input.isEmpty()) {
             print(game.error("prikaz je prazdny"));
             return;

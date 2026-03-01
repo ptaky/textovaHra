@@ -51,60 +51,125 @@ public class Game {
         else return line;
     }
 
+    // ---------- colors ----------
+
+    public String green(String txt) {
+        return Color.ANSI_GREEN + txt + Color.ANSI_RESET;
+    }
+
+    // ---------- errors ----------
     /**
-     * @return error command message
+     * @return invalid command message
      */
     public String getInvalidCommand() {
-        return "neplatny prikaz";
+        return error("neplatny prikaz");
     }
 
+    /**
+     * returns red error msg that is putted in param
+     * @param message returned message
+     * @return red ERROR message
+     */
     public String error(String message) {
-        return "ERROR: " + message;
+        return Color.ANSI_RED + "ERROR: " + message + Color.ANSI_RESET;
     }
 
+    // ---------- world prints ----------
     /**
      * Returns an ASCII map of the station.
      * @param withHelpCommand if the help text should be shown
      * @return map of the station
      */
-    public String getMap(boolean withHelpCommand) {
-        if (!withHelpCommand) return
-                "\n        [ VYSÍLACÍ VĚŽ ]\n" +
-                "               |\n" +
-                "               |\n" +
-                "               |\n" +
-                "         [ KARANTÉNA ]-------[ SERVEROVNA ]\n" +
-                "               |\n" +
-                "               |\n" +
-                "               |\n" +
-                "          [ CHODBA ]------[ BOTANICKÁ ZAHRADA ]\n" +
-                "               |\n" +
-                "               |\n" +
-                "               |\n" +
-                "      [ LÉKAŘSKÝ TRAKT ]------[ DÍLNA ]\n" +
-                "               |\n" +
-                "               |\n" +
-                "               |\n" +
-                "        [ KRYOKOMORA ]\n";
+    public String getMap(boolean withHelpCommand, String curRoom) {
+        String kryo = "KRYOKOMORA";
+        String lekTrakt = "LÉKAŘSKÝ TRAKT";
+        String dilna = "DÍLNA";
+        String chodba = "CHODBA";
+        String botZahr = "BOTANICKÁ ZAHRADA";
+        String karantena = "KARANTÉNA";
+        String server = "SERVEROVNA";
+        String vysVez = "VYSÍLACÍ VĚŽ";
+
+
+        switch (curRoom) {
+            case "kryokomora":
+                kryo = green(kryo);
+                break;
+            case "lekarsky_trakt":
+                lekTrakt = green(lekTrakt);
+                break;
+            case "dilna":
+                dilna = green(dilna);
+
+            case "chodba":
+                chodba = green(chodba);
+
+            case "botanicka_zahrada":
+                botZahr = green(botZahr);
+                break;
+            case "karantena":
+                karantena = green(karantena);
+                break;
+            case "serverovna":
+                server = green(server);
+                break;
+            case "vysilaci_vez":
+                vysVez = green(vysVez);
+                break;
+        }
+
+        if (!withHelpCommand)
+            return
+                    "\n        [ " + vysVez + " ]\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "         [ " + karantena + " ]-------[ " + server + " ]\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "          [ " + chodba + " ]------[ " + botZahr + " ]\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "      [ " + lekTrakt + " ]------[ " + dilna + " ]\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "               |\n" +
+                    "        [ " + kryo + " ]";
+
 
         return
-                "        [ VYSÍLACÍ VĚŽ ]\n" +
+                "        [ " + vysVez + " ]\n" +
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
-                "         [ KARANTÉNA ]-------[ SERVEROVNA ]            Můžeš použít tyto příkazy:\n" +
+                "         [ " + karantena + " ]-------[ " + server + " ]            Můžeš použít tyto příkazy:\n" +
                 "               |                                       - jdi 'mistnost', prozkoumej\n" +
                 "               |                                       - vezmi 'predmet', poloz 'predmet', pouzij 'predmet'\n" +
                 "               |                                       - mluv 'postava', napoveda (od Sparka)\n" +
-                "          [ CHODBA ]------[ BOTANICKÁ ZAHRADA ]        - pomoc, konec\n" +
+                "          [ " + chodba + " ]------[ " + botZahr + " ]        - pomoc, konec\n" +
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
-                "      [ LÉKAŘSKÝ TRAKT ]------[ DÍLNA ]\n" +
+                "      [ " + lekTrakt + " ]------[ " + dilna + " ]\n" +
                 "               |\n" +
                 "               |\n" +
                 "               |\n" +
-                "        [ KRYOKOMORA ]";
+                "        [ " + kryo + " ]";
+    }
+
+    /**
+     * returns information about current room
+     * @return room info
+     */
+    public String roomInfo() {
+        return
+            getLine(false) + '\n' +
+            Color.ANSI_GREEN + getCurrentRoom().getName().toUpperCase() + Color.ANSI_RESET + '\n' +
+            getCurrentRoom().toString() + '\n' +
+            getLeftTime() + '\n' +
+            getInventory();
     }
 
     /**
@@ -115,6 +180,9 @@ public class Game {
 
     }
 
+    /**
+     * @return checkpoint
+     */
     public int getCheckpoint() {
         return checkpoint;
     }
@@ -148,6 +216,8 @@ public class Game {
         }
         return txt;
     }
+
+    // ---------- getters & setters ----------
 
     /**
      * Increases the checkpoint value by 1.
@@ -239,6 +309,8 @@ public class Game {
         gameOver = true;
     }
 
+    // ---------- player texts ----------
+
     public String getIntroduction() {
         return introduction;
     }
@@ -281,10 +353,10 @@ public class Game {
     public void setLosingText() {
         this.losingText =
                 getLine(true) +
-                "Čas vypršel.\n" +
+                "YOU DIED.\n" +
                 "\n" +
-                "Varovné systémy jeden po druhém umlkají. Jádro planety se hroutí a stanice Boreas se rozpadá v oslepujícím záblesku.\n" +
-                "Tvůj signál už nikdo neuslyší.\n" +
+                "Vešla jsi do místnosti s nebezpečným plynem bez plynové masky a nadýchala jses.\n" +
+                "Tvůj hlas už nikdy nikdo neuslyší.\n" +
                 "\n" +
                 "Ticho.\n" +
                 "Tma.\n" +

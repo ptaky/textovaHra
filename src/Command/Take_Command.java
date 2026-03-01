@@ -36,7 +36,8 @@ public class Take_Command implements Command {
         if (item != null) {
             inv.addItem(item);
             room.getItems().remove(command);
-            return "sebral jsi " + item.getName();
+            return "sebral jsi " + item.getName() + '\n' +
+                    game.getInventory();
         }
         return game.error("není co sebrat");
     }
