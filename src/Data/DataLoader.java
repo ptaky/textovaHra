@@ -24,7 +24,7 @@ public class DataLoader {
         parser = new ObjectMapper();
 
         try {
-            InputStream input = new FileInputStream("resource/rooms.json");
+            InputStream input = DataLoader.class.getClassLoader().getResourceAsStream("rooms.json");
             HashMap<String, Room> rooms = parser.readValue(input, new TypeReference<HashMap<String, Room>>() {});
             return rooms;
         } catch (FileNotFoundException e) {
@@ -42,7 +42,7 @@ public class DataLoader {
         parser = new ObjectMapper();
 
         try {
-            InputStream input = new FileInputStream("resource/NPC.json");
+            InputStream input = DataLoader.class.getClassLoader().getResourceAsStream("NPC.json");
             HashMap<String, NPC> NPCs = parser.readValue(input, new TypeReference<HashMap<String, NPC>>() {});
             return NPCs;
         } catch (FileNotFoundException e) {
@@ -60,7 +60,7 @@ public class DataLoader {
         parser = new ObjectMapper();
 
         try {
-            InputStream input = new FileInputStream("resource/items.json");
+            InputStream input = DataLoader.class.getClassLoader().getResourceAsStream("items.json");
             HashMap<String, Item> items = parser.readValue(input, new TypeReference<HashMap<String, Item>>() {});
             return items;
         } catch (FileNotFoundException e) {

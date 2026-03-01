@@ -26,7 +26,7 @@ public class UserInterface {
         game.setup();
         hashmapsLoader();
         print(game.getIntroduction());
-        print(game.getLine(false));
+        print(game.getLine(true));
         print(game.getMap(true));
         do {
             print(game.getLine(false));
