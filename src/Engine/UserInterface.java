@@ -11,7 +11,6 @@ import java.util.Scanner;
  */
 public class UserInterface {
     private final HashMap<String, Command> commands = new HashMap<>();
-    private final HashMap<String, Integer> expectedArgs = new HashMap<>();
     private final Game game;
     Scanner scn = new Scanner(System.in);
 
@@ -44,6 +43,7 @@ public class UserInterface {
         }
         if (game.playerLost()) {
             print(game.getLosingText());
+            print("chces jeste jednou ? [ano/ne]");
         }
     }
 
@@ -58,37 +58,25 @@ public class UserInterface {
      */
     public void commandExecute(String input) {
         input = input.trim().toLowerCase();
+
         if (input.isEmpty()) {
             print(game.error("prikaz je prazdny"));
             return;
         }
 
-        String[] parts = input.split("\\s+");
+        String[] parts = input.split("\\s+", 2);
+
         String cmdName = parts[0];
+        String param = null;
+        if (parts.length > 1) {
+            param = parts[1];
+        }
 
         Command cmd = commands.get(cmdName);
+
         if (cmd == null) {
             print(game.getInvalidCommand());
             return;
-        }
-
-        int expected = expectedArgs.getOrDefault(cmdName, 0);
-        int actual = parts.length - 1;
-
-        if (actual != expected) {
-            if (expected == 0) {
-                print(game.error("Prikaz '" + cmdName + "' nebere zadny parametr."));
-            } else {
-                print(game.error("Prikaz '" + cmdName + "' vyzaduje presne " + expected + " parametr."));
-            }
-            return;
-        }
-
-        String param;
-        if (expected == 1) {
-            param = parts[1];
-        } else {
-            param = null;
         }
 
         print(cmd.execute(param));
@@ -107,15 +95,5 @@ public class UserInterface {
         commands.put("mluv", new Speak_Command(game));
         commands.put("vezmi", new Take_Command(game));
         commands.put("pouzij", new Use_Command(game));
-
-        expectedArgs.put("konec", 0);
-        expectedArgs.put("prozkoumej", 0);
-        expectedArgs.put("jdi", 1);
-        expectedArgs.put("pomoc", 0);
-        expectedArgs.put("napoveda", 0);
-        expectedArgs.put("poloz", 1);
-        expectedArgs.put("mluv", 1);
-        expectedArgs.put("vezmi", 1);
-        expectedArgs.put("pouzij", 1);
     }
 }
