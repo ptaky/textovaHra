@@ -43,7 +43,7 @@ public class UserInterface {
         }
         if (game.playerLost()) {
             print(game.getLosingText());
-            print("chces jeste jednou ? [ano/ne]");
+            playAgain();
         }
     }
 
@@ -95,5 +95,20 @@ public class UserInterface {
         commands.put("mluv", new Speak_Command(game));
         commands.put("vezmi", new Take_Command(game));
         commands.put("pouzij", new Use_Command(game));
+    }
+
+    public void playAgain() {
+        print("chces jeste jednou ? [ano/ne]");
+        System.out.println(">> ");
+        String input = scn.nextLine();
+
+        switch (input) {
+            case "ano":
+                play();
+            case "ne":
+                return;
+            default:
+                print(game.getInvalidCommand());
+        }
     }
 }
