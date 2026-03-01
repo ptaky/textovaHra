@@ -39,10 +39,10 @@ Hra se ovládá pomocí textových příkazů:
 ## Spuštění hry
 Repozitář stačí stáhnout z GitHubu a projekt spustit ve
 vývojovém prostředí jako běžnou konzolovou Java aplikaci (spuštěním
-hlavní třídy programu). Je ale potřeba mít staženo _java JRE 17+_ .
+hlavní třídy programu).
 
 ## Použité technologie
-- Java - konzolová aplikace
+- Java - je potřeba mít verzi  _java JRE 17+_
 
 ## Autor
 Ondřej Ptáček
