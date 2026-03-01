@@ -100,10 +100,10 @@ public class Game {
                 break;
             case "dilna":
                 dilna = green(dilna);
-
+                break;
             case "chodba":
                 chodba = green(chodba);
-
+                break;
             case "botanicka_zahrada":
                 botZahr = green(botZahr);
                 break;
