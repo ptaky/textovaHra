@@ -109,9 +109,8 @@
         "Ty lampy… kdysi tu svítily pořád…"
       ],
       "afterUVLamp": [
-        "Ach! Podívej, jak krásně svítí!",
-        "To je ono… kytičky se zase nadechnou.",
-        "Za odměnu ti uvařím speciální čajíček… budeš ho možná potřebovat."
+        "Ach! Podívej, jak krásně svítí! Za odměnu ti uvařím speciální čajíček… budeš ho možná potřebovat.",
+        "To je ono… kytičky se zase nadechnou. Za odměnu ti uvařím speciální čajíček… budeš ho možná potřebovat."
       ]
     },
     "givesItem": "uspavaci_lektvar",

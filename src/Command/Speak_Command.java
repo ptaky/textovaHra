@@ -91,6 +91,7 @@ public class Speak_Command implements Command {
     // ---------- Babička ----------
     private String speakBabicka(NPC babicka) {
         Room room = game.getCurrentRoom();
+        Item lektvar = game.getItemById("uspavaci_lektvar");
 
         if (babicka.isPlantNeedsLight()) {
             String line = pickDialogue(babicka, "default", null);
@@ -105,6 +106,9 @@ public class Speak_Command implements Command {
                 room.getItems().add("uspavaci_lektvar");
             }
         }
+
+        game.getPlayer().getInventory().addItem(lektvar);
+        game.getCurrentRoom().removeItem(lektvar.getId());
 
         String line = pickDialogue(babicka, "afterUVLamp", "default");
         return babicka.getName() + ": " + line;

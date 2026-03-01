@@ -28,6 +28,7 @@ public class Go_Command implements Command {
         if (room.getId().equals(command)) return game.error("to nejde, tam se ted nachazis");
         if (game.getRooms().get(command).isLocked()) return game.error("tahle místnost je zamčená");
         if (game.getRooms().containsKey(command) && !room.getNextRooms().contains(command)) return game.error("tam to teď nepůjde, musíš tam dojít postupně");
+        if ((command.equals("vysilaci_vez") || command.equals("serverovna")) && game.getNPCs().get("viktor").isHostile()) return game.error("Viktor te tam nepusti.");
 
         if (command.equals("karantena") && game.getPlayer().getInventory().getItemById("plynova_maska") == null) {
             game.setPlayerLost(true);

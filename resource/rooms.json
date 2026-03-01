@@ -72,7 +72,7 @@
     "vysilaci_vez": {
         "id": "vysilaci_vez",
         "name": "Vysílací věž",
-        "isLocked": true,
+        "isLocked": false,
         "description": "Dorazil jsi do vysílací věže. Odtud lze vyslat signál o pomoc.",
         "advancedDescription": "Vysoká místnost je plná antén, kabelů a ovládacích panelů. Skrze konstrukci je vidět temný povrch planety hluboko pod tebou. Terminál čeká na aktivaci šifrovací kartou. Jediný správný krok může zachránit tvůj život.",
         "nextRooms": ["karantena"],
