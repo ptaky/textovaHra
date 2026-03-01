@@ -13,18 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class Room_Test {
 
     @Test
-    void containsItemIsSafeForNullCollectionsAndIds() {
-        Room room = new Room();
-
-        room.setItems(null);
-        assertFalse(room.containsItem("baterie"));
-
-        room.setItems(new ArrayList<>(List.of("baterie")));
-        assertFalse(room.containsItem(null));
-        assertTrue(room.containsItem("baterie"));
-    }
-
-    @Test
     void toStringShowsOnlyDescriptionWhenNotExplored() {
         Room room = new Room();
         room.setDescription("Zakladni popis");

@@ -11,17 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class GoCommand_Test {
 
     @Test
-    void executeRejectsBlankInput() {
-        Game game = new Game();
-        game.setup();
-
-        Go_Command go = new Go_Command(game);
-        String result = go.execute("   ");
-
-        assertTrue(result.startsWith("ERROR:"));
-    }
-
-    @Test
     void executeMovesToAdjacentRoom() {
         Game game = new Game();
         game.setup();

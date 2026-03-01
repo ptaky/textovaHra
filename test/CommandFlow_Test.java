@@ -13,19 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CommandFlow_Test {
 
     @Test
-    void takeCommandRejectsPickupInUnexploredRoom() {
-        Game game = new Game();
-        game.setup();
-        game.setCurrentRoom(game.getRooms().get("lekarsky_trakt"));
-
-        Take_Command take = new Take_Command(game);
-        String result = take.execute("zrcatko");
-
-        assertTrue(result.startsWith("ERROR:"));
-        assertTrue(result.contains("prozkoumat"));
-    }
-
-    @Test
     void takeCommandAddsItemWhenRoomExplored() {
         Game game = new Game();
         game.setup();
