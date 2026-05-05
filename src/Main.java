@@ -1,5 +1,4 @@
-import Engine.UserInterface;
-import Screens.TitleScreen;
+import New.Engine.Game;
 
 /**
  * Main.
@@ -10,6 +9,6 @@ public class Main {
 //        UserInterface ui = new UserInterface();
 //        ui.play();
 
-        TitleScreen ts = new TitleScreen();
+        new Game();
     }
 }

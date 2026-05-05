@@ -1,4 +1,4 @@
-package Screens;
+package New.Screens;
 
 import javax.swing.*;
 import java.awt.*;
