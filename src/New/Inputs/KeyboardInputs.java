@@ -1,9 +1,18 @@
 package New.Inputs;
 
+import New.Engine.GamePanel;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
+
+    public GamePanel gp;
+
+    public KeyboardInputs(GamePanel gp) {
+        this.gp = gp;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
