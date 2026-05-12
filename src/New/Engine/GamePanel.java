@@ -22,9 +22,18 @@ public class GamePanel extends JPanel {
         addMouseMotionListener(mouseInputs);
     }
 
+    public void changeDx(int value) {
+        this.Dx += value;
+    }
+    public void changeDy(int value) {
+        this.Dy += value;
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.fillRect(100 + Dx, 100 + Dy, 60, 80);
+        g.fillRect(350 + Dx, 100 + Dy, 60, 80);
+
+        repaint();
     }
 }

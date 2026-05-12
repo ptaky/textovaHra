@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 public class KeyboardInputs implements KeyListener {
 
     public GamePanel gp;
+    private final int value = 10;
 
     public KeyboardInputs(GamePanel gp) {
         this.gp = gp;
@@ -21,15 +22,29 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> System.out.println("W");
-            case KeyEvent.VK_A -> System.out.println("A");
-            case KeyEvent.VK_S -> System.out.println("S");
-            case KeyEvent.VK_D -> System.out.println("D");
+            case KeyEvent.VK_W -> W_Pressed();
+            case KeyEvent.VK_A -> A_Pressed();
+            case KeyEvent.VK_S -> S_Pressed();
+            case KeyEvent.VK_D -> D_Pressed();
+
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    public void W_Pressed() {
+        gp.changeDy(-value);
+    }
+    public void A_Pressed() {
+        gp.changeDx(-value);
+    }
+    public void S_Pressed() {
+        gp.changeDy(value);
+    }
+    public void D_Pressed() {
+        gp.changeDx(value);
     }
 }
