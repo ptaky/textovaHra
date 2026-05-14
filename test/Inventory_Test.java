@@ -1,5 +1,5 @@
-import Data.Inventory;
-import Data.Item;
+import Old.Data.Inventory;
+import Old.Data.Item;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

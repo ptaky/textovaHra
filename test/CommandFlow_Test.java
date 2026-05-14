@@ -1,7 +1,7 @@
-import Command.Take_Command;
-import Command.Use_Command;
-import Data.Item;
-import Engine.Game;
+import Old.Command.Take_Command;
+import Old.Command.Use_Command;
+import Old.Data.Item;
+import Old.Engine.Game;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

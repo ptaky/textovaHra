@@ -1,9 +1,9 @@
-package Command;
+package Old.Command;
 
-import Data.Item;
-import Data.NPC;
-import Data.Room;
-import Engine.Game;
+import Old.Data.Item;
+import Old.Data.NPC;
+import Old.Data.Room;
+import Old.Engine.Game;
 
 import java.util.List;
 import java.util.Random;

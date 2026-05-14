@@ -1,5 +1,6 @@
 package New.Inputs;
 
+import New.Engine.Game;
 import New.Engine.GamePanel;
 
 import java.awt.event.KeyEvent;
@@ -8,7 +9,6 @@ import java.awt.event.KeyListener;
 public class KeyboardInputs implements KeyListener {
 
     public GamePanel gp;
-    private final int value = 10;
 
     public KeyboardInputs(GamePanel gp) {
         this.gp = gp;
@@ -36,15 +36,15 @@ public class KeyboardInputs implements KeyListener {
     }
 
     public void W_Pressed() {
-        gp.changeDy(-value);
+        gp.changeDy(-Game.deltaMoveValue);
     }
     public void A_Pressed() {
-        gp.changeDx(-value);
+        gp.changeDx(-Game.deltaMoveValue);
     }
     public void S_Pressed() {
-        gp.changeDy(value);
+        gp.changeDy(Game.deltaMoveValue);
     }
     public void D_Pressed() {
-        gp.changeDx(value);
+        gp.changeDx(Game.deltaMoveValue);
     }
 }

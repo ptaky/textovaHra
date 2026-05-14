@@ -1,8 +1,8 @@
-package Command;
-import Data.Inventory;
-import Data.Item;
-import Data.Room;
-import Engine.Game;
+package Old.Command;
+import Old.Data.Inventory;
+import Old.Data.Item;
+import Old.Data.Room;
+import Old.Engine.Game;
 
 /**
  * Command for taking an item from current room.

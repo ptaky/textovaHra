@@ -5,14 +5,12 @@ import New.Inputs.MouseInputs;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;
-    private int Dx = 0;
-    private int Dy = 0;
+    private int xDelta = 0, yDelta = 0;
+    private int rectWidth = 100, rectHeight = 80;
 
     public GamePanel() {
 
@@ -23,17 +21,16 @@ public class GamePanel extends JPanel {
     }
 
     public void changeDx(int value) {
-        this.Dx += value;
+        this.xDelta += value;
     }
     public void changeDy(int value) {
-        this.Dy += value;
+        this.yDelta += value;
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.fillRect(350 + Dx, 100 + Dy, 60, 80);
+        g.fillRect(((Game.width/2) - (rectWidth/2)) + xDelta, ((Game.height/2) - (rectHeight/2)) + yDelta, rectWidth, rectHeight);
 
-        repaint();
     }
 }

@@ -1,6 +1,6 @@
-package Engine;
+package Old.Engine;
 
-import Command.*;
+import Old.Command.*;
 
 import java.util.HashMap;
 import java.util.Scanner;

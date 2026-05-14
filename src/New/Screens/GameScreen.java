@@ -1,5 +1,6 @@
 package New.Screens;
 
+import New.Engine.Game;
 import New.Engine.GamePanel;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class GameScreen {
     }
 
     public void init(GamePanel gp) {
-        frame.setSize(800, 600);
+        frame.setSize(Game.width, Game.height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(gp);
         frame.setLocationRelativeTo(null);

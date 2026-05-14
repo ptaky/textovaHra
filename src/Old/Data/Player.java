@@ -1,4 +1,4 @@
-package Data;
+package Old.Data;
 
 /**
  * Player that plays the game.

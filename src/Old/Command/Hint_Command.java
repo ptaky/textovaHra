@@ -1,7 +1,7 @@
-package Command;
-import Data.NPC;
-import Data.Room;
-import Engine.Game;
+package Old.Command;
+import Old.Data.NPC;
+import Old.Data.Room;
+import Old.Engine.Game;
 
 import java.util.List;
 import java.util.Random;

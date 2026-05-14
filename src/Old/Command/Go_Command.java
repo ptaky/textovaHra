@@ -1,6 +1,6 @@
-package Command;
-import Data.Room;
-import Engine.Game;
+package Old.Command;
+import Old.Data.Room;
+import Old.Engine.Game;
 
 /**
  * Command for go from current room to the next one.

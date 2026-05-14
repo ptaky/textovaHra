@@ -1,4 +1,4 @@
-package Command;
+package Old.Command;
 
 /**
  * Interface for all commands.

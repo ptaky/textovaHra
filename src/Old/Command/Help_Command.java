@@ -1,5 +1,5 @@
-package Command;
-import Engine.Game;
+package Old.Command;
+import Old.Engine.Game;
 
 /**
  * Command for giving player all possible commands available.
