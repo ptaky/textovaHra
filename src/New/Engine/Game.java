@@ -4,7 +4,7 @@ import New.Screens.GameScreen;
 
 public class Game implements Runnable {
 
-    public static final int width = 1600, height = 900;
+    public static final int width = 1280, height = 800;
     public static final int deltaMoveValue = 10;
 
     private GamePanel gamePanel;
