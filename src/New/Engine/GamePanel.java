@@ -3,6 +3,7 @@ package New.Engine;
 import New.Inputs.KeyboardInputs;
 import New.Inputs.MouseInputs;
 
+import static New.Engine.Game.*;
 import static New.Engine.Constants.PlayerConstants.*;
 import static New.Engine.Constants.Directions.*;
 
@@ -17,10 +18,8 @@ public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;
     private int xDelta = 0, yDelta = 0;
-    private int rectWidth = 100, rectHeight = 80;
     private BufferedImage img;
     private BufferedImage[][] animations;
-    private int idleAniLength = 14, runningRightAniLength, runningLeftAniLength;
     private int aniTick, aniIndex, aniSpeed = 30;
     private int playerAction = IDLE;
     private int playerDirection = -1;
@@ -28,8 +27,8 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
 
-        importImg();
-        loadAnimations();
+        importAnimationImg();
+        loadAnimationsFromImg();
 
         addKeyListener(new KeyboardInputs(this));
         mouseInputs = new MouseInputs();
@@ -40,17 +39,18 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        updateAnimation();
-        setAnimation();
-        updatePosition();
+        animationLoop();
+        chooseAnimation();
+        movePosition();
 
-        g.drawImage(animations[playerAction][aniIndex], xDelta, yDelta, 128, 128, null);
+        BufferedImage subImg = animations[playerAction][aniIndex];
+        g.drawImage(subImg, xDelta, yDelta, 128, 128, null);
 
-//        g.fillRect(((Game.width/2) - (rectWidth/2)) + xDelta, ((Game.height/2) - (rectHeight/2)) + yDelta, rectWidth, rectHeight);
+//      ((WIDTH/2) - (subImg.getWidth()/2)) + xDelta, ((HEIGHT/2) - (subImg.getHeight()/2)) + yDelta
     }
 
     // animations -----------------------------------------------
-    private void loadAnimations() {
+    private void loadAnimationsFromImg() {
 
         animations = new BufferedImage[6][14];
 
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel {
             }
         }
     }
-    private void updateAnimation() {
+    private void animationLoop() {
 
         aniTick++;
         if (aniTick >= aniSpeed) {
@@ -69,7 +69,7 @@ public class GamePanel extends JPanel {
             if (aniIndex >= getSpriteAmount(playerAction)) aniIndex = 0;
         }
     }
-    private void setAnimation() {
+    private void chooseAnimation() {
 
         if (moving) {
             switch (playerDirection) {
@@ -84,7 +84,7 @@ public class GamePanel extends JPanel {
     }
 
     // importing -----------------------------------------------
-    private void importImg() {
+    private void importAnimationImg() {
 
         InputStream inputStream = getClass().getResourceAsStream("/Imgs/playerSprites.png");
 
@@ -109,14 +109,14 @@ public class GamePanel extends JPanel {
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
-    public void updatePosition() {
+    public void movePosition() {
 
         if (moving) {
             switch (playerDirection) {
-                case LEFT -> xDelta -= 5;
-                case UP -> yDelta -= 5;
-                case RIGHT -> xDelta += 5;
-                case DOWN -> yDelta += 5;
+                case LEFT -> xDelta -= DELTA_MOVE_VALUE;
+                case UP -> yDelta -= DELTA_MOVE_VALUE;
+                case RIGHT -> xDelta += DELTA_MOVE_VALUE;
+                case DOWN -> yDelta += DELTA_MOVE_VALUE;
             }
         }
     }
