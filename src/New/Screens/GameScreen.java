@@ -15,7 +15,7 @@ public class GameScreen {
     }
 
     public void init(GamePanel gp) {
-        frame.setSize(Game.width, Game.height);
+        frame.setSize(Game.WIDTH, Game.HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(gp);
         frame.setLocationRelativeTo(null);
