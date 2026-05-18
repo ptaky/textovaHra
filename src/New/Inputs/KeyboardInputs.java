@@ -24,10 +24,10 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> W_Pressed();
-            case KeyEvent.VK_A -> A_Pressed();
-            case KeyEvent.VK_S -> S_Pressed();
-            case KeyEvent.VK_D -> D_Pressed();
+            case KeyEvent.VK_W -> gp.getGame().getPlayer().setUp(true);
+            case KeyEvent.VK_A -> gp.getGame().getPlayer().setLeft(true);
+            case KeyEvent.VK_S -> gp.getGame().getPlayer().setDown(true);
+            case KeyEvent.VK_D -> gp.getGame().getPlayer().setRight(true);
 
         }
     }
@@ -35,29 +35,12 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-            case KeyEvent.VK_A:
-            case KeyEvent.VK_S:
-            case KeyEvent.VK_D:
-                setIdle();
+            case KeyEvent.VK_W -> gp.getGame().getPlayer().setUp(false);
+            case KeyEvent.VK_A -> gp.getGame().getPlayer().setLeft(false);
+            case KeyEvent.VK_S -> gp.getGame().getPlayer().setDown(false);
+            case KeyEvent.VK_D -> gp.getGame().getPlayer().setRight(false);
 
         }
     }
 
-    // helpers -----------------------------------------------
-    public void W_Pressed() {
-        gp.setDirection(UP);
-    }
-    public void A_Pressed() {
-        gp.setDirection(LEFT);
-    }
-    public void S_Pressed() {
-        gp.setDirection(DOWN);
-    }
-    public void D_Pressed() {
-        gp.setDirection(RIGHT);
-    }
-    public void setIdle() {
-        gp.setMoving(false);
-    }
 }

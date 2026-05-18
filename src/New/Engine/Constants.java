@@ -11,6 +11,8 @@ public class Constants {
     }
 
     public static class PlayerConstants {
+        public static final int DELTA_MOVE_VALUE = 3;
+
         public static final int IDLE = 0;
         public static final int RUNNING_RIGHT = 1;
         public static final int RUNNING_LEFT = 2;

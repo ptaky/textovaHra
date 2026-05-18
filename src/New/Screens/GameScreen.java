@@ -4,6 +4,8 @@ import New.Engine.Game;
 import New.Engine.GamePanel;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 public class GameScreen {
     private JFrame frame;
@@ -20,5 +22,18 @@ public class GameScreen {
         frame.add(gp);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.addWindowFocusListener(new WindowFocusListener() {
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                gp.getGame().windowsFocusLost();
+            }
+
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+
+            }
+        });
+
     }
 }

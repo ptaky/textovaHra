@@ -1,11 +1,13 @@
 package New.Engine;
 
+import New.Entities.Player;
 import New.Screens.GameScreen;
+
+import java.awt.*;
 
 public class Game implements Runnable {
 
     public static final int WIDTH = 1280, HEIGHT = 800;
-    public static final int DELTA_MOVE_VALUE = 6;
 
     private GamePanel gamePanel;
     private GameScreen gameScreen;
@@ -13,11 +15,20 @@ public class Game implements Runnable {
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
 
+    private Player player;
+
     public Game() {
-        gamePanel = new GamePanel();
+        initClasses();
+
+        gamePanel = new GamePanel(this);
         gameScreen = new GameScreen(gamePanel);
         gamePanel.requestFocus();
+
         startGameLoop();
+    }
+
+    public void initClasses() {
+        player = new Player(WIDTH/2, HEIGHT/2);
     }
 
     private void startGameLoop() {
@@ -26,7 +37,11 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        gamePanel.updateGame();
+        player.update();
+    }
+
+    public void render(Graphics g) {
+        player.render(g);
     }
 
     @Override
@@ -69,5 +84,14 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    public void windowsFocusLost() {
+        player.resetDirBooleans();
+    }
+
+    // getters & setters
+    public Player getPlayer() {
+        return player;
     }
 }
