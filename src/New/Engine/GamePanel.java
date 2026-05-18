@@ -39,14 +39,17 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        animationLoop();
-        chooseAnimation();
-        movePosition();
-
         BufferedImage subImg = animations[playerAction][aniIndex];
         g.drawImage(subImg, xDelta, yDelta, 128, 128, null);
 
 //      ((WIDTH/2) - (subImg.getWidth()/2)) + xDelta, ((HEIGHT/2) - (subImg.getHeight()/2)) + yDelta
+    }
+
+    public void updateGame() {
+
+        animationLoop();
+        chooseAnimation();
+        movePosition();
     }
 
     // animations -----------------------------------------------
