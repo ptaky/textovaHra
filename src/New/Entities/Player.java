@@ -1,13 +1,15 @@
 package New.Entities;
 
+import New.Data.DataLoaderSaver;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static New.Engine.Constants.Directions.*;
-import static New.Engine.Constants.PlayerConstants.*;
+import static New.Data.Constants.Directions.*;
+import static New.Data.Constants.PlayerConstants.*;
 
 public class Player extends Entity {
 
@@ -37,20 +39,7 @@ public class Player extends Entity {
     // animation setters
     private void loadAnimationsFromImg() {
 
-        InputStream inputStream = getClass().getResourceAsStream("/Imgs/playerSprites.png");
-        BufferedImage img;
-
-        try {
-            img = ImageIO.read(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        BufferedImage img = DataLoaderSaver.loadImage(DataLoaderSaver.PLAYER_SPRITES);
 
         animations = new BufferedImage[6][14];
 
@@ -151,7 +140,6 @@ public class Player extends Entity {
     public boolean isRight() {
         return right;
     }
-
     public void setRight(boolean right) {
         this.right = right;
     }

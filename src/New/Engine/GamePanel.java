@@ -3,16 +3,10 @@ package New.Engine;
 import New.Inputs.KeyboardInputs;
 import New.Inputs.MouseInputs;
 
-import static New.Engine.Game.*;
-import static New.Engine.Constants.PlayerConstants.*;
-import static New.Engine.Constants.Directions.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+
+import static New.Engine.Game.*;
 
 public class GamePanel extends JPanel {
 
@@ -22,6 +16,7 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
         this.game = game;
 
+        setPanelSize();
         addKeyListener(new KeyboardInputs(this));
         mouseInputs = new MouseInputs();
         addMouseListener(mouseInputs);
@@ -36,6 +31,12 @@ public class GamePanel extends JPanel {
 
     public void updateGame() {
 
+    }
+
+    public void setPanelSize() {
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+        setPreferredSize(size);
+        System.out.println("game size : " + GAME_WIDTH + " x " + GAME_HEIGHT);
     }
 
     // getters & setters
