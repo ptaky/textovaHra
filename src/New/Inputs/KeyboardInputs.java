@@ -1,9 +1,6 @@
 package New.Inputs;
 
-import New.Engine.Game;
 import New.Engine.GamePanel;
-
-import static New.Engine.Constants.Directions.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
