@@ -17,29 +17,36 @@ public class GamePanel extends JPanel {
         this.game = game;
 
         setPanelSize();
+
+        // Zajištění focusu pro zpracování klávesových vstupů
+        setFocusable(true);
         addKeyListener(new KeyboardInputs(this));
+
         mouseInputs = new MouseInputs();
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
     }
 
-    public void paintComponent(Graphics g) {
+    @Override
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // Vyčištění obrazovky černou barvou (vesmírná stanice Boreas)
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        // Vykreslení celé hry prostřednictvím Game
         game.render(g);
-    }
-
-    public void updateGame() {
-
     }
 
     public void setPanelSize() {
         Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
-        System.out.println("game size : " + GAME_WIDTH + " x " + GAME_HEIGHT);
+        setMinimumSize(size);
+        setMaximumSize(size);
+        System.out.println("Herní okno inicializováno: " + GAME_WIDTH + " x " + GAME_HEIGHT);
     }
 
-    // getters & setters
     public Game getGame() {
         return game;
     }
