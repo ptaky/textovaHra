@@ -1,5 +1,6 @@
 package New.Engine;
 
+import New.Data.Rooms.RoomManager;
 import New.Entities.Player;
 import New.Screens.GameScreen;
 
@@ -24,6 +25,7 @@ public class Game implements Runnable {
     private final int UPS_SET = 200;
 
     private Player player;
+    private RoomManager roomManager;
 
     public Game() {
         initClasses();
@@ -35,21 +37,24 @@ public class Game implements Runnable {
         startGameLoop();
     }
 
+    public void update() {
+        player.update();
+        roomManager.update();
+    }
+
+    public void render(Graphics g) {
+        player.render(g);
+        roomManager.draw(g);
+    }
+
     public void initClasses() {
         player = new Player(WIDTH/2, HEIGHT/2);
+        roomManager = new RoomManager(this);
     }
 
     private void startGameLoop() {
         thread = new Thread(this);
         thread.start();
-    }
-
-    public void update() {
-        player.update();
-    }
-
-    public void render(Graphics g) {
-        player.render(g);
     }
 
     @Override
