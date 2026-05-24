@@ -7,7 +7,8 @@
         "advancedDescription": "Kryokomora je zaplněná řadami kryokapslí, většina z nich je otevřená a nefunkční. Výstražné kontrolky na stěnách hlásí kritické selhání systémů a nestabilitu jádra planety. Podlaha je namrzlá a v rozích místnosti se drží chladná pára.",
         "nextRooms": ["lekarsky_trakt"],
         "items": [],
-        "npcs": []
+        "npcs": [],
+        "img": "Rooms/Kryo.png"
     },
     "lekarsky_trakt": {
         "id": "lekarsky_trakt",
@@ -17,7 +18,8 @@
         "advancedDescription": "Rozbitá světla osvětlují lékařská lůžka a převržené vozíky s nástroji. Na zemi leží poškozený servisní dron AEQRD-01, vypadá to, že mu došly baterie.\nSkříňky s léky jsou otevřené a prázdné, na zemi si všímáš malého ručního zrcátka.",
         "nextRooms": ["kryokomora", "dilna", "chodba"],
         "items": ["zrcatko"],
-        "npcs": ["spark"]
+        "npcs": ["spark"],
+        "img": "Rooms/Medibay.png"
     },
     "dilna": {
         "id": "dilna",
@@ -27,7 +29,8 @@
         "advancedDescription": "Dílna je zaplněná pracovními stoly, kabely a elektronickými součástkami. V rohu místnosti pracuje Milan, který pečlivě kontroluje vybavení. Na policích jsou baterie, pojistky a další technické nástroje. Vzduch je cítit olejem a spálenou elektronikou.",
         "nextRooms": ["lekarsky_trakt"],
         "items": ["baterie", "nahradni_pojistky", "uv_lampa", "karta_od_serverovny"],
-        "npcs": ["milan"]
+        "npcs": ["milan"],
+        "img": "Rooms/Workshop.png"
     },
     "chodba": {
         "id": "chodba",
@@ -37,7 +40,8 @@
         "advancedDescription": "Dlouhá chodba je lemovaná servisními panely a kabelovými rozvody. Některé pojistky jsou vyhozené a z rozvaděče se ozývá slabé praskání. Nouzové značení slabě svítí a ukazuje směry k ostatním lokacím.",
         "nextRooms": ["lekarsky_trakt", "botanicka_zahrada", "karantena"],
         "items": [],
-        "npcs": []
+        "npcs": [],
+        "img": "Rooms/Hallway.png"
     },
     "botanicka_zahrada": {
         "id": "botanicka_zahrada",
@@ -47,7 +51,8 @@
         "advancedDescription": "Skleněné stěny jsou porostlé rostlinami nejrůznějších tvarů. Některé květiny však uvadají kvůli nedostatku světla. Mezi záhony se pohybuje babička Anička, která si tiše mumlá a stará se o své kytičky. Zavlažování i osvětlení sotva fungují.",
         "nextRooms": ["chodba"],
         "items": ["filtr"],
-        "npcs": ["babicka"]
+        "npcs": ["babicka"],
+        "img": "Rooms/Greenhouse.png"
     },
     "karantena": {
         "id": "karantena",
@@ -57,7 +62,8 @@
         "advancedDescription": "Karanténa je zahalená v mlhavém oparu, který dráždí oči a ztěžuje dýchání. Varovné nápisy na stěnách blikají červeně. Prostorem se pohybuje Viktor, jehož chování je nepředvídatelné a agresivní. Bez ochrany je pobyt zde smrtelně nebezpečný.",
         "nextRooms": ["chodba", "serverovna", "vysilaci_vez"],
         "items": [],
-        "npcs": ["viktor"]
+        "npcs": ["viktor"],
+        "img": "Rooms/Quarantine.png"
     },
     "serverovna": {
         "id": "serverovna",
@@ -67,7 +73,8 @@
         "advancedDescription": "Řady serverových skříní hučí a vibrují, obrazovky zobrazují chaotická data. Vzduch je přehřátý a chlazení sotva funguje. Na centrálním pultu se nachází šifrovací karta a ovládání vysílací věže. Tohle místo rozhodne o osudu stanice.",
         "nextRooms": ["karantena"],
         "items": ["sifrovaci_karta"],
-        "npcs": []
+        "npcs": [],
+        "img": "Rooms/Serverroom.png"
     },
     "vysilaci_vez": {
         "id": "vysilaci_vez",
@@ -77,6 +84,7 @@
         "advancedDescription": "Vysoká místnost je plná antén, kabelů a ovládacích panelů. Skrze konstrukci je vidět temný povrch planety hluboko pod tebou. Terminál čeká na aktivaci šifrovací kartou. Jediný správný krok může zachránit tvůj život.",
         "nextRooms": ["karantena"],
         "items": [],
-        "npcs": []
+        "npcs": [],
+        "img": "Rooms/Communications.png"
     }
 }
