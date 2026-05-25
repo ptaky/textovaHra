@@ -8,11 +8,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import static New.Engine.Game.*;
+import static New.Entities.Player.*;
+
 //TODO nefunguje prechod mezi roomkama
 public class RoomManager {
 
     private Game game;
     private HashMap<String, BufferedImage> roomBackgrounds;
+
+    private final int border = 32;
 
     public RoomManager(Game game) {
         this.game = game;
@@ -37,7 +42,7 @@ public class RoomManager {
     }
 
     public void update() {
-        checkRoomTransitions();
+//        checkRoomTransitions();
     }
 
     public void draw(Graphics g) {
@@ -46,12 +51,12 @@ public class RoomManager {
 
         BufferedImage bgImg = roomBackgrounds.get(currentRoom.getId());
         if (bgImg != null) {
-            g.drawImage(bgImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+            g.drawImage(bgImg, 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
         } else {
             g.setColor(Color.DARK_GRAY);
-            g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
+            g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
             g.setColor(Color.WHITE);
-            g.drawString("Chybí textura pozadí pro: " + currentRoom.getName(), 50, Game.GAME_HEIGHT / 2);
+            g.drawString("Chybí textura pozadí pro: " + currentRoom.getName(), 50, GAME_HEIGHT / 2);
         }
 
         if (currentRoom.isExplored()) {
@@ -77,12 +82,12 @@ public class RoomManager {
         float playerY = game.getPlayer().getY();
         String currentRoomId = currentRoom.getId();
 
-        if (playerX > Game.GAME_WIDTH - Game.TILE_SIZE) {
+        if (playerX > GAME_WIDTH - TILE_SIZE) {
             switch (currentRoomId) {
                 case "lekarsky_trakt" -> tryTransition("dilna", "right");
                 case "chodba" -> tryTransition("botanicka_zahrada", "right");
                 case "karantena" -> tryTransition("serverovna", "right");
-                default -> game.getPlayer().setX(Game.GAME_WIDTH - Game.TILE_SIZE);
+                default -> game.getPlayer().setX(GAME_WIDTH - TILE_SIZE);
             }
         }
         else if (playerX < 0) {
@@ -93,13 +98,13 @@ public class RoomManager {
                 default -> game.getPlayer().setX(0);
             }
         }
-        else if (playerY > Game.GAME_HEIGHT - Game.TILE_SIZE) {
+        else if (playerY > GAME_HEIGHT - TILE_SIZE) {
             switch (currentRoomId) {
                 case "vysilaci_vez" -> tryTransition("karantena", "down");
                 case "karantena" -> tryTransition("chodba", "down");
                 case "chodba" -> tryTransition("lekarsky_trakt", "down");
                 case "lekarsky_trakt" -> tryTransition("kryokomora", "down");
-                default -> game.getPlayer().setY(Game.GAME_HEIGHT - Game.TILE_SIZE);
+                default -> game.getPlayer().setY(GAME_HEIGHT - TILE_SIZE);
             }
         }
         else if (playerY < 0) {
@@ -119,17 +124,17 @@ public class RoomManager {
             if (!targetRoom.isLocked()) {
                 game.setCurrentRoom(targetRoom);
                 switch (direction) {
-                    case "up" -> game.getPlayer().setY(Game.GAME_HEIGHT - Game.TILE_SIZE - 5);
+                    case "up" -> game.getPlayer().setY(GAME_HEIGHT - TILE_SIZE - 5);
                     case "down" -> game.getPlayer().setY(5);
-                    case "left" -> game.getPlayer().setX(Game.GAME_WIDTH - Game.TILE_SIZE - 5);
+                    case "left" -> game.getPlayer().setX(GAME_WIDTH - TILE_SIZE - 5);
                     case "right" -> game.getPlayer().setX(5);
                 }
             } else {
                 switch (direction) {
                     case "up" -> game.getPlayer().setY(5);
-                    case "down" -> game.getPlayer().setY(Game.GAME_HEIGHT - Game.TILE_SIZE - 5);
+                    case "down" -> game.getPlayer().setY(GAME_HEIGHT - TILE_SIZE - 5);
                     case "left" -> game.getPlayer().setX(5);
-                    case "right" -> game.getPlayer().setX(Game.GAME_WIDTH - Game.TILE_SIZE - 5);
+                    case "right" -> game.getPlayer().setX(GAME_WIDTH - TILE_SIZE - 5);
                 }
             }
         }

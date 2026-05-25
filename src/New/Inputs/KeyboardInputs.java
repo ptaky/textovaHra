@@ -24,9 +24,10 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_S -> gp.getGame().getPlayer().setDown(true);
             case KeyEvent.VK_D -> gp.getGame().getPlayer().setRight(true);
 
-//            case KeyEvent.VK_X -> gp.getGame().getCurrentRoom().setExplored(true);
-//            case KeyEvent.VK_F -> gp.getGame().getPlayer().tryPickUpItem();
-//            case KeyEvent.VK_E -> gp.getGame().getPlayer().tryInteractWithNPC();
+            case KeyEvent.VK_X -> gp.getGame().getCurrentRoom().setExplored(true);
+            case KeyEvent.VK_F -> gp.getGame().getPlayer().tryPickUpItem();
+            case KeyEvent.VK_E -> gp.getGame().getPlayer().tryInteractWithNPC();
+//            case KeyEvent.VK_SPACE -> gp.getGame()  - presun do jine roomky
         }
     }
 

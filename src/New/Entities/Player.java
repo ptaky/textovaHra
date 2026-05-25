@@ -29,6 +29,7 @@ public class Player extends Entity {
 
     public Player(float x, float y, Game game) {
         super(x, y);
+
         this.game = game;
         this.animations = new BufferedImage[6][14];
 
@@ -66,6 +67,14 @@ public class Player extends Entity {
             g.drawImage(subImg, (int) x, (int) y, PLAYER_SIZE, PLAYER_SIZE, null);
 
         }
+    }
+
+    private void checkHitbox() {
+
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        if (x + PLAYER_SIZE > Game.GAME_WIDTH) x = Game.GAME_WIDTH - PLAYER_SIZE;
+        if (y + PLAYER_SIZE > Game.GAME_HEIGHT) y = Game.GAME_HEIGHT - PLAYER_SIZE;
     }
 
     private void checkHazardousZones() {
@@ -175,6 +184,7 @@ public class Player extends Entity {
 
     public void updatePosition() {
         moving = false;
+        if (!up && !down && !left && !right) return;
 
         if (up && !down) {
             y -= DELTA_MOVE_VALUE;
@@ -197,17 +207,15 @@ public class Player extends Entity {
             moving = true;
         }
 
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (x > Game.GAME_WIDTH - 32) x = Game.GAME_WIDTH - 32;
-        if (y > Game.GAME_HEIGHT - 32) y = Game.GAME_HEIGHT - 32;
+        checkHitbox();
+
     }
 
+    // resets
     public void resetAniTick() {
         aniTick = 0;
         aniIndex = 0;
     }
-
     public void resetDirBooleans() {
         left = false;
         up = false;
