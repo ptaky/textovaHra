@@ -34,4 +34,16 @@ public class Constants {
 
         }
     }
+
+    public static class Rooms {
+        public static final int KRYO = 0;
+        public static final int MEDBAY = 1;
+        public static final int WORKSHOP = 2;
+        public static final int HALLWAY = 3;
+        public static final int GREENHOUSE = 4;
+        public static final int QUARANTINE = 5;
+        public static final int SERVER_ROOM = 6;
+        public static final int COMMUNICATION = 7;
+
+    }
 }

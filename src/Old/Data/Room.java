@@ -17,6 +17,8 @@ public class Room {
     private List<String> items;
     private List<String> npcs;
 
+    private String img;
+
     public Room() {}
 
     // Gettery a settery
@@ -90,6 +92,14 @@ public class Room {
     }
     public void setNpcs(List<String> npcs) {
         this.npcs = npcs;
+    }
+
+
+    public String getImg() {
+        return img;
+    }
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Override

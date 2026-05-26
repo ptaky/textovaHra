@@ -7,16 +7,14 @@ import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
 
-    public GamePanel gp;
+    private GamePanel gp;
 
     public KeyboardInputs(GamePanel gp) {
         this.gp = gp;
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -26,6 +24,10 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_S -> gp.getGame().getPlayer().setDown(true);
             case KeyEvent.VK_D -> gp.getGame().getPlayer().setRight(true);
 
+            case KeyEvent.VK_X -> gp.getGame().getCurrentRoom().setExplored(true);
+            case KeyEvent.VK_F -> gp.getGame().getPlayer().tryPickUpItem();
+            case KeyEvent.VK_E -> gp.getGame().getPlayer().tryInteractWithNPC();
+//            case KeyEvent.VK_SPACE -> gp.getGame()  - presun do jine roomky
         }
     }
 
@@ -36,8 +38,6 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_A -> gp.getGame().getPlayer().setLeft(false);
             case KeyEvent.VK_S -> gp.getGame().getPlayer().setDown(false);
             case KeyEvent.VK_D -> gp.getGame().getPlayer().setRight(false);
-
         }
     }
-
 }
