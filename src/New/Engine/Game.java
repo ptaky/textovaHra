@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Game implements Runnable {
 
     public static final int DEFAULT_TILE_SIZE = 32;
-    public static final float SCALE = 2.0f;
+    public static final float SCALE = 1.5f;
     public static final int TILES_WIDTH = 26;
     public static final int TILES_HEIGHT = 14;
     public static final int TILE_SIZE = (int)(DEFAULT_TILE_SIZE * SCALE);
@@ -232,6 +232,8 @@ public class Game implements Runnable {
         this.playerWon = playerWon;
         this.gameOver = true;
     }
+
+    public RoomManager getRoomManager() { return roomManager; }
 
     public boolean playerLost() { return playerLost; }
     public void setPlayerLost(boolean playerLost) {

@@ -17,12 +17,17 @@ public class RoomManager {
     private Game game;
     private HashMap<String, BufferedImage> roomBackgrounds;
 
-    private final int border = 32;
+    private HashMap<String, HashMap<String, String>> roomTransitions;
+
+    private final int border = TILE_SIZE;
 
     public RoomManager(Game game) {
         this.game = game;
         this.roomBackgrounds = new HashMap<>();
+        this.roomTransitions = new HashMap<>();
+
         preloadRoomBackgrounds();
+        loadRoomTransitions();
     }
 
     private void preloadRoomBackgrounds() {
@@ -74,69 +79,98 @@ public class RoomManager {
         }
     }
 
-    private void checkRoomTransitions() {
+    public void tryTransition() {
+
         Room currentRoom = game.getCurrentRoom();
+
         if (currentRoom == null) return;
 
-        float playerX = game.getPlayer().getX();
-        float playerY = game.getPlayer().getY();
-        String currentRoomId = currentRoom.getId();
+        float x = game.getPlayer().getX();
+        float y = game.getPlayer().getY();
 
-        if (playerX > GAME_WIDTH - TILE_SIZE) {
-            switch (currentRoomId) {
-                case "lekarsky_trakt" -> tryTransition("dilna", "right");
-                case "chodba" -> tryTransition("botanicka_zahrada", "right");
-                case "karantena" -> tryTransition("serverovna", "right");
-                default -> game.getPlayer().setX(GAME_WIDTH - TILE_SIZE);
-            }
+        String roomId = currentRoom.getId();
+
+        HashMap<String, String> exits = roomTransitions.get(roomId);
+
+        if (exits == null) return;
+
+        if (y <= border && exits.containsKey("up")) {
+            changeRoom(exits.get("up"), "up");
         }
-        else if (playerX < 0) {
-            switch (currentRoomId) {
-                case "dilna" -> tryTransition("lekarsky_trakt", "left");
-                case "botanicka_zahrada" -> tryTransition("chodba", "left");
-                case "serverovna" -> tryTransition("karantena", "left");
-                default -> game.getPlayer().setX(0);
-            }
+
+        else if (y + PLAYER_SIZE >= GAME_HEIGHT - border
+                && exits.containsKey("down")) {
+
+            changeRoom(exits.get("down"), "down");
         }
-        else if (playerY > GAME_HEIGHT - TILE_SIZE) {
-            switch (currentRoomId) {
-                case "vysilaci_vez" -> tryTransition("karantena", "down");
-                case "karantena" -> tryTransition("chodba", "down");
-                case "chodba" -> tryTransition("lekarsky_trakt", "down");
-                case "lekarsky_trakt" -> tryTransition("kryokomora", "down");
-                default -> game.getPlayer().setY(GAME_HEIGHT - TILE_SIZE);
-            }
+
+        else if (x <= border && exits.containsKey("left")) {
+            changeRoom(exits.get("left"), "left");
         }
-        else if (playerY < 0) {
-            switch (currentRoomId) {
-                case "kryokomora" -> tryTransition("lekarsky_trakt", "up");
-                case "lekarsky_trakt" -> tryTransition("chodba", "up");
-                case "chodba" -> tryTransition("karantena", "up");
-                case "karantena" -> tryTransition("vysilaci_vez", "up");
-                default -> game.getPlayer().setY(0);
+
+        else if (x + PLAYER_SIZE >= GAME_WIDTH - border
+                && exits.containsKey("right")) {
+
+            changeRoom(exits.get("right"), "right");
+        }
+    }
+
+    private void changeRoom(String targetRoomId, String direction) {
+
+        Room targetRoom = game.getRooms().get(targetRoomId);
+
+        if (targetRoom == null) return;
+
+        if (targetRoom.isLocked()) return;
+
+        game.setCurrentRoom(targetRoom);
+
+        switch (direction) {
+
+            case "up" -> {
+                game.getPlayer().setY(Game.GAME_HEIGHT - PLAYER_SIZE);
+            }
+
+            case "down" -> {
+                game.getPlayer().setY(0);
+            }
+
+            case "left" -> {
+                game.getPlayer().setX(Game.GAME_WIDTH - PLAYER_SIZE);
+            }
+
+            case "right" -> {
+                game.getPlayer().setX(0);
             }
         }
     }
 
-    private void tryTransition(String targetRoomId, String direction) {
-        Room targetRoom = game.getRooms().get(targetRoomId);
-        if (targetRoom != null) {
-            if (!targetRoom.isLocked()) {
-                game.setCurrentRoom(targetRoom);
-                switch (direction) {
-                    case "up" -> game.getPlayer().setY(GAME_HEIGHT - TILE_SIZE - 5);
-                    case "down" -> game.getPlayer().setY(5);
-                    case "left" -> game.getPlayer().setX(GAME_WIDTH - TILE_SIZE - 5);
-                    case "right" -> game.getPlayer().setX(5);
-                }
-            } else {
-                switch (direction) {
-                    case "up" -> game.getPlayer().setY(5);
-                    case "down" -> game.getPlayer().setY(GAME_HEIGHT - TILE_SIZE - 5);
-                    case "left" -> game.getPlayer().setX(5);
-                    case "right" -> game.getPlayer().setX(GAME_WIDTH - TILE_SIZE - 5);
-                }
-            }
-        }
+    private void addTransition(String from, String direction, String to) {
+
+        roomTransitions.putIfAbsent(from, new HashMap<>());
+        roomTransitions.get(from).put(direction, to);
+    }
+
+    private void loadRoomTransitions() {
+
+        addTransition("kryokomora", "up", "lekarsky_trakt");
+
+        addTransition("lekarsky_trakt", "down", "kryokomora");
+        addTransition("lekarsky_trakt", "up", "chodba");
+        addTransition("lekarsky_trakt", "right", "dilna");
+
+        addTransition("chodba", "down", "lekarsky_trakt");
+        addTransition("chodba", "up", "karantena");
+        addTransition("chodba", "right", "botanicka_zahrada");
+
+        addTransition("karantena", "down", "chodba");
+        addTransition("karantena", "up", "vysilaci_vez");
+        addTransition("karantena", "right", "serverovna");
+
+        addTransition("vysilaci_vez", "down", "karantena");
+
+        addTransition("dilna", "left", "lekarsky_trakt");
+        addTransition("botanicka_zahrada", "left", "chodba");
+        addTransition("serverovna", "left", "karantena");
     }
 }
