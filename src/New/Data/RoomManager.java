@@ -12,7 +12,6 @@ import static New.Data.Constants.GameStates.*;
 import static New.Engine.Game.*;
 import static New.Entities.Player.*;
 
-//TODO nefunguje prechod mezi roomkama
 public class RoomManager {
 
     private Game game;
@@ -126,7 +125,7 @@ public class RoomManager {
             return;
         }
         if (targetRoomId.equals("karantena") && !game.getPlayerInventory().contains(game.getPlayerInventory().getItemById("plynova_maska"))) {
-            game.setGameState(DEFEATED); //TODO musi se dodelat tlacitko na restart hry
+            game.setGameState(DEFEATED);
             return;
         }
 

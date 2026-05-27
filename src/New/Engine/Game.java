@@ -40,7 +40,6 @@ public class Game implements Runnable {
     private HashMap<String, NPC> NPCs;
     private HashMap<String, Item> items;
 
-    private boolean paused = false;
     private int gameState;
 
     private String popupText;
@@ -189,6 +188,29 @@ public class Game implements Runnable {
                 yOffset += 25;
             }
         }
+
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+        g.setColor(Color.WHITE);
+        g.drawString("Press R to Restart", GAME_WIDTH / 2 - 100, GAME_HEIGHT - 120);
+        g.drawString("Press ESC for Main Menu", GAME_WIDTH / 2 - 130, GAME_HEIGHT - 90);
+    }
+
+    public void restartGame() {
+
+        gameState = LEAVE;
+
+        gameScreen.dispose();
+
+        new Game();
+    }
+
+    public void backToMenu() {
+
+        gameState = LEAVE;
+
+        gameScreen.dispose();
+
+        new MainMenu_Screen();
     }
 
     public void pauseGame() {
@@ -233,7 +255,7 @@ public class Game implements Runnable {
         int frames = 0;
         int updates = 0;
 
-        while (true) {
+        while (gameState != LEAVE) {
             long currentTime = System.nanoTime();
 
             deltaU += (currentTime - lastUpdate) / timePerUpdate;
@@ -291,13 +313,6 @@ public class Game implements Runnable {
         this.gameState = gameState;
     }
 
-    public boolean isPaused() {
-        return paused;
-    }
-    public void setPaused(boolean paused) {
-        this.paused = paused;
-    }
-
     public boolean roomContains(String itemId) {
         return currentRoom != null && currentRoom.containsItem(itemId);
     }
@@ -323,6 +338,7 @@ public class Game implements Runnable {
     public void setPlayerWon(boolean playerWon) {
         this.playerWon = playerWon;
         this.gameOver = true;
+        gameState = VICTORY;
     }
 
     public RoomManager getRoomManager() { return roomManager; }

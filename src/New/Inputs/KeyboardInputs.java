@@ -30,8 +30,14 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_SPACE -> gp.getGame().getRoomManager().tryTransition();
             case KeyEvent.VK_ESCAPE -> {
                 if (gp.getGame().getGameState() == RUNNING) {
-                    gp.getGame().setGameState(PAUSED);
                     gp.getGame().pauseGame();
+                } else if (gp.getGame().getGameState() == DEFEATED || gp.getGame().getGameState() == VICTORY) {
+                    gp.getGame().backToMenu();
+                }
+            }
+            case KeyEvent.VK_R -> {
+                if (gp.getGame().getGameState() == DEFEATED || gp.getGame().getGameState() == VICTORY) {
+                    gp.getGame().restartGame();
                 }
             }
         }
