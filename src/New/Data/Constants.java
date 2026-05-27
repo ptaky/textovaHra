@@ -39,5 +39,6 @@ public class Constants {
         public static final int LEAVE = 2;
         public static final int VICTORY = 2;
         public static final int DEFEATED = 3;
+        public static final int INVENTORY = 4;
     }
 }

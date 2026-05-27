@@ -33,6 +33,9 @@ public class Inventory {
     public boolean isEmpty() {
         return items.isEmpty();
     }
+    public List<Item> getItems() {
+        return items;
+    }
 
     /**
      * Finds an item in the inventory by its ID.

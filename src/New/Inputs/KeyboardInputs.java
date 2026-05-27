@@ -28,6 +28,7 @@ public class KeyboardInputs implements KeyListener {
 
             case KeyEvent.VK_E -> gp.getGame().getCurrentRoom().setExplored(true);
             case KeyEvent.VK_SPACE -> gp.getGame().getRoomManager().tryTransition();
+            case KeyEvent.VK_TAB -> gp.getGame().toggleInventory();
             case KeyEvent.VK_ESCAPE -> {
                 if (gp.getGame().getGameState() == RUNNING) {
                     gp.getGame().pauseGame();

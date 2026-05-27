@@ -148,6 +148,13 @@ public class Game implements Runnable {
                 g.drawString("PAUSED", GAME_WIDTH / 2 - 100, GAME_HEIGHT / 2);
             }
 
+            case INVENTORY -> {
+                roomManager.draw(g);
+                player.render(g);
+
+                drawInventory(g);
+            }
+
             case DEFEATED -> drawEndScreen(g, false);
 
             case VICTORY -> drawEndScreen(g, true);
@@ -242,6 +249,18 @@ public class Game implements Runnable {
         thread.start();
     }
 
+    public void toggleInventory() {
+
+        if (gameState == RUNNING) {
+
+            gameState = INVENTORY;
+
+        } else if (gameState == INVENTORY) {
+
+            gameState = RUNNING;
+        }
+    }
+
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_SET;
@@ -281,6 +300,66 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    private void drawInventory(Graphics g) {
+
+        // dark overlay
+        g.setColor(new Color(0, 0, 0, 180));
+        g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        // inventory window
+        g.setColor(Color.BLACK);
+        g.fillRoundRect(
+                GAME_WIDTH / 2 - 250,
+                GAME_HEIGHT / 2 - 180,
+                500,
+                360,
+                25,
+                25
+        );
+
+        // border
+        g.setColor(Color.CYAN);
+        g.drawRoundRect(
+                GAME_WIDTH / 2 - 250,
+                GAME_HEIGHT / 2 - 180,
+                500,
+                360,
+                25,
+                25
+        );
+
+        // title
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawString(
+                "INVENTORY",
+                GAME_WIDTH / 2 - 95,
+                GAME_HEIGHT / 2 - 130
+        );
+
+        // items
+        g.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        int y = GAME_HEIGHT / 2 - 80;
+
+        if (playerInventory.isEmpty()) {
+            g.drawString("Inventory is empty", GAME_WIDTH / 2 - 80, y);
+        } else {
+            for (Item item : playerInventory.getItems()) {
+                g.drawString("- " + item.getName(), GAME_WIDTH / 2 - 180, y);
+                y += 35;
+            }
+        }
+
+        // controls
+        g.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        g.drawString(
+                "Press TAB to close",
+                GAME_WIDTH / 2 - 80,
+                GAME_HEIGHT / 2 + 145
+        );
     }
 
     public void windowsFocusLost() {

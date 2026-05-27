@@ -20,6 +20,7 @@ public class GamePanel extends JPanel {
 
         setFocusable(true);
         addKeyListener(new KeyboardInputs(this));
+        setFocusTraversalKeysEnabled(false);
 
         mouseInputs = new MouseInputs();
         addMouseListener(mouseInputs);
