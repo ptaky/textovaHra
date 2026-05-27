@@ -18,7 +18,6 @@ public class GamePanel extends JPanel {
 
         setPanelSize();
 
-        // Zajištění focusu pro zpracování klávesových vstupů
         setFocusable(true);
         addKeyListener(new KeyboardInputs(this));
 
@@ -31,11 +30,9 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Vyčištění obrazovky černou barvou (vesmírná stanice Boreas)
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-        // Vykreslení celé hry prostřednictvím Game
         game.render(g);
     }
 

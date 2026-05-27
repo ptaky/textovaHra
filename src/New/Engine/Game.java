@@ -1,13 +1,17 @@
 package New.Engine;
 
-import New.Data.Rooms.RoomManager;
+import New.Data.RoomManager;
 import New.Entities.Player;
-import New.Screens.GameScreen;
+import New.Screens.EscMenu_Screen;
+import New.Screens.Game_Screen;
+import New.Screens.MainMenu_Screen;
 import Old.Data.*;
 
 import java.awt.*;
 import java.awt.Color;
 import java.util.HashMap;
+
+import static New.Data.Constants.GameStates.*;
 
 public class Game implements Runnable {
 
@@ -20,7 +24,7 @@ public class Game implements Runnable {
     public static final int GAME_HEIGHT = TILE_SIZE * TILES_HEIGHT;
 
     private GamePanel gamePanel;
-    private GameScreen gameScreen;
+    private Game_Screen gameScreen;
     private Thread thread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
@@ -36,6 +40,12 @@ public class Game implements Runnable {
     private HashMap<String, NPC> NPCs;
     private HashMap<String, Item> items;
 
+    private boolean paused = false;
+    private int gameState;
+
+    private String popupText;
+    private int popupTimer;
+
     private boolean gameOver;
     private boolean playerWon;
     private boolean playerLost;
@@ -46,10 +56,9 @@ public class Game implements Runnable {
 
     public Game() {
         setupBoreasGameData();
-        initClasses();
 
         this.gamePanel = new GamePanel(this);
-        this.gameScreen = new GameScreen(gamePanel);
+        this.gameScreen = new Game_Screen(gamePanel);
         this.gamePanel.requestFocus();
 
         startGameLoop();
@@ -67,18 +76,18 @@ public class Game implements Runnable {
         checkpoint = 0;
         timeLeft = 0;
 
+        gameState = RUNNING;
+
+        player = new Player(GAME_WIDTH / 2f - (TILE_SIZE / 2f), GAME_HEIGHT / 2f - (TILE_SIZE / 2f), this);
+        roomManager = new RoomManager(this);
+
         setIntroduction();
         setWinningText();
         setLosingText();
     }
 
-    public void initClasses() {
-        player = new Player(GAME_WIDTH / 2f - (TILE_SIZE / 2f), GAME_HEIGHT / 2f - (TILE_SIZE / 2f), this);
-        roomManager = new RoomManager(this);
-    }
-
     public void update() {
-        if (!gameOver) {
+        if (gameState == RUNNING) {
             roomManager.update();
             player.update();
 
@@ -91,50 +100,119 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g) {
-        if (!gameOver) {
-            roomManager.draw(g);
-            player.render(g);
 
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Arial", Font.BOLD, 14));
-            if (currentRoom != null) {
-                g.drawString("MÍSTNOST: " + currentRoom.getName().toUpperCase(), 20, 35);
+        switch (gameState) {
+
+            case RUNNING -> {
+                roomManager.draw(g);
+                player.render(g);
+
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Arial", Font.BOLD, 14));
+
+                if (currentRoom != null) {
+                    g.drawString("MÍSTNOST: " + currentRoom.getName().toUpperCase(), 20, 35);
+                }
+
+                g.setFont(new Font("Arial", Font.PLAIN, 12));
+                g.drawString(getLeftTime(), 20, 55);
+                g.drawString("Inventář: " + playerInventory.toString(), 20, 75);
+
+                // popup text
+                if (popupTimer > 0) {
+
+                    g.setColor(new Color(0, 0, 0, 170));
+                    g.fillRoundRect(GAME_WIDTH / 2 - 200, GAME_HEIGHT - 100, 400, 50, 20, 20);
+                    g.setColor(Color.WHITE);
+                    g.setFont(new Font("Arial", Font.BOLD, 20));
+
+                    FontMetrics fm = g.getFontMetrics();
+
+                    int textWidth = fm.stringWidth(popupText);
+
+                    g.drawString(popupText, GAME_WIDTH / 2 - textWidth / 2, GAME_HEIGHT - 68);
+
+                    popupTimer--;
+                }
             }
-            g.setFont(new Font("Arial", Font.PLAIN, 12));
-            g.drawString(getLeftTime(), 20, 55);
-            g.drawString("Inventář: " + playerInventory.toString(), 20, 75);
+
+            case PAUSED -> {
+                // OPTIONAL: můžeš vykreslit frozen frame + overlay
+                roomManager.draw(g);
+                player.render(g);
+
+                g.setColor(new Color(0, 0, 0, 150));
+                g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+                g.setColor(Color.CYAN);
+                g.setFont(new Font("Arial", Font.BOLD, 40));
+                g.drawString("PAUSED", GAME_WIDTH / 2 - 100, GAME_HEIGHT / 2);
+            }
+
+            case DEFEATED -> drawEndScreen(g, false);
+
+            case VICTORY -> drawEndScreen(g, true);
+        }
+    }
+
+    private void drawEndScreen(Graphics g, boolean win) {
+
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        g.setFont(new Font("Arial", Font.BOLD, 36));
+        int yOffset = GAME_HEIGHT / 2 - 120;
+
+        if (win) {
+            g.setColor(Color.GREEN);
+            g.drawString("MISE SPLNĚNA!", GAME_WIDTH / 2 - 130, yOffset);
+
+            g.setFont(new Font("Arial", Font.PLAIN, 16));
+            g.setColor(Color.WHITE);
+
+            yOffset += 50;
+            for (String line : winningText.split("\n")) {
+                g.drawString(line, GAME_WIDTH / 2 - 350, yOffset);
+                yOffset += 25;
+            }
 
         } else {
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+            g.setColor(Color.RED);
+            g.drawString("MISE SELHALA", GAME_WIDTH / 2 - 120, yOffset);
 
-            g.setFont(new Font("Arial", Font.BOLD, 36));
-            int yOffset = GAME_HEIGHT / 2 - 120;
+            g.setFont(new Font("Arial", Font.PLAIN, 16));
+            g.setColor(Color.WHITE);
 
-            if (playerLost) {
-                g.setColor(Color.RED);
-                g.drawString("MISE SELHALA", GAME_WIDTH / 2 - 120, yOffset);
-
-                g.setFont(new Font("Arial", Font.PLAIN, 16));
-                g.setColor(Color.WHITE);
-                yOffset += 50;
-                for (String line : losingText.split("\n")) {
-                    g.drawString(line, GAME_WIDTH / 2 - 350, yOffset);
-                    yOffset += 25;
-                }
-            } else if (playerWon) {
-                g.setColor(Color.GREEN);
-                g.drawString("MISE SPLNĚNA!", GAME_WIDTH / 2 - 130, yOffset);
-
-                g.setFont(new Font("Arial", Font.PLAIN, 16));
-                g.setColor(Color.WHITE);
-                yOffset += 50;
-                for (String line : winningText.split("\n")) {
-                    g.drawString(line, GAME_WIDTH / 2 - 350, yOffset);
-                    yOffset += 25;
-                }
+            yOffset += 50;
+            for (String line : losingText.split("\n")) {
+                g.drawString(line, GAME_WIDTH / 2 - 350, yOffset);
+                yOffset += 25;
             }
         }
+    }
+
+    public void pauseGame() {
+        gameState = PAUSED;
+
+        EscMenu_Screen escScreen = new EscMenu_Screen(
+                () -> {
+                    gameState = RUNNING;
+                    gamePanel.requestFocus();
+                },
+                () -> {
+                    gameState = LEAVE;
+                    gameScreen.dispose();
+                    new MainMenu_Screen();
+                }
+
+        );
+
+        escScreen.setVisible(true);
+    }
+
+    public void showPopup(String text) {
+        this.popupText = text;
+        this.popupTimer = 180;
     }
 
     private void startGameLoop() {
@@ -204,6 +282,20 @@ public class Game implements Runnable {
             default -> txt += "čas vypršel!";
         }
         return txt;
+    }
+
+    public int getGameState() {
+        return gameState;
+    }
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
     public boolean roomContains(String itemId) {

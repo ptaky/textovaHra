@@ -5,6 +5,8 @@ import New.Engine.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static New.Data.Constants.GameStates.*;
+
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gp;
@@ -24,10 +26,14 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_S -> gp.getGame().getPlayer().setDown(true);
             case KeyEvent.VK_D -> gp.getGame().getPlayer().setRight(true);
 
-            case KeyEvent.VK_X -> gp.getGame().getCurrentRoom().setExplored(true);
-            case KeyEvent.VK_F -> gp.getGame().getPlayer().tryPickUpItem();
-            case KeyEvent.VK_E -> gp.getGame().getPlayer().tryInteractWithNPC();
+            case KeyEvent.VK_E -> gp.getGame().getCurrentRoom().setExplored(true);
             case KeyEvent.VK_SPACE -> gp.getGame().getRoomManager().tryTransition();
+            case KeyEvent.VK_ESCAPE -> {
+                if (gp.getGame().getGameState() == RUNNING) {
+                    gp.getGame().setGameState(PAUSED);
+                    gp.getGame().pauseGame();
+                }
+            }
         }
     }
 

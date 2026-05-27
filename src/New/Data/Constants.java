@@ -11,8 +11,6 @@ public class Constants {
     }
 
     public static class PlayerConstants {
-        public static final int DELTA_MOVE_VALUE = 3;
-
         public static final int IDLE = 0;
         public static final int RUNNING_RIGHT = 1;
         public static final int RUNNING_LEFT = 2;
@@ -35,15 +33,11 @@ public class Constants {
         }
     }
 
-    public static class Rooms {
-        public static final int KRYO = 0;
-        public static final int MEDBAY = 1;
-        public static final int WORKSHOP = 2;
-        public static final int HALLWAY = 3;
-        public static final int GREENHOUSE = 4;
-        public static final int QUARANTINE = 5;
-        public static final int SERVER_ROOM = 6;
-        public static final int COMMUNICATION = 7;
-
+    public static class GameStates {
+        public static final int RUNNING = 0;
+        public static final int PAUSED = 1;
+        public static final int LEAVE = 2;
+        public static final int VICTORY = 2;
+        public static final int DEFEATED = 3;
     }
 }

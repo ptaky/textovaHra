@@ -1,4 +1,5 @@
 import New.Engine.Game;
+import New.Screens.MainMenu_Screen;
 
 /**
  * Main.
@@ -9,6 +10,6 @@ public class Main {
 //        UserInterface ui = new UserInterface();
 //        ui.play();
 
-        new Game();
+        new MainMenu_Screen();
     }
 }

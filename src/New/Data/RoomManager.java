@@ -1,13 +1,14 @@
-package New.Data.Rooms;
+package New.Data;
 
 import New.Engine.Game;
 import Old.Data.Room;
-import New.Data.DataLoader;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import static New.Data.Constants.GameStates.*;
 import static New.Engine.Game.*;
 import static New.Entities.Player.*;
 
@@ -120,8 +121,14 @@ public class RoomManager {
         Room targetRoom = game.getRooms().get(targetRoomId);
 
         if (targetRoom == null) return;
-
-        if (targetRoom.isLocked()) return;
+        if (targetRoom.isLocked()) {
+            game.showPopup("tahle místnost je zamčená");
+            return;
+        }
+        if (targetRoomId.equals("karantena") && !game.getPlayerInventory().contains(game.getPlayerInventory().getItemById("plynova_maska"))) {
+            game.setGameState(DEFEATED); //TODO musi se dodelat tlacitko na restart hry
+            return;
+        }
 
         game.setCurrentRoom(targetRoom);
 
