@@ -61,6 +61,7 @@ public class KeyboardInputs implements KeyListener {
 
             // inventory
             case KeyEvent.VK_TAB -> gp.getGame().toggleInventory();
+            case KeyEvent.VK_ENTER -> gp.getGame().useItem();
             case KeyEvent.VK_UP -> gp.getGame().inventoryUp();
             case KeyEvent.VK_DOWN -> gp.getGame().inventoryDown();
             case KeyEvent.VK_LEFT -> gp.getGame().selectInventory();

@@ -520,6 +520,49 @@ public class Game implements Runnable {
         }
     }
 
+    public void useItem() {
+
+        if (gameState != INVENTORY) return;
+
+        if (selectingInventory) {
+            if (playerInventory.getItems().isEmpty()) return;
+
+            Item item = playerInventory.getItems().get(inventorySelection);
+
+            if (!item.isUsable()) return;
+
+            // String result =
+            switch (item.getUseAction()) {
+
+                case "repair_drone" ->
+                        useRepairDrone(room, effects);
+
+                case "restore_power" ->
+                        useRestorePower(room, effects);
+
+                case "install_uv_lamp" ->
+                        useInstallUVLamp(room, effects);
+
+                case "unlock_server_room" ->
+                        useUnlockServerRoom(room, effects);
+
+                case "sleep_target" ->
+                        useAffectTarget(room, effects, "sleep");
+
+                case "confuse_target" ->
+                        useAffectTarget(room, effects, "confuse");
+
+                case "activate_signal" ->
+                        useActivateSignal(room, effects);
+
+                default ->
+                        game.error("Tohle použití ještě není implementované: " + action);
+            };
+
+            //TODO dodelat pouzitelnost itemu
+        }
+    }
+
     // get set __________________________________________________________________________________
     public String getLine(boolean withNextLine) {
         String line = "__________________________________________________________________________________";
