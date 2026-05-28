@@ -45,6 +45,10 @@ public class Game implements Runnable {
     private String popupText;
     private int popupTimer;
 
+    private int inventorySelection;
+    private int groundSelection;
+    private boolean selectingInventory;
+
     private boolean gameOver;
     private boolean playerWon;
     private boolean playerLost;
@@ -77,6 +81,10 @@ public class Game implements Runnable {
 
         gameState = RUNNING;
 
+        inventorySelection = 0;
+        groundSelection = 0;
+        selectingInventory = true;
+
         player = new Player(GAME_WIDTH / 2f - (TILE_SIZE / 2f), GAME_HEIGHT / 2f - (TILE_SIZE / 2f), this);
         roomManager = new RoomManager(this);
 
@@ -85,6 +93,54 @@ public class Game implements Runnable {
         setLosingText();
     }
 
+    // game loop __________________________________________________________________________________
+    private void startGameLoop() {
+        thread = new Thread(this);
+        thread.start();
+    }
+
+    @Override
+    public void run() {
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
+
+        long lastUpdate = System.nanoTime();
+        long lastCheck = System.currentTimeMillis();
+
+        double deltaU = 0;
+        double deltaF = 0;
+        int frames = 0;
+        int updates = 0;
+
+        while (gameState != LEAVE) {
+            long currentTime = System.nanoTime();
+
+            deltaU += (currentTime - lastUpdate) / timePerUpdate;
+            deltaF += (currentTime - lastUpdate) / timePerFrame;
+            lastUpdate = currentTime;
+
+            while (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
+            }
+
+            if (deltaF >= 1) {
+                gamePanel.repaint();
+                frames++;
+                deltaF--;
+            }
+
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                frames = 0;
+                updates = 0;
+            }
+        }
+    }
+
+    // FPS & UPS __________________________________________________________________________________
     public void update() {
         if (gameState == RUNNING) {
             roomManager.update();
@@ -97,7 +153,6 @@ public class Game implements Runnable {
             }
         }
     }
-
     public void render(Graphics g) {
 
         switch (gameState) {
@@ -106,33 +161,7 @@ public class Game implements Runnable {
                 roomManager.draw(g);
                 player.render(g);
 
-                g.setColor(Color.WHITE);
-                g.setFont(new Font("Arial", Font.BOLD, 14));
-
-                if (currentRoom != null) {
-                    g.drawString("MÍSTNOST: " + currentRoom.getName().toUpperCase(), 20, 35);
-                }
-
-                g.setFont(new Font("Arial", Font.PLAIN, 12));
-                g.drawString(getLeftTime(), 20, 55);
-                g.drawString("Inventář: " + playerInventory.toString(), 20, 75);
-
-                // popup text
-                if (popupTimer > 0) {
-
-                    g.setColor(new Color(0, 0, 0, 170));
-                    g.fillRoundRect(GAME_WIDTH / 2 - 200, GAME_HEIGHT - 100, 400, 50, 20, 20);
-                    g.setColor(Color.WHITE);
-                    g.setFont(new Font("Arial", Font.BOLD, 20));
-
-                    FontMetrics fm = g.getFontMetrics();
-
-                    int textWidth = fm.stringWidth(popupText);
-
-                    g.drawString(popupText, GAME_WIDTH / 2 - textWidth / 2, GAME_HEIGHT - 68);
-
-                    popupTimer--;
-                }
+                drawHUD(g);
             }
 
             case PAUSED -> {
@@ -159,6 +188,13 @@ public class Game implements Runnable {
 
             case VICTORY -> drawEndScreen(g, true);
         }
+
+        drawPopup(g);
+    }
+
+    // helpers __________________________________________________________________________________
+    public void windowsFocusLost() {
+        player.resetDirBooleans();
     }
 
     private void drawEndScreen(Graphics g, boolean win) {
@@ -241,14 +277,43 @@ public class Game implements Runnable {
 
     public void showPopup(String text) {
         this.popupText = text;
-        this.popupTimer = 180;
+        this.popupTimer = 120;
     }
 
-    private void startGameLoop() {
-        thread = new Thread(this);
-        thread.start();
+    public void drawPopup(Graphics g) {
+
+        if (popupTimer <= 0) return;
+
+        g.setColor(new Color(0, 0, 0, 170));
+        g.fillRoundRect(GAME_WIDTH / 2 - 200, GAME_HEIGHT - 100, 400, 50, 20, 20);
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(popupText);
+
+        g.drawString(popupText,
+                GAME_WIDTH / 2 - textWidth / 2,
+                GAME_HEIGHT - 68);
+
+        popupTimer--;
     }
 
+    public void drawHUD(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+
+        if (currentRoom != null) {
+            g.drawString("MÍSTNOST: " + currentRoom.getName().toUpperCase(), 20, 35);
+        }
+
+        g.setFont(new Font("Arial", Font.PLAIN, 12));
+        g.drawString(getLeftTime(), 20, 55);
+        g.drawString("Inventář: " + playerInventory.toString(), 20, 75);
+    }
+
+    // inventory __________________________________________________________________________________
     public void toggleInventory() {
 
         if (gameState == RUNNING) {
@@ -261,111 +326,201 @@ public class Game implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        double timePerFrame = 1000000000.0 / FPS_SET;
-        double timePerUpdate = 1000000000.0 / UPS_SET;
-
-        long lastUpdate = System.nanoTime();
-        long lastCheck = System.currentTimeMillis();
-
-        double deltaU = 0;
-        double deltaF = 0;
-        int frames = 0;
-        int updates = 0;
-
-        while (gameState != LEAVE) {
-            long currentTime = System.nanoTime();
-
-            deltaU += (currentTime - lastUpdate) / timePerUpdate;
-            deltaF += (currentTime - lastUpdate) / timePerFrame;
-            lastUpdate = currentTime;
-
-            while (deltaU >= 1) {
-                update();
-                updates++;
-                deltaU--;
-            }
-
-            if (deltaF >= 1) {
-                gamePanel.repaint();
-                frames++;
-                deltaF--;
-            }
-
-            if (System.currentTimeMillis() - lastCheck >= 1000) {
-                lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
-                frames = 0;
-                updates = 0;
-            }
-        }
-    }
-
     private void drawInventory(Graphics g) {
 
-        // dark overlay
-        g.setColor(new Color(0, 0, 0, 180));
-        g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        g.setColor(new Color(0,0,0,180));
+        g.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
 
-        // inventory window
+        int panelWidth = 250;
+        int panelHeight = 300;
+
+        int leftX = GAME_WIDTH / 2 - 300;
+        int rightX = GAME_WIDTH / 2 + 50;
+
+        int panelY = GAME_HEIGHT / 2 - panelHeight / 2;
+
+        // LEFT PANEL
+
         g.setColor(Color.BLACK);
-        g.fillRoundRect(
-                GAME_WIDTH / 2 - 250,
-                GAME_HEIGHT / 2 - 180,
-                500,
-                360,
-                25,
-                25
-        );
+        g.fillRoundRect(leftX, panelY, panelWidth, panelHeight,20,20);
 
-        // border
-        g.setColor(Color.CYAN);
-        g.drawRoundRect(
-                GAME_WIDTH / 2 - 250,
-                GAME_HEIGHT / 2 - 180,
-                500,
-                360,
-                25,
-                25
-        );
+        g.setColor(selectingInventory ? Color.CYAN : Color.GRAY);
+        g.drawRoundRect(leftX, panelY, panelWidth, panelHeight,20,20);
 
-        // title
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        g.drawString(
-                "INVENTORY",
-                GAME_WIDTH / 2 - 95,
-                GAME_HEIGHT / 2 - 130
-        );
+        // RIGHT PANEL
 
-        // items
+        g.setColor(Color.BLACK);
+        g.fillRoundRect(rightX, panelY, panelWidth, panelHeight,20,20);
+
+        g.setColor(!selectingInventory ? Color.CYAN : Color.GRAY);
+        g.drawRoundRect(rightX, panelY, panelWidth, panelHeight,20,20);
+
+        // TITLES
+
+        g.setFont(new Font("Arial", Font.BOLD, 24));
+        g.setColor(Color.WHITE);
+
+        g.drawString("Inventory", leftX + 55, panelY + 40);
+        g.drawString("Ground", rightX + 70, panelY + 40);
+
+        // PLAYER ITEMS
+
         g.setFont(new Font("Arial", Font.PLAIN, 18));
 
-        int y = GAME_HEIGHT / 2 - 80;
+        int y = panelY + 80;
 
-        if (playerInventory.isEmpty()) {
-            g.drawString("Inventory is empty", GAME_WIDTH / 2 - 80, y);
-        } else {
-            for (Item item : playerInventory.getItems()) {
-                g.drawString("- " + item.getName(), GAME_WIDTH / 2 - 180, y);
-                y += 35;
+        for (int i = 0; i < playerInventory.getItems().size(); i++) {
+
+            Item item = playerInventory.getItems().get(i);
+
+            if (item == null) continue;
+
+            if (selectingInventory && i == inventorySelection) {
+                g.setColor(Color.CYAN);
+            } else {
+                g.setColor(Color.WHITE);
             }
+
+            g.drawString(item.getName(), leftX + 30, y);
+
+            y += 30;
         }
 
-        // controls
-        g.setFont(new Font("Arial", Font.PLAIN, 16));
+        // GROUND ITEMS
+
+        y = panelY + 80;
+
+        if (currentRoom.isExplored()) {
+
+            for (int i = 0; i < currentRoom.getItems().size(); i++) {
+
+                String itemId = currentRoom.getItems().get(i);
+
+                Item realItem = items.get(itemId);
+
+                if (realItem == null) continue;
+
+                if (!selectingInventory && i == groundSelection) {
+                    g.setColor(Color.CYAN);
+                } else {
+                    g.setColor(Color.WHITE);
+                }
+
+                g.drawString(realItem.getName(), rightX + 30, y);
+
+                y += 30;
+            }
+
+        } else {
+
+            g.setColor(Color.GRAY);
+
+            g.drawString("Room not explored", rightX + 30, y);
+        }
+
+        // HELP
+
+        g.setColor(Color.GRAY);
+
+        g.setFont(new Font("Arial", Font.PLAIN, 14));
 
         g.drawString(
-                "Press TAB to close",
-                GAME_WIDTH / 2 - 80,
-                GAME_HEIGHT / 2 + 145
+                "W/S = MOVE | A/D = SWITCH | SPACE = TRANSFER | TAB = CLOSE",
+                GAME_WIDTH / 2 - 210,
+                panelY + panelHeight + 40
         );
     }
 
-    public void windowsFocusLost() {
-        player.resetDirBooleans();
+    public void inventoryUp() {
+
+        if (gameState != INVENTORY) return;
+
+        if (selectingInventory) {
+
+            if (inventorySelection > 0)
+                inventorySelection--;
+
+        } else {
+
+            if (groundSelection > 0)
+                groundSelection--;
+        }
+    }
+    public void inventoryDown() {
+
+        if (gameState != INVENTORY) return;
+
+        if (selectingInventory) {
+
+            if (inventorySelection < playerInventory.getItems().size() - 1)
+                inventorySelection++;
+
+        } else {
+
+            if (groundSelection < currentRoom.getItems().size() - 1)
+                groundSelection++;
+        }
+    }
+    public void selectInventory() {
+        selectingInventory = true;
+    }
+    public void selectGround() {
+        selectingInventory = false;
     }
 
+    public void moveSelectedItem() {
+
+        if (gameState != INVENTORY) return;
+
+        // INVENTORY -> GROUND
+        if (selectingInventory) {
+
+            if (playerInventory.getItems().isEmpty()) return;
+
+            if (!currentRoom.isExplored()) {
+                showPopup("Explore room first!");
+                return;
+            }
+
+            Item item = playerInventory.getItems().get(inventorySelection);
+
+            playerInventory.removeItem(item);
+
+            currentRoom.addItem(item.getId());
+
+            if (inventorySelection > 0)
+                inventorySelection--;
+        }
+
+        // GROUND -> INVENTORY
+        else {
+
+            if (!currentRoom.isExplored()) {
+                showPopup("Explore room first!");
+                return;
+            }
+
+            if (currentRoom.getItems().isEmpty()) return;
+
+            if (playerInventory.isFull()) {
+                showPopup("Inventory full!");
+                return;
+            }
+
+            String itemId = currentRoom.getItems().get(groundSelection);
+
+            currentRoom.removeItem(itemId);
+
+            Item realItem = items.get(itemId);
+
+            playerInventory.addItem(realItem);
+
+            if (groundSelection > 0)
+                groundSelection--;
+        }
+    }
+
+    // get set __________________________________________________________________________________
     public String getLine(boolean withNextLine) {
         String line = "__________________________________________________________________________________";
         if (withNextLine) return line + "\n";
