@@ -6,7 +6,7 @@
         "description": "Nacházíš se v kryokomoře výzkumné stanice Boreas. Světla poblikávají a vzduch je chladný a tichý.",
         "advancedDescription": "Kryokomora je zaplněná řadami kryokapslí, většina z nich je otevřená a nefunkční. Výstražné kontrolky na stěnách hlásí kritické selhání systémů a nestabilitu jádra planety. Podlaha je namrzlá a v rozích místnosti se drží chladná pára.",
         "nextRooms": ["lekarsky_trakt"],
-        "items": [],
+        "items": ["uspavaci_lektvar", "plynova_maska"],
         "npcs": [],
         "img": "Rooms/Kryo.png"
     },
