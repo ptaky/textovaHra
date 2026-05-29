@@ -71,8 +71,12 @@ public class KeyboardInputs implements KeyListener {
 
             // others
             case KeyEvent.VK_E -> {
-                gp.getGame().getCurrentRoom().setExplored(true);
-                gp.getGame().showPopup("prozkoumano");
+                if (gp.getGame().getGameState() == RUNNING) {
+                    gp.getGame().getCurrentRoom().setExplored(true);
+                    gp.getGame().showPopup("prozkoumano");
+                } else if (gp.getGame().getGameState() == INVENTORY) {
+                    gp.getGame().useItem();
+                }
             }
             case KeyEvent.VK_ESCAPE -> {
                 if (gp.getGame().getGameState() == RUNNING) {

@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static Data.Constants.Colors.*;
 import static Data.Constants.GameStates.*;
@@ -158,24 +159,30 @@ public class Game implements Runnable {
                 frames = 0;
                 updates = 0;
             }
+
+            if (gameState == VICTORY || gameState == DEFEATED || gameState == PAUSED) {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     // ---------- AKTUALIZACE A VYKRESLOVÁNÍ ----------
 
     public void update() {
+
+        if (gameState == VICTORY || gameState == DEFEATED) {
+            return;
+        }
+
         if (gameState == RUNNING) {
             roomManager.update();
             player.update();
             for (NPCEntity npc : npcEntities) {
                 npc.update();
-            }
-
-            // Podmínka vítězství při vstupu do vysílací věže se šifrovací kartou
-            if (currentRoom != null && currentRoom.getId().equals("vysilaci_vez")) {
-                if (playerInventory.getItemById("sifrovaci_karta") != null) {
-                    setPlayerWon(true);
-                }
             }
         }
     }
@@ -211,7 +218,7 @@ public class Game implements Runnable {
         drawPopup(g);
     }
 
-    // ---------- POMOCNÉ METODY PRO ŘÍZENÍ HRY ----------
+    // ---------- POMOCNÉ METODY PRO ----------
 
     public void windowsFocusLost() {
         player.resetDirBooleans();
@@ -426,7 +433,6 @@ public class Game implements Runnable {
             if (groundSelection > 0) groundSelection--;
         }
     }
-
     public void inventoryDown() {
         if (gameState != INVENTORY) return;
 
@@ -480,6 +486,237 @@ public class Game implements Runnable {
 
             if (groundSelection > 0) groundSelection--;
         }
+    }
+
+    // ---------- ITEMS LOGIKA ----------
+
+    public void useItem() {
+        if (gameState != INVENTORY) return;
+
+        if (selectingInventory) {
+            if (playerInventory.getItems().isEmpty()) return;
+
+            Item item = playerInventory.getItems().get(inventorySelection);
+
+            if (item == null) {
+                showPopup("Tenhle předmět nemáš v inventáři.");
+                return;
+            }
+            if (!item.isUsable()) {
+                showPopup("Tenhle předmět se teď nedá použít.");
+                return;
+            }
+
+            String action = item.getUseAction();
+            Map<String, Object> effects = item.getEffects();
+            String result;
+
+            switch (action) {
+                case "repair_drone" -> result = useRepairDroneAction(currentRoom, effects);
+                case "restore_power" -> result = useRestorePowerAction(currentRoom, effects);
+                case "install_uv_lamp" -> result = useInstallUVLampAction(currentRoom, effects);
+                case "unlock_server_room" -> result = useUnlockServerRoomAction(currentRoom, effects);
+                case "sleep_target" -> result = useAffectTargetAction(currentRoom, effects, "sleep");
+                case "confuse_target" -> result = useAffectTargetAction(currentRoom, effects, "confuse");
+                case "activate_signal" -> result = useActivateSignalAction(currentRoom, effects);
+                default -> result = "ERROR: Tohle použití ještě není implementované: " + action;
+            }
+
+            if (result != null && !result.startsWith("ERROR:")) {
+                if (item.isConsumable() || item.isSingleUse()) {
+                    playerInventory.removeItem(item);
+                    if (inventorySelection > 0) {
+                        inventorySelection--;
+                    }
+                }
+                if (gameState != VICTORY) {
+                    gameState = RUNNING;
+                }
+                showPopup(result);
+            } else {
+                String cleanError = result.replace("ERROR: ", "");
+                showPopup(cleanError);
+            }
+        }
+    }
+
+    private String useRepairDroneAction(Room room, Map<String, Object> effects) {
+        String npcId = normalizeNpcId(effectString(effects, "repairNpc"));
+        if (npcId == null) return "ERROR: Item nemá nastavené repairNpc.";
+
+        Entities.NPCEntity sparkEntity = getNPCById(npcId);
+        if (sparkEntity == null || !room.getId().equals(sparkEntity.getNpc().getLocation()) || !isPlayerNearEntity(sparkEntity)) {
+            return "ERROR: Tady to nemáš do čeho zapojit (jdi blíž k dronovi).";
+        }
+
+        NPC npc = NPCs.get(npcId);
+        if (npc == null) return "ERROR: Chyba dat: NPC '" + npcId + "' neexistuje.";
+
+        if (npc.isRepaired()) {
+            return npc.getNickname() + " už je opravený.";
+        }
+
+        npc.setIsRepaired(true);
+        setCheckpoint(1);
+        decreaseTimeLeft();
+
+        return npc.getNickname() + ": " + pickDialogue(npc, "repaired", "broken");
+    }
+    private String useRestorePowerAction(Room room, Map<String, Object> effects) {
+        boolean restore = effectBoolean(effects, "restoreElectricity");
+        if (!restore) return "ERROR: Item neumí obnovit elektřinu.";
+
+        if (!"chodba".equals(room.getId())) {
+            return "ERROR: Pojistky dávají smysl použít v chodbě u rozvaděče.";
+        }
+
+        setCheckpoint(2);
+        decreaseTimeLeft();
+
+        return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice plně ožije.";
+    }
+    private String useInstallUVLampAction(Room room, Map<String, Object> effects) {
+        String npcId = normalizeNpcId(effectString(effects, "satisfyNpc"));
+        if (npcId == null) return "ERROR: Item nemá nastavené satisfyNpc.";
+
+        if (!"botanicka_zahrada".equals(room.getId())) {
+            return "ERROR: UV lampu je nejlepší použít v botanické zahradě.";
+        }
+
+        Entities.NPCEntity babickaEntity = getNPCById(npcId);
+        if (babickaEntity == null || !isPlayerNearEntity(babickaEntity)) {
+            return "ERROR: Musíš jít blíž k babičce Aničce.";
+        }
+
+        NPC babicka = NPCs.get(npcId);
+        if (babicka == null) return "ERROR: Chyba dat: NPC '" + npcId + "' neexistuje.";
+
+        if (!babicka.isPlantNeedsLight()) {
+            return babicka.getName() + ": " + pickDialogue(babicka, "default", null);
+        }
+
+        babicka.setPlantNeedsLight(false);
+        setCheckpoint(3);
+        decreaseTimeLeft();
+
+        return babicka.getName() + ": " + pickDialogue(babicka, "afterUVLamp", "default");
+    }
+    private String useUnlockServerRoomAction(Room room, Map<String, Object> effects)  {
+        String locationId = effectString(effects, "unlockLocation");
+        if (locationId == null) return "ERROR: Item nemá nastavené unlockLocation.";
+
+        if (!"karantena".equals(room.getId())) {
+            return "ERROR: Kartu musíš použít u dveří do serverovny (v karanténě).";
+        }
+
+        Room target = rooms.get(locationId);
+        if (target == null) return "ERROR: Chyba dat: místnost '" + locationId + "' neexistuje.";
+
+        if (!target.isLocked()) return "Serverovna už je odemčená.";
+
+        target.setIsLocked(false);
+        return "Píp. Dveře do serverovny se odemknou.";
+    }
+    private String useAffectTargetAction(Room room, Map<String, Object> effects, String mode) {
+        if (!"karantena".equals(room.getId())) {
+            return "ERROR: Tohle dává smysl použít v karanténě.";
+        }
+
+        String targetId = normalizeNpcId(effectString(effects, "targetNpc"));
+        double chance = effectDouble(effects, "successChance", 1.0);
+
+        if (targetId == null) return "ERROR: Item nemá nastavené targetNpc.";
+
+        Entities.NPCEntity viktorEntity = getNPCById(targetId);
+        if (viktorEntity == null || !isPlayerNearEntity(viktorEntity)) {
+            return "ERROR: Viktor tu není nebo stojíš moc daleko.";
+        }
+
+        NPC viktor = NPCs.get(targetId);
+        if (viktor == null) return "ERROR: Chyba dat: NPC '" + targetId + "' neexistuje.";
+
+        if (!viktor.isHostile()) {
+            String key = "sleep".equals(mode) ? "asleep" : "confused";
+            return viktor.getName() + ": " + pickDialogue(viktor, key, "default");
+        }
+
+        java.util.Random rnd = new java.util.Random();
+        boolean success = rnd.nextDouble() <= chance;
+        if (!success) {
+            return viktor.getName() + ": " + pickDialogue(viktor, "aggressive", "default");
+        }
+
+        viktor.setHostile(false);
+
+        if ("sleep".equals(mode)) {
+            return viktor.getName() + ": " + pickDialogue(viktor, "asleep", "confused");
+        } else {
+            return viktor.getName() + ": " + pickDialogue(viktor, "confused", "aggressive");
+        }
+    }
+    private String useActivateSignalAction(Room room, Map<String, Object> effects)  {
+        boolean win = effectBoolean(effects, "winGame");
+        if (!win) return "ERROR: Tenhle předmět neumí spustit vysílání.";
+
+        if (!"vysilaci_vez".equals(room.getId())) {
+            return "ERROR: Šifrovací kartu musíš použít ve vysílací věži.";
+        }
+
+        setPlayerWon(true);
+
+        return "Vložíš šifrovací kartu do terminálu. Antény ožívají a SOS signál je odeslán.";
+    }
+
+    private String effectString(Map<String, Object> effects, String key) {
+        if (effects == null) return null;
+        Object v = effects.get(key);
+        return v == null ? null : String.valueOf(v);
+    }
+    private boolean effectBoolean(Map<String, Object> effects, String key) {
+        if (effects == null) return false;
+        Object v = effects.get(key);
+        if (v instanceof Boolean) return (Boolean) v;
+        return v != null && Boolean.parseBoolean(String.valueOf(v));
+    }
+    private double effectDouble(Map<String, Object> effects, String key, double fallback) {
+        if (effects == null) return fallback;
+        Object v = effects.get(key);
+        if (v == null) return fallback;
+        try {
+            return Double.parseDouble(String.valueOf(v));
+        } catch (Exception e) {
+            return fallback;
+        }
+    }
+    private String normalizeNpcId(String npcId) {
+        return npcId == null ? null : npcId.toLowerCase().trim();
+    }
+    private String pickDialogue(NPC npc, String key, String fallbackKey) {
+        if (npc.getDialogues() == null) return "...";
+        java.util.List<String> lines = npc.getDialogues().get(key);
+
+        if (lines == null || lines.isEmpty()) {
+            if (fallbackKey == null) return "...";
+            lines = npc.getDialogues().get(fallbackKey);
+        }
+        if (lines == null || lines.isEmpty()) return "...";
+
+        java.util.Random rnd = new java.util.Random();
+        return lines.get(rnd.nextInt(lines.size()));
+    }
+    public Entities.NPCEntity getNPCById(String id) {
+        for (Entities.NPCEntity entity : npcEntities) {
+            if (entity.getNpc() != null && entity.getNpc().getId().equals(id)) {
+                return entity;
+            }
+        }
+        return null;
+    }
+    private boolean isPlayerNearEntity(Entities.NPCEntity entity) {
+        float dx = player.getX() - entity.getX();
+        float dy = player.getY() - entity.getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < 95;
     }
 
     // ---------- NPC LOGIKA ----------
@@ -544,7 +781,6 @@ public class Game implements Runnable {
         checkpoint = 1;
         showPopup("Systémy drona obnoveny.");
     }
-
     private void interactMilan(NPC npc) {
         if (playerInventory.hasItem("filtr")) {
             playerInventory.removeItemById("filtr");
@@ -562,7 +798,6 @@ public class Game implements Runnable {
 
         showPopup("Potřebuješ ještě něco?");
     }
-
     private void interactBabicka(NPC npc) {
         if (playerInventory.hasItem("uv_lampa")) {
             playerInventory.removeItemById("uv_lampa");
@@ -572,7 +807,6 @@ public class Game implements Runnable {
         }
         showPopup("Moje kytičky potřebují více světla...");
     }
-
     private void interactViktor(NPC npc) {
         if (playerInventory.hasItem("uspavaci_lektvar")) {
             showPopup("Viktor usnul.");
@@ -687,7 +921,7 @@ public class Game implements Runnable {
     public void setPlayerLost(boolean playerLost) {
         this.playerLost = playerLost;
         this.gameOver = true;
-        this.gameState = DEFEATED; // Nastaví herní stav na prohru pro vykreslení
+        this.gameState = DEFEATED;
     }
 
     public String getIntroduction() { return introduction; }
@@ -698,7 +932,7 @@ public class Game implements Runnable {
                         "Do rozpadu planety zbývá jen 17h 32min 42s.\n\n" +
                         "Stanice je bez energie, chodby jsou ponořené do temnoty a něco tu není v pořádku. Jsi tu sama.\n" +
                         "Nebo… skoro sama.\n\n" +
-                        "Pokud se ti v čas nepodaří zprovoznit systémy a odeslat SOS signál, Boreas – i ty – zmizíte v explozi.\n" +
+                        "Pokud se ti v čas nepodaří zprovoznit sysémy a odeslat SOS signál, Boreas – i ty – zmizíte v explozi.\n" +
                         "Čas běží. Každé rozhodnutí se počítá.\n\n" +
                         "Vítej na stanici Boreas.";
     }
@@ -714,12 +948,6 @@ public class Game implements Runnable {
 
     public String getLosingText() { return losingText; }
     private void setLosingText() {
-        this.losingText =
-                "YOU DIED.\n\n" +
-                        "Vešla jsi do místnosti s nebezpečným plynem bez plynové masky a nadýchala jses.\n" +
-                        "Tvůj hlas už nikdy nikdo neuslyší.\n\n" +
-                        "Ticho.\n" +
-                        "Tma.\n\n" +
-                        "Mise selhala.";
+        this.losingText = "Čas vypršel. Stanice Boreas byla zničena v masivní explozi jádra.";
     }
 }

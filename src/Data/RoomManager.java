@@ -44,9 +44,7 @@ public class RoomManager {
         }
     }
 
-    public void update() {
-//        checkRoomTransitions();
-    }
+    public void update() {}
 
     public void draw(Graphics g) {
         Room currentRoom = game.getCurrentRoom();
