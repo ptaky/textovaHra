@@ -1,5 +1,4 @@
-import New.Engine.Game;
-import New.Screens.MainMenu_Screen;
+import Screens.MainMenu_Screen;
 
 /**
  * Main.
