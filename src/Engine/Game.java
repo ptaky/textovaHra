@@ -458,11 +458,19 @@ public class Game implements Runnable {
                 return;
             }
 
+            // POJISTKA PROTI CHYBNÉMU INDEXU PŘED AKCÍ
+            if (inventorySelection >= playerInventory.getItems().size()) {
+                inventorySelection = Math.max(0, playerInventory.getItems().size() - 1);
+            }
+
             Item item = playerInventory.getItems().get(inventorySelection);
             playerInventory.removeItem(item);
             currentRoom.addItem(item.getId());
 
-            if (inventorySelection > 0) inventorySelection--;
+            // CHYTRÁ KOREKCE INDEXU: Pokud index po smazání přečnívá přes nový konec listu, posuneme ho na konec
+            if (inventorySelection >= playerInventory.getItems().size()) {
+                inventorySelection = Math.max(0, playerInventory.getItems().size() - 1);
+            }
         }
         // ZE ZEMĚ DO INVENTÁŘE
         else {
@@ -478,13 +486,21 @@ public class Game implements Runnable {
                 return;
             }
 
+            // POJISTKA PROTI CHYBNÉMU INDEXU PŘED AKCÍ
+            if (groundSelection >= currentRoom.getItems().size()) {
+                groundSelection = Math.max(0, currentRoom.getItems().size() - 1);
+            }
+
             String itemId = currentRoom.getItems().get(groundSelection);
             currentRoom.removeItem(itemId);
 
             Item realItem = items.get(itemId);
             playerInventory.addItem(realItem);
 
-            if (groundSelection > 0) groundSelection--;
+            // CHYTRÁ KOREKCE INDEXU: Pokud index po smazání přečnívá přes nové položky na zemi, srovnáme ho
+            if (groundSelection >= currentRoom.getItems().size()) {
+                groundSelection = Math.max(0, currentRoom.getItems().size() - 1);
+            }
         }
     }
 
