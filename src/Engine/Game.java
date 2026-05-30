@@ -259,8 +259,8 @@ public class Game implements Runnable {
 
         g.setFont(new Font("Arial", Font.BOLD, 18));
         g.setColor(Color.WHITE);
-        g.drawString("Press R to Restart", GAME_WIDTH / 2 - 100, GAME_HEIGHT - 120);
-        g.drawString("Press ESC for Main Menu", GAME_WIDTH / 2 - 130, GAME_HEIGHT - 90);
+        g.drawString("Press R to Restart", GAME_WIDTH / 2 - 100, GAME_HEIGHT - 150);
+        g.drawString("Press ESC for Main Menu", GAME_WIDTH / 2 - 130, GAME_HEIGHT - 120);
     }
 
     public void restartGame() {
@@ -341,6 +341,11 @@ public class Game implements Runnable {
     public void toggleInventory() {
         if (gameState == RUNNING) {
             gameState = INVENTORY;
+
+            selectingInventory = true;
+            inventorySelection = 0;
+            groundSelection = 0;
+
         } else if (gameState == INVENTORY) {
             gameState = RUNNING;
         }
@@ -418,8 +423,8 @@ public class Game implements Runnable {
         g.setColor(Color.GRAY);
         g.setFont(new Font("Arial", Font.PLAIN, 14));
         g.drawString(
-                "W/S = MOVE | A/D = SWITCH | SPACE = TRANSFER | TAB = CLOSE",
-                GAME_WIDTH / 2 - 210,
+                "W/S = MOVE | A/D = SWITCH | SPACE = TRANSFER | TAB = CLOSE | E = USE",
+                GAME_WIDTH / 2 - 260,
                 panelY + panelHeight + 40
         );
     }
@@ -437,9 +442,15 @@ public class Game implements Runnable {
         if (gameState != INVENTORY) return;
 
         if (selectingInventory) {
-            if (inventorySelection < playerInventory.getItems().size() - 1) inventorySelection++;
+            int maxItems = playerInventory.getItems().size();
+            if (inventorySelection < maxItems - 1) {
+                inventorySelection++;
+            }
         } else {
-            if (groundSelection < currentRoom.getItems().size() - 1) groundSelection++;
+            int maxGround = currentRoom.getItems().size();
+            if (groundSelection < maxGround - 1) {
+                groundSelection++;
+            }
         }
     }
 
@@ -545,8 +556,12 @@ public class Game implements Runnable {
                         inventorySelection--;
                     }
                 }
-                if (gameState != VICTORY) {
+                if (gameState != VICTORY && gameState != DEFEATED) {
                     gameState = RUNNING;
+                    showPopup(result);
+                } else {
+                    popupTimer = 0;
+                    gamePanel.repaint();
                 }
                 showPopup(result);
             } else {
@@ -732,7 +747,7 @@ public class Game implements Runnable {
         float dx = player.getX() - entity.getX();
         float dy = player.getY() - entity.getY();
         double distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < 95;
+        return distance < 128;
     }
 
     // ---------- NPC LOGIKA ----------
@@ -957,7 +972,9 @@ public class Game implements Runnable {
     private void setWinningText() {
         this.winningText =
                 "Signál odeslán.\n\n" +
-                        "Anténa se probouzí k životu a stanice se po dlouhé době znovu rozzáří. Nouzový signál míří do hlubokého vesmíru – a tentokrát nezůstane bez odpovědi.\n" +
+                        "Anténa se probouzí k životu a stanice se po dlouhé době znovu rozzáří.\n" +
+                        "Nouzový signál míří do hlubokého vesmíru – a tentokrát nezůstane bez odpovědi.\n" +
+                        "\n" +
                         "Záchrana je na cestě.\n" +
                         "Stanice Boreas žije – díky tobě.";
     }
