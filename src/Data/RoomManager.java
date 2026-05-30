@@ -10,6 +10,9 @@ import static Data.Constants.GameStates.*;
 import static Engine.Game.*;
 import static Entities.Player.*;
 
+/**
+ * @author Ondřej Ptáček
+ */
 public class RoomManager {
 
     private Game game;
@@ -28,6 +31,9 @@ public class RoomManager {
         loadRoomTransitions();
     }
 
+    /**
+     * Loads background images for all rooms into memory.
+     */
     private void preloadRoomBackgrounds() {
         System.out.println("--- Načítání grafických pozadí místností stanice Boreas ---");
         for (Room room : game.getRooms().values()) {
@@ -46,6 +52,10 @@ public class RoomManager {
 
     public void update() {}
 
+    /**
+     * Draws the current room background and information about items and NPCs.
+     * @param g the Graphics object for drawing
+     */
     public void draw(Graphics g) {
         Room currentRoom = game.getCurrentRoom();
         if (currentRoom == null) return;
@@ -75,6 +85,9 @@ public class RoomManager {
         }
     }
 
+    /**
+     * Checks if the player is at the border of the screen and tries to move to a neighbor room.
+     */
     public void tryTransition() {
 
         Room currentRoom = game.getCurrentRoom();
@@ -111,6 +124,11 @@ public class RoomManager {
         }
     }
 
+    /**
+     * Changes the current room and teleports the player to the opposite side of the screen.
+     * @param targetRoomId ID of the new room
+     * @param direction direction where the player went
+     */
     private void changeRoom(String targetRoomId, String direction) {
 
         Room targetRoom = game.getRooms().get(targetRoomId);
@@ -147,12 +165,21 @@ public class RoomManager {
         }
     }
 
+    /**
+     * Connects two rooms together in a specific direction.
+     * @param from source room ID
+     * @param direction movement direction
+     * @param to target room ID
+     */
     private void addTransition(String from, String direction, String to) {
 
         roomTransitions.putIfAbsent(from, new HashMap<>());
         roomTransitions.get(from).put(direction, to);
     }
 
+    /**
+     * Configures all connections between rooms on the space station.
+     */
     private void loadRoomTransitions() {
 
         addTransition("kryokomora", "up", "lekarsky_trakt");

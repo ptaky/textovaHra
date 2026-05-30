@@ -5,17 +5,31 @@ import Engine.Game;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents the primary main menu entryway graphical screen for the Boreas game application.
+ * Uses a Swing JFrame window container combined with GridBagLayout UI structures
+ * to display interactive navigation paths for system ignition and clean execution termination.
+ * @author Ondřej Ptáček
+ */
 public class MainMenu_Screen extends JFrame {
 
     private final int width = 800;
     private final int height = 600;
 
+    /**
+     * Constructs the main menu interface instance.
+     * Triggers top-level frame metrics initialization and mounts control panels.
+     */
     public MainMenu_Screen() {
         init();
 
         setupUI();
     }
 
+    /**
+     * Establishes initial frame attributes including OS title captions, dimension metrics,
+     * absolute center screen positioning, and locked window resize permissions.
+     */
     private void init() {
         setTitle("Boreas");
         setSize(width, height);
@@ -29,6 +43,10 @@ public class MainMenu_Screen extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Instantiates structural alignment containers and paints layout components.
+     * Populates titles, binds navigation actions to component button groups, and manages margins.
+     */
     private void setupUI() {
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -73,6 +91,12 @@ public class MainMenu_Screen extends JFrame {
         add(panel);
     }
 
+    /**
+     * Standardized production factory pattern to build custom styled, themed control buttons.
+     * Configures borders, foreground palette colors, and sets active hand cursor triggers.
+     * @param text string caption to paint on the face of the component instance
+     * @return fully formatted and dimensioned JButton component ready for inclusion
+     */
     private JButton createButton(String text) {
 
         JButton button = new JButton(text);
@@ -90,6 +114,9 @@ public class MainMenu_Screen extends JFrame {
         return button;
     }
 
+    /**
+     * Disposes the current view frame instantly and initiates the system initialization sequence.
+     */
     private void startGame() {
 
         dispose();

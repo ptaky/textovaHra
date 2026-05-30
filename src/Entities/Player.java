@@ -12,6 +12,12 @@ import static Data.Constants.Directions.*;
 import static Data.Constants.PlayerConstants.*;
 import static Engine.Game.SCALE;
 
+/**
+ * Represents the playable astronaut character Elara.
+ * Manages character spatial positioning, sub-image animation frames parsing,
+ * directional state updates, viewport edge constraints, and hazardous room checks.
+ * @author Ondřej Ptáček
+ */
 public class Player extends Entity {
 
     private BufferedImage[][] animations;
@@ -26,6 +32,13 @@ public class Player extends Entity {
     private final float DELTA_MOVE_VALUE = 2.0f*(int)SCALE;
     private Game game;
 
+    /**
+     * Initializes the player avatar container with starting spawn coordinates.
+     * Allocates memory for sprite coordinates array matrices.
+     * @param x global horizontal layout spawn point coordinates
+     * @param y global vertical layout spawn point coordinates
+     * @param game reference hook to the running state engine coordinator instance
+     */
     public Player(float x, float y, Game game) {
         super(x, y);
 
@@ -39,6 +52,10 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Updates player components layer sequentially.
+     * Dispatches spatial delta recalculations, ticks visual state indexes, and runs environmental checks.
+     */
     public void update() {
         updatePosition();
         updateAniTick();
@@ -46,6 +63,11 @@ public class Player extends Entity {
         checkHazardousZones();
     }
 
+    /**
+     * Draws the active frame model buffer segment onto the visible graphics context workspace panel.
+     * Displays a distinct vector oval outline preview container if the spreadsheet resource is missing.
+     * @param g current Graphics context container instance
+     */
     public void render(Graphics g) {
         if (animations == null || animations[playerAction][aniIndex] == null) {
             Graphics2D g2d = (Graphics2D) g;
@@ -68,6 +90,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Clamp function wrapper testing if bounding boundaries are crossing window frame edge dimensions.
+     */
     private void checkHitbox() {
 
         if (x < 0) x = 0;
@@ -76,6 +101,10 @@ public class Player extends Entity {
         if (y + PLAYER_SIZE > Game.GAME_HEIGHT) y = Game.GAME_HEIGHT - PLAYER_SIZE;
     }
 
+    /**
+     * Verifies if the astronaut entered quarantine zones without the required gas mask equipped.
+     * Triggers defeat game state immediately if criteria match.
+     */
     private void checkHazardousZones() {
         Room currentRoom = game.getCurrentRoom();
         if (currentRoom != null && currentRoom.getId().equals("karantena")) {
@@ -86,6 +115,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Slices the master raw asset spreadsheet into a separate multi-row animation frame buffer database.
+     */
     private void loadAnimationsFromImg() {
         try {
             BufferedImage img = DataLoader.loadImage(DataLoader.PLAYER_SPRITES);
@@ -111,6 +143,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Steps internal numerical timing variables and cycles row sequence indices when threshold targets are met.
+     */
     private void updateAniTick() {
         aniTick++;
         if (aniTick >= aniSpeed) {
@@ -122,6 +157,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Selects and flags the operational active running loop action category based on move key bindings.
+     */
     private void setAnimation() {
         int startAni = playerAction;
 
@@ -141,6 +179,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Computes raw coordinate adjustments based on state flags and active velocity constants.
+     */
     public void updatePosition() {
         moving = false;
         if (!up && !down && !left && !right) return;
@@ -170,11 +211,17 @@ public class Player extends Entity {
 
     }
 
-    // resets
+    /**
+     * Clears frame sequencing counters to prevent rendering skips across transitions.
+     */
     public void resetAniTick() {
         aniTick = 0;
         aniIndex = 0;
     }
+
+    /**
+     * Enforces explicit false variable assignment on directional control states to stop ongoing physics displacement.
+     */
     public void resetDirBooleans() {
         left = false;
         up = false;

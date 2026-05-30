@@ -5,12 +5,24 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Provides a pop-up pause menu frame built with Swing components.
+ * Employs GridBagLayout for alignment and uses functional interface callbacks
+ * to communicate menu state actions back to the core game loop.
+ * @author Ondřej Ptáček
+ */
 public class EscMenu_Screen extends JFrame {
 
     private Runnable onResume;
 
     private Runnable onLeave;
 
+    /**
+     * Constructs the escape pause menu screen.
+     * Registers functional interface triggers to coordinate state switching upon closing.
+     * @param onResume operational task sequence to execute when returning to gameplay
+     * @param onLeave operational task sequence to execute when exiting back to main menu
+     */
     public EscMenu_Screen(Runnable onResume, Runnable onLeave) {
         this.onResume = onResume;
         this.onLeave = onLeave;
@@ -20,6 +32,9 @@ public class EscMenu_Screen extends JFrame {
         setupListeners();
     }
 
+    /**
+     * Sets up core window framing criteria, window dimensions, title bar, and centering.
+     */
     private void init() {
         setTitle("Paused");
         setSize(400, 300);
@@ -31,6 +46,9 @@ public class EscMenu_Screen extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Constructs layout constraints, color palettes, titles, and control button arrays.
+     */
     private void setupUI() {
 
         JPanel panel = new JPanel(new GridBagLayout());
@@ -79,6 +97,11 @@ public class EscMenu_Screen extends JFrame {
         add(panel);
     }
 
+    /**
+     * Standardized manufacturing method to produce styled menu control buttons.
+     * @param text string caption to display on the button face
+     * @return fully configured and padded JButton instance
+     */
     private JButton createButton(String text) {
 
         JButton button = new JButton(text);
@@ -96,6 +119,10 @@ public class EscMenu_Screen extends JFrame {
         return button;
     }
 
+    /**
+     * Hooks event filters to intercept OS close signals or window focus shifts.
+     * Prevents game loop hanging by unpausing if the focus is accidentally broken.
+     */
     private void setupListeners() {
 
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -120,6 +147,9 @@ public class EscMenu_Screen extends JFrame {
         });
     }
 
+    /**
+     * Dismantles window frames safely and executes the resumption callback routine.
+     */
     private void resumeGame() {
         dispose();
 
@@ -127,6 +157,10 @@ public class EscMenu_Screen extends JFrame {
             onResume.run();
         }
     }
+
+    /**
+     * Explicit window disposal endpoint.
+     */
     private void leaveGame() {
         dispose();
     }

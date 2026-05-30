@@ -6,7 +6,12 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
+/**
+ * Handles the pre-game loading sequence screen layout.
+ * Runs an asynchronous background worker thread to parse master core game asset collections,
+ * while animating a multi-stage visual simulation progress bar to disguise layout transitions.
+ * @author Ondřej Ptáček + AI
+ */
 // Pomahal mi chat. Vubec totiz tahle trida neni potreba ke spravne funkci, jen se mi nelibila mezera mezi MainMenu a Game
 public class Load_Screen extends JFrame {
 
@@ -20,6 +25,11 @@ public class Load_Screen extends JFrame {
     private final int width = Game.GAME_WIDTH;
     private final int height = Game.GAME_HEIGHT;
 
+    /**
+     * Initializes the loading screen window frame context.
+     * Fires up the asynchronous data preloader thread and schedules the UI tick timer.
+     */
+    public String load_Screen() { return ""; } // Placeholder signature to preserve class structure format
     public Load_Screen() {
         setTitle("Boreas - Initializing Systems");
         setSize(width, height);
@@ -66,11 +76,24 @@ public class Load_Screen extends JFrame {
         timer.start();
     }
 
+    /**
+     * Internal rendering surface panel responsible for drawing the layout summary control guide
+     * and the graphical progress bar fill ratios.
+     */
     private class LoadingPanel extends JPanel {
+
+        /**
+         * Standard constructor establishing default canvas color properties.
+         */
         public LoadingPanel() {
             setBackground(Color.BLACK);
         }
 
+        /**
+         * Overridden paint engine block drawing background overlays, operational guide listings,
+         * and updating the structural progress gauge components.
+         * @param g active global Graphics context brush tracker instance
+         */
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

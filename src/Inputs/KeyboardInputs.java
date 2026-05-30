@@ -9,17 +9,34 @@ import java.awt.event.KeyListener;
 
 import static Data.Constants.GameStates.*;
 
+/**
+ * Handles keyboard input polling and dispatches action routines based on current game state.
+ * Bridges raw hardware key events to player movement vectors, inventory navigation, and game lifecycle controls.
+ * @author Ondřej Ptáček
+ */
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gp;
 
+    /**
+     * Constructs a new keyboard input receiver bound to the active game viewport.
+     * @param gp reference to the GamePanel container holding core context references
+     */
     public KeyboardInputs(GamePanel gp) {
         this.gp = gp;
     }
 
+    /**
+     * Unused override from java.awt.event.KeyListener interface loop.
+     */
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    /**
+     * Processes keypress signals and routes actions according to the active enum gameState.
+     * Manages dual mappings (e.g. WASD keys driving movement when RUNNING vs navigating when INVENTORY).
+     * @param e hardware key event object received from system focus
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         // --- ABSOLUTNÍ STOPKA PRO LOADING SCREEN ---
@@ -136,6 +153,11 @@ public class KeyboardInputs implements KeyListener {
         }
     }
 
+    /**
+     * Processes release keyboard signals.
+     * Clears directional move flags on the player avatar object to safely halt ongoing momentum.
+     * @param e hardware key event object received from system focus
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {

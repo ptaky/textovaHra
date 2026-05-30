@@ -21,6 +21,7 @@ import static Data.DataLoader.*;
 /**
  * Hlavní herní logika a řízení hry Boreas.
  * Spojuje původní textovou logiku s novým grafickým enginem.
+ * @author Ondřej Ptáček
  */
 public class Game implements Runnable {
 
@@ -77,10 +78,17 @@ public class Game implements Runnable {
     private String winningText;
     private String losingText;
 
+    /**
+     * Constructor for Game.
+     * Initializes all game data.
+     */
     public Game() {
         setupBoreasGameData();
     }
 
+    /**
+     * Creates game window, panel and starts the main game loop thread.
+     */
     public void startRealPlaying() {
         this.gamePanel = new GamePanel(this);
         this.gameScreen = new Game_Screen(gamePanel);
@@ -123,11 +131,18 @@ public class Game implements Runnable {
 
     // ---------- GAME LOOP ----------
 
+    /**
+     * Starts a new thread for the game loop.
+     */
     private void startGameLoop() {
         thread = new Thread(this);
         thread.start();
     }
 
+    /**
+     * Main thread loop that updates game logic and requests repaints.
+     * Controls FPS and UPS limits.
+     */
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_SET;
@@ -179,6 +194,9 @@ public class Game implements Runnable {
 
     // ---------- AKTUALIZACE A VYKRESLOVÁNÍ ----------
 
+    /**
+     * Updates game objects like player, rooms and NPCs if game is running.
+     */
     public void update() {
         if (gameState == VICTORY || gameState == DEFEATED || gameState == HELP || gameState == PAUSED) {
             return;
@@ -193,6 +211,10 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Renders different screens based on the current game state.
+     * @param g Graphics context
+     */
     public void render(Graphics g) {
         switch (gameState) {
             case LOADING -> drawLoadingScreen(g);
@@ -228,10 +250,18 @@ public class Game implements Runnable {
 
     // ---------- POMOCNÉ METODY PRO ----------
 
+    /**
+     * Resets player direction booleans when window loses focus.
+     */
     public void windowsFocusLost() {
         player.resetDirBooleans();
     }
 
+    /**
+     * Draws the victory or defeat screen with text details.
+     * @param g Graphics context
+     * @param win true for win screen, false for game over screen
+     */
     private void drawEndScreen(Graphics g, boolean win) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -271,6 +301,10 @@ public class Game implements Runnable {
         g.drawString("Press ESC for Main Menu", GAME_WIDTH / 2 - 130, GAME_HEIGHT - 120);
     }
 
+    /**
+     * Draws a screen showing controls and loading progress bar.
+     * @param g Graphics context
+     */
     private void drawLoadingScreen(Graphics g) {
         // Černé pozadí
         g.setColor(Color.BLACK);
@@ -337,6 +371,10 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Draws the help screen overlay with game controls.
+     * @param g Graphics context
+     */
     private void drawHelpScreen(Graphics g) {
         // Vykreslíme hru na pozadí, ať to vypadá dobře
         roomManager.draw(g);
@@ -386,6 +424,9 @@ public class Game implements Runnable {
         g.drawString(footer, GAME_WIDTH / 2 - fm.stringWidth(footer) / 2, GAME_HEIGHT - 100);
     }
 
+    /**
+     * Disposes the current window and opens the loading screen to restart the game.
+     */
     public void restartGame() {
         gameState = LEAVE;
 
@@ -398,6 +439,9 @@ public class Game implements Runnable {
         });
     }
 
+    /**
+     * Disposes the current window and returns back to the main menu screen.
+     */
     public void backToMenu() {
         gameState = LEAVE; // Zastaví herní smyčku
 
@@ -411,6 +455,9 @@ public class Game implements Runnable {
         });
     }
 
+    /**
+     * Pauses the game and opens the Escape menu window.
+     */
     public void pauseGame() {
         gameState = PAUSED;
 
@@ -429,11 +476,19 @@ public class Game implements Runnable {
         escScreen.setVisible(true);
     }
 
+    /**
+     * Sets popup message text and timer duration.
+     * @param text string to show in popup
+     */
     public void showPopup(String text) {
         this.popupText = text;
         this.popupTimer = 120;
     }
 
+    /**
+     * Draws the bottom informational notification popup panel if timer is active.
+     * @param g Graphics context
+     */
     public void drawPopup(Graphics g) {
         if (popupTimer <= 0) return;
 
@@ -450,6 +505,10 @@ public class Game implements Runnable {
         popupTimer--;
     }
 
+    /**
+     * Draws top HUD string information including room name, time left and basic inventory data.
+     * @param g Graphics context
+     */
     public void drawHUD(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 14));
@@ -463,6 +522,10 @@ public class Game implements Runnable {
         g.drawString("Inventář: " + playerInventory.toString(), 20, 75);
     }
 
+    /**
+     * Iterates over NPC entity list and draws NPCs if they are located in the current room.
+     * @param g Graphics context
+     */
     private void drawNPCs(Graphics g) {
         for (NPCEntity npcEntity : npcEntities) {
             if (!npcEntity.getNpc().getLocation().equals(currentRoom.getId())) {
@@ -474,6 +537,9 @@ public class Game implements Runnable {
 
     // ---------- INVENTÁŘ LOGIKA A VYKRESLOVÁNÍ ----------
 
+    /**
+     * Opens or closes the inventory screen state.
+     */
     public void toggleInventory() {
         if (gameState == RUNNING) {
             gameState = INVENTORY;
@@ -487,6 +553,10 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Draws the full screen inventory panel splitting user inventory and room items on the ground.
+     * @param g Graphics context
+     */
     private void drawInventory(Graphics g) {
         g.setColor(new Color(0, 0, 0, 180));
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -565,6 +635,9 @@ public class Game implements Runnable {
         );
     }
 
+    /**
+     * Moves index selection cursor up inside the inventory or ground list.
+     */
     public void inventoryUp() {
         if (gameState != INVENTORY) return;
 
@@ -574,6 +647,10 @@ public class Game implements Runnable {
             if (groundSelection > 0) groundSelection--;
         }
     }
+
+    /**
+     * Moves index selection cursor down inside the inventory or ground list.
+     */
     public void inventoryDown() {
         if (gameState != INVENTORY) return;
 
@@ -590,9 +667,23 @@ public class Game implements Runnable {
         }
     }
 
-    public void selectInventory() { selectingInventory = true; }
-    public void selectGround() { selectingInventory = false; }
+    /**
+     * Sets active focus to the player inventory side.
+     */
+    public void selectInventory() {
+        selectingInventory = true;
+    }
 
+    /**
+     * Sets active focus to the ground room items side.
+     */
+    public void selectGround() {
+        selectingInventory = false;
+    }
+
+    /**
+     * Transfers selected item from player inventory to the ground or from the ground to player inventory.
+     */
     public void moveSelectedItem() {
         if (gameState != INVENTORY) return;
 
@@ -653,6 +744,9 @@ public class Game implements Runnable {
 
     // ---------- ITEMS LOGIKA ----------
 
+    /**
+     * Uses the currently selected item from the player inventory and applies its effects.
+     */
     public void useItem() {
         if (gameState != INVENTORY) return;
 
@@ -707,6 +801,12 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Executes the drone repair action using item effects.
+     * @param room current room object
+     * @param effects map of item properties
+     * @return result message or error string
+     */
     private String useRepairDroneAction(Room room, Map<String, Object> effects) {
         String npcId = normalizeNpcId(effectString(effects, "repairNpc"));
         if (npcId == null) return "ERROR: Item nemá nastavené repairNpc.";
@@ -729,6 +829,13 @@ public class Game implements Runnable {
 
         return npc.getNickname() + ": " + pickDialogue(npc, "repaired", "broken");
     }
+
+    /**
+     * Restores main station electricity using fuses item.
+     * @param room current room object
+     * @param effects map of item properties
+     * @return result message or error string
+     */
     private String useRestorePowerAction(Room room, Map<String, Object> effects) {
         boolean restore = effectBoolean(effects, "restoreElectricity");
         if (!restore) return "ERROR: Item neumí obnovit elektřinu.";
@@ -742,6 +849,13 @@ public class Game implements Runnable {
 
         return "Vyměnil/a jsi pojistky. Nouzové osvětlení zesílí a stanice plně ožije.";
     }
+
+    /**
+     * Installs UV lamp inside the botanical garden for NPC Babicka.
+     * @param room current room object
+     * @param effects map of item properties
+     * @return result message or error string
+     */
     private String useInstallUVLampAction(Room room, Map<String, Object> effects) {
         String npcId = normalizeNpcId(effectString(effects, "satisfyNpc"));
         if (npcId == null) return "ERROR: Item nemá nastavené satisfyNpc.";
@@ -768,6 +882,13 @@ public class Game implements Runnable {
 
         return babicka.getName() + ": " + pickDialogue(babicka, "afterUVLamp", "default");
     }
+
+    /**
+     * Unlocks the door to the server room location.
+     * @param room current room object
+     * @param effects map of item properties
+     * @return result message or error string
+     */
     private String useUnlockServerRoomAction(Room room, Map<String, Object> effects)  {
         String locationId = effectString(effects, "unlockLocation");
         if (locationId == null) return "ERROR: Item nemá nastavené unlockLocation.";
@@ -784,6 +905,14 @@ public class Game implements Runnable {
         target.setIsLocked(false);
         return "Píp. Dveře do serverovny se odemknou.";
     }
+
+    /**
+     * Tries to make a hostile target sleep or confused using random chance.
+     * @param room current room object
+     * @param effects map of item properties
+     * @param mode action mode string (sleep/confuse)
+     * @return result message or error string
+     */
     private String useAffectTargetAction(Room room, Map<String, Object> effects, String mode) {
         if (!"karantena".equals(room.getId())) {
             return "ERROR: Tohle dává smysl použít v karanténě.";
@@ -821,6 +950,13 @@ public class Game implements Runnable {
             return viktor.getName() + ": " + pickDialogue(viktor, "confused", "aggressive");
         }
     }
+
+    /**
+     * Uses encryption card in communication tower to send SOS and win the game.
+     * @param room current room object
+     * @param effects map of item properties
+     * @return result message or error string
+     */
     private String useActivateSignalAction(Room room, Map<String, Object> effects)  {
         boolean win = effectBoolean(effects, "winGame");
         if (!win) return "ERROR: Tenhle předmět neumí spustit vysílání.";
@@ -858,6 +994,14 @@ public class Game implements Runnable {
     private String normalizeNpcId(String npcId) {
         return npcId == null ? null : npcId.toLowerCase().trim();
     }
+
+    /**
+     * Picks a random dialogue line from the NPC dialogues map configuration.
+     * @param npc NPC object config
+     * @param key main dialogue key
+     * @param fallbackKey fallback dialogue key if main key fails
+     * @return picked dialogue line text string
+     */
     private String pickDialogue(NPC npc, String key, String fallbackKey) {
         if (npc.getDialogues() == null) return "...";
         java.util.List<String> lines = npc.getDialogues().get(key);
@@ -871,6 +1015,7 @@ public class Game implements Runnable {
         java.util.Random rnd = new java.util.Random();
         return lines.get(rnd.nextInt(lines.size()));
     }
+
     public Entities.NPCEntity getNPCById(String id) {
         for (Entities.NPCEntity entity : npcEntities) {
             if (entity.getNpc() != null && entity.getNpc().getId().equals(id)) {
@@ -879,6 +1024,12 @@ public class Game implements Runnable {
         }
         return null;
     }
+
+    /**
+     * Checks if the player coordinates are close enough to the target entity.
+     * @param entity NPCEntity object to check distance with
+     * @return true if player distance is less than 128 units
+     */
     private boolean isPlayerNearEntity(Entities.NPCEntity entity) {
         float dx = player.getX() - entity.getX();
         float dy = player.getY() - entity.getY();
@@ -888,6 +1039,9 @@ public class Game implements Runnable {
 
     // ---------- NPC LOGIKA ----------
 
+    /**
+     * Loads all NPC graphical entities with positions and spritesheets.
+     */
     public void loadNPCs() {
         npcEntities = new ArrayList<>();
 
@@ -916,6 +1070,10 @@ public class Game implements Runnable {
         npcEntities.add(viktor);
     }
 
+    /**
+     * Returns an NPC entity that is standing very close to the player position.
+     * @return NPCEntity instance if close enough or null
+     */
     public NPCEntity getNearbyNPC() {
         for (NPCEntity npc : npcEntities) {
             if (!npc.getNpc().getLocation().equals(currentRoom.getId())) continue;
@@ -931,6 +1089,10 @@ public class Game implements Runnable {
         return null;
     }
 
+    /**
+     * Dispatches interaction method call based on the specific NPC ID.
+     * @param npc NPC object data configuration
+     */
     public void interactWithNPC(NPC npc) {
         if (npc == null) return;
 
@@ -1016,6 +1178,10 @@ public class Game implements Runnable {
         return error("neplatny prikaz");
     }
 
+    /**
+     * Builds and returns detailed text information summary about the current room state.
+     * @return formatted console details string
+     */
     public String roomInfo() {
         if (currentRoom == null) return error("Žádná aktuální místnost!");
         return getLine(false) + '\n' +
@@ -1040,6 +1206,10 @@ public class Game implements Runnable {
 
     // ---------- GETTERY & SETTERY ----------
 
+    /**
+     * Returns a predefined text representation of time left depending on value level.
+     * @return time information formatted text string
+     */
     public String getLeftTime() {
         String txt = "Čas do exploze: ";
         switch (timeLeft) {

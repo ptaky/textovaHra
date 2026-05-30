@@ -1,7 +1,14 @@
 package Data;
 
+/**
+ * Global game constants used for state control, colors, and animations.
+ * @author Ondřej Ptáček
+ */
 public class Constants {
 
+    /**
+     * Constants for player movement directions.
+     */
     public static class Directions {
         public static final int LEFT = 0;
         public static final int UP = 1;
@@ -10,6 +17,9 @@ public class Constants {
 
     }
 
+    /**
+     * Constants and settings for player animation states.
+     */
     public static class PlayerConstants {
         public static final int IDLE = 0;
         public static final int RUNNING_RIGHT = 1;
@@ -17,6 +27,11 @@ public class Constants {
         public static final int RUNNING_DOWN = 3;
         public static final int RUNNING_UP = 4;
 
+        /**
+         * Returns how many image frames are in the animation loop.
+         * * @param playerAction The current movement state of the player.
+         * @return Number of sprites for the animation.
+         */
         public static int getSpriteAmount(int playerAction) {
             switch (playerAction) {
                 case IDLE:
@@ -33,6 +48,9 @@ public class Constants {
         }
     }
 
+    /**
+     * Constants representing different screens and states of the game loop.
+     */
     public static class GameStates {
         public static final int RUNNING = 0;
         public static final int PAUSED = 1;
@@ -44,6 +62,9 @@ public class Constants {
         public static final int HELP = 6;
     }
 
+    /**
+     * Text coloring codes for the console logs output.
+     */
     public static class Colors {
         public static final String ANSI_RESET = "\u001B[0m";
         public static final String ANSI_BLACK = "\u001B[30m";

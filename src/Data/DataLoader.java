@@ -25,6 +25,11 @@ public class DataLoader {
     public static final String VIKTOR_SPRITES = "viktorSprites.png";
 
 
+    /**
+     * Loads an image file from the resources folder.
+     * @param filename name of the image file with extension
+     * @return BufferedImage object or null if image is not found
+     */
     public static BufferedImage loadImage(String filename) {
         BufferedImage img;
         img = null;
