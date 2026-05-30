@@ -22,6 +22,16 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        // --- ABSOLUTNÍ STOPKA PRO LOADING SCREEN ---
+        if (gp.getGame().getGameState() == LOADING) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                if (gp.getGame().isLoadingFinished()) {
+                    gp.getGame().setGameState(RUNNING);
+                }
+            }
+            return; // Dokud se načítá, ostatní klávesy kompletně ignorujeme
+        }
+
         switch (e.getKeyCode()) {
 
             // movement & inventory
@@ -62,8 +72,11 @@ public class KeyboardInputs implements KeyListener {
             }
 
             // inventory
-            case KeyEvent.VK_TAB -> gp.getGame().toggleInventory();
-//            case KeyEvent.VK_ENTER -> gp.getGame().useItem();
+            case KeyEvent.VK_TAB -> {
+                if (gp.getGame().getGameState() == RUNNING || gp.getGame().getGameState() == INVENTORY) {
+                    gp.getGame().toggleInventory();
+                }
+            }
             case KeyEvent.VK_UP -> gp.getGame().inventoryUp();
             case KeyEvent.VK_DOWN -> gp.getGame().inventoryDown();
             case KeyEvent.VK_LEFT -> gp.getGame().selectInventory();
@@ -81,7 +94,7 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_ESCAPE -> {
                 if (gp.getGame().getGameState() == RUNNING) {
                     gp.getGame().pauseGame();
-                } else if (gp.getGame().getGameState() == PAUSED || gp.getGame().getGameState() == INVENTORY) {
+                } else if (gp.getGame().getGameState() == PAUSED || gp.getGame().getGameState() == INVENTORY || gp.getGame().getGameState() == HELP) {
                     gp.getGame().setGameState(RUNNING);
                 } else if (gp.getGame().getGameState() == DEFEATED || gp.getGame().getGameState() == VICTORY) {
                     gp.getGame().backToMenu();
@@ -109,6 +122,15 @@ public class KeyboardInputs implements KeyListener {
                     } else {
                         System.out.println("Chyba: NPCEntity existuje, ale chybí jí data z JSONu!");
                     }
+                }
+            }
+
+            // --- KLÁVESA PRO POMOC / OVLÁDÁNÍ ---
+            case KeyEvent.VK_H -> {
+                if (gp.getGame().getGameState() == RUNNING) {
+                    gp.getGame().setGameState(HELP);
+                } else if (gp.getGame().getGameState() == HELP) {
+                    gp.getGame().setGameState(RUNNING);
                 }
             }
         }

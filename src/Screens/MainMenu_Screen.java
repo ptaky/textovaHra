@@ -94,7 +94,7 @@ public class MainMenu_Screen extends JFrame {
 
         dispose();
 
-        new Game();
+        new Load_Screen();
 
         System.out.println("Starting game...");
     }

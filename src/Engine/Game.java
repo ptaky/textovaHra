@@ -33,8 +33,8 @@ public class Game implements Runnable {
     public static final int GAME_WIDTH = TILE_SIZE * TILES_WIDTH;
     public static final int GAME_HEIGHT = TILE_SIZE * TILES_HEIGHT;
 
-    private final GamePanel gamePanel;
-    private final Game_Screen gameScreen;
+    private GamePanel gamePanel;
+    private Game_Screen gameScreen;
     private Thread thread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
@@ -68,6 +68,10 @@ public class Game implements Runnable {
     private boolean playerWon;
     private boolean playerLost;
 
+    // --- Nacitani hry ---
+    private int loadingProgress = 0;
+    private boolean loadingFinished = false;
+
     // --- Příběhové texty ---
     private String introduction;
     private String winningText;
@@ -75,11 +79,14 @@ public class Game implements Runnable {
 
     public Game() {
         setupBoreasGameData();
+    }
 
+    public void startRealPlaying() {
         this.gamePanel = new GamePanel(this);
         this.gameScreen = new Game_Screen(gamePanel);
-        this.gamePanel.requestFocus();
 
+        this.gameScreen.setVisible(true);
+        this.gamePanel.requestFocus();
         startGameLoop();
     }
 
@@ -99,6 +106,8 @@ public class Game implements Runnable {
         timeLeft = 0;
 
         gameState = RUNNING;
+        loadingProgress = 0;
+        loadingFinished = false;
 
         loadNPCs();
 
@@ -160,7 +169,7 @@ public class Game implements Runnable {
                 updates = 0;
             }
 
-            if (gameState == VICTORY || gameState == DEFEATED || gameState == PAUSED) {
+            if (gameState == VICTORY || gameState == DEFEATED || gameState == PAUSED || gameState == HELP) {
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
@@ -173,8 +182,7 @@ public class Game implements Runnable {
     // ---------- AKTUALIZACE A VYKRESLOVÁNÍ ----------
 
     public void update() {
-
-        if (gameState == VICTORY || gameState == DEFEATED) {
+        if (gameState == VICTORY || gameState == DEFEATED || gameState == HELP || gameState == PAUSED) {
             return;
         }
 
@@ -189,12 +197,14 @@ public class Game implements Runnable {
 
     public void render(Graphics g) {
         switch (gameState) {
+            case LOADING -> drawLoadingScreen(g);
             case RUNNING -> {
                 roomManager.draw(g);
                 drawNPCs(g);
                 player.render(g);
                 drawHUD(g);
             }
+            case HELP -> drawHelpScreen(g);
             case PAUSED -> {
                 roomManager.draw(g);
                 player.render(g);
@@ -261,6 +271,121 @@ public class Game implements Runnable {
         g.setColor(Color.WHITE);
         g.drawString("Press R to Restart", GAME_WIDTH / 2 - 100, GAME_HEIGHT - 150);
         g.drawString("Press ESC for Main Menu", GAME_WIDTH / 2 - 130, GAME_HEIGHT - 120);
+    }
+
+    private void drawLoadingScreen(Graphics g) {
+        // Černé pozadí
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        // Nadpis Loading
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.setColor(Color.CYAN);
+        g.drawString("INITIALIZING BOREAS SYSTEMS...", 50, 80);
+
+        // --- SEKCE: OVLÁDÁNÍ A VSTUPY ---
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+        g.drawString("PŘEHLED OVLÁDÁNÍ:", 50, 150);
+
+        g.setFont(new Font("Arial", Font.PLAIN, 16));
+        int y = 190;
+        String[][] controls = {
+                {"W, A, S, D", "Pohyb postavou po stanici"},
+                {"TAB", "Otevřít / Zavřít inventář a okolí"},
+                {"W / S (v inv.)", "Pohyb v seznamech předmětů"},
+                {"A / D (v inv.)", "Přepínání mezi Inventářem a Zemí"},
+                {"SPACE (v inv.)", "Zvednout předmět ze země / Položit na zem"},
+                {"E (v inv.)", "Použít vybraný předmět (např. klíče, baterie)"},
+                {"ESC", "Pauza hry / Hlavní menu"}
+        };
+
+        for (String[] control : controls) {
+            g.setColor(Color.CYAN);
+            g.drawString(control[0], 50, y);
+            g.setColor(Color.WHITE);
+            g.drawString(" - " + control[1], 200, y);
+            y += 30;
+        }
+
+        // --- PROGRESS BAR ---
+        int barWidth = GAME_WIDTH - 100;
+        int barHeight = 25;
+        int barX = 50;
+        int barY = GAME_HEIGHT - 120;
+
+        // Rám progres baru
+        g.setColor(Color.GRAY);
+        g.drawRect(barX, barY, barWidth, barHeight);
+
+        // Výplň progres baru
+        g.setColor(Color.CYAN);
+        int currentBarWidth = (int) ((loadingProgress / 100.0) * barWidth);
+        g.fillRect(barX + 2, barY + 2, currentBarWidth - 3, barHeight - 3);
+
+        // Text procent / pokynu
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        FontMetrics fm = g.getFontMetrics();
+
+        if (!loadingFinished) {
+            g.setColor(Color.WHITE);
+            String progText = "Načítání: " + loadingProgress + "%";
+            g.drawString(progText, GAME_WIDTH / 2 - fm.stringWidth(progText) / 2, barY - 15);
+        } else {
+            // Blikající nebo výrazný text pro spuštění
+            g.setColor(Color.GREEN);
+            String startText = "SYSTÉMY PŘIPRAVENY. STISKNI MEZERNÍK PRO VSTUP NA STANICI.";
+            g.drawString(startText, GAME_WIDTH / 2 - fm.stringWidth(startText) / 2, barY - 15);
+        }
+    }
+
+    private void drawHelpScreen(Graphics g) {
+        // Vykreslíme hru na pozadí, ať to vypadá dobře
+        roomManager.draw(g);
+        player.render(g);
+
+        // Ztmavovací filtr přes celé okno
+        g.setColor(new Color(0, 0, 0, 200));
+        g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        // Ohraničení panelu nápovědy
+        g.setColor(Color.CYAN);
+        g.drawRoundRect(100, 50, GAME_WIDTH - 200, GAME_HEIGHT - 120, 20, 20);
+        g.setColor(new Color(10, 20, 30, 240));
+        g.fillRoundRect(101, 51, GAME_WIDTH - 202, GAME_HEIGHT - 122, 20, 20);
+
+        // Titulek
+        g.setFont(new Font("Arial", Font.BOLD, 26));
+        g.setColor(Color.CYAN);
+        g.drawString("MANUÁL STANICE BOREAS", 140, 95);
+
+        // Seznam příkazů
+        g.setFont(new Font("Arial", Font.PLAIN, 16));
+        int y = 150;
+        String[][] helpCommands = {
+                {"W, A, S, D", "Pohyb astronautky po stanici"},
+                {"E", "Průzkum místnosti (odhalí skryté předměty)"},
+                {"F", "Interakce / Rozhovor s NPC postavou poblíž"},
+                {"TAB", "Otevření / Zavření inventáře"},
+                {"SPACE", "Přesun předmětu (v inv.) / Průchod dveřmi (ve hře)"},
+                {"H", "Zavřít nápovědu a vrátit se do hry"},
+                {"ESC", "Zavřít nápovědu / Otevřít pauza menu"}
+        };
+
+        for (String[] cmd : helpCommands) {
+            g.setColor(Color.CYAN);
+            g.drawString(cmd[0], 140, y);
+            g.setColor(Color.WHITE);
+            g.drawString(" - " + cmd[1], 280, y);
+            y += 32;
+        }
+
+        // Centrování ukončovací hlášky naspodu panelu
+        g.setFont(new Font("Arial", Font.ITALIC, 14));
+        g.setColor(Color.GRAY);
+        String footer = "Stiskni H nebo ESC pro návrat do hry...";
+        FontMetrics fm = g.getFontMetrics();
+        g.drawString(footer, GAME_WIDTH / 2 - fm.stringWidth(footer) / 2, GAME_HEIGHT - 100);
     }
 
     public void restartGame() {
@@ -917,6 +1042,10 @@ public class Game implements Runnable {
 
     public int getGameState() { return gameState; }
     public void setGameState(int gameState) { this.gameState = gameState; }
+
+    public boolean isLoadingFinished() {
+        return this.loadingFinished;
+    }
 
     public boolean roomContains(String itemId) {
         return currentRoom != null && currentRoom.containsItem(itemId);

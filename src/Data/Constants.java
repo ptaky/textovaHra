@@ -40,6 +40,8 @@ public class Constants {
         public static final int VICTORY = 2;
         public static final int DEFEATED = 3;
         public static final int INVENTORY = 4;
+        public static final int LOADING = 5;
+        public static final int HELP = 6;
     }
 
     public static class Colors {
