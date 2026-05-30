@@ -106,8 +106,6 @@ public class Game implements Runnable {
         timeLeft = 0;
 
         gameState = RUNNING;
-        loadingProgress = 0;
-        loadingFinished = false;
 
         loadNPCs();
 
@@ -390,14 +388,27 @@ public class Game implements Runnable {
 
     public void restartGame() {
         gameState = LEAVE;
-        gameScreen.dispose();
-        new Game();
+
+        if (this.gameScreen != null) {
+            this.gameScreen.dispose();
+        }
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new Screens.Load_Screen();
+        });
     }
 
     public void backToMenu() {
-        gameState = LEAVE;
-        gameScreen.dispose();
-        new MainMenu_Screen();
+        gameState = LEAVE; // Zastaví herní smyčku
+
+        if (this.gameScreen != null) {
+            this.gameScreen.dispose(); // Zničí okno hry
+        }
+
+        // Vrátí hráče do hlavního menu
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new MainMenu_Screen();
+        });
     }
 
     public void pauseGame() {
@@ -921,6 +932,8 @@ public class Game implements Runnable {
     }
 
     public void interactWithNPC(NPC npc) {
+        if (npc == null) return;
+
         switch (npc.getId()) {
             case "spark" -> interactSpark(npc);
             case "milan" -> interactMilan(npc);
@@ -1110,6 +1123,6 @@ public class Game implements Runnable {
 
     public String getLosingText() { return losingText; }
     private void setLosingText() {
-        this.losingText = "Čas vypršel. Stanice Boreas byla zničena v masivní explozi jádra.";
+        this.losingText = "Vešel jsi do mistnosti, kde je jedovatý plyn a nemáš plynovou masku;;.";
     }
 }
