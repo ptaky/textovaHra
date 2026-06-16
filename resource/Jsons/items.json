@@ -1,0 +1,144 @@
+{
+  "baterie": {
+    "id": "baterie",
+    "name": "Baterie",
+    "description": "Energetická baterie použitelná k opravě zařízení.",
+    "location": "dilna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": true,
+    "questItem": true,
+    "isUsable": true,
+    "useAction": "repair_drone",
+    "effects": {
+      "repairNpc": "spark"
+    },
+    "conditions": {}
+  },
+  "nahradni_pojistky": {
+    "id": "nahradni_pojistky",
+    "name": "Náhradní pojistky",
+    "description": "Sada funkčních pojistek pro obnovení elektrické sítě.",
+    "location": "dilna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": true,
+    "questItem": true,
+    "isUsable": true,
+    "useAction": "restore_power",
+    "effects": {
+      "restoreElectricity": true
+    },
+    "conditions": {}
+  },
+  "filtr": {
+    "id": "filtr",
+    "name": "Filtr",
+    "description": "Filtr schopný zachytit omamné plyny.",
+    "location": "botanicka_zahrada",
+    "portable": true,
+    "consumable": false,
+    "singleUse": true,
+    "questItem": true,
+    "isUsable": false,
+    "effects": {},
+    "conditions": {
+      "requiredByNpc": "milan"
+    }
+  },
+  "uv_lampa": {
+    "id": "uv_lampa",
+    "name": "UV lampa",
+    "description": "Silná UV lampa vhodná pro pěstování rostlin.",
+    "location": "dilna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": true,
+    "questItem": true,
+    "isUsable": true,
+    "useAction": "install_uv_lamp",
+    "effects": {
+      "satisfyNpc": "babicka"
+    },
+    "conditions": {}
+  },
+  "uspavaci_lektvar": {
+    "id": "uspavaci_lektvar",
+    "name": "Uspávací lektvar",
+    "description": "Silný uspávací nápoj připravený babičkou Aničkou.",
+    "location": "botanicka_zahrada",
+    "portable": true,
+    "consumable": true,
+    "singleUse": true,
+    "questItem": true,
+    "isUsable": true,
+    "useAction": "sleep_target",
+    "effects": {
+      "targetNpc": "viktor",
+      "successChance": 1.0
+    },
+    "conditions": {}
+  },
+  "zrcatko": {
+    "id": "zrcatko",
+    "name": "Zrcátko",
+    "description": "Malé zrcátko, které může zmást Viktora.",
+    "location": "lekarsky_trakt",
+    "portable": true,
+    "consumable": false,
+    "singleUse": false,
+    "questItem": false,
+    "isUsable": true,
+    "useAction": "confuse_target",
+    "effects": {
+      "targetNpc": "viktor",
+      "successChance": 0.7
+    },
+    "conditions": {}
+  },
+  "karta_od_serverovny": {
+    "id": "karta_od_serverovny",
+    "name": "Karta od serverovny",
+    "description": "Přístupová karta k serverovně stanice.",
+    "location": "dilna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": false,
+    "questItem": true,
+    "isUsable": true,
+    "useAction": "unlock_server_room",
+    "effects": {
+      "unlockLocation": "serverovna"
+    },
+    "conditions": {}
+  },
+  "sifrovaci_karta": {
+    "id": "sifrovaci_karta",
+    "name": "Šifrovací karta",
+    "description": "Klíčová karta nutná k aktivaci vysílací věže.",
+    "location": "serverovna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": false,
+    "questItem": true,
+    "isUsable": true,
+    "useAction": "activate_signal",
+    "effects": {
+      "winGame": true
+    },
+    "conditions": {}
+  },
+  "plynova_maska": {
+    "id": "plynova_maska",
+    "name": "Plynová maska",
+    "description": "Maska chránící před omamným plynem v karanténě.",
+    "location": "dilna",
+    "portable": true,
+    "consumable": false,
+    "singleUse": false,
+    "questItem": true,
+    "isUsable": false,
+    "effects": {},
+    "conditions": {}
+  }
+}
