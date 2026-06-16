@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="jackson-demo:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c4e9ce66-a96b-415e-89a9-0963c2fe22b7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/jackson_demo_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_jupiter_engine.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jackson-databind.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jackson-demo.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Communications.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Greenhouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Hallway.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Kryo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Medibay.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Quarantine.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Serverroom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/Rooms/Workshop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/babickaSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/milanSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/playerSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/sparkSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Imgs/viktorSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Jsons/NPC.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Jsons/items.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Jsons/rooms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/End_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Explore_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Go_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Help_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Hint_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Place_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Speak_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Take_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands/Use_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/DataLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/Inventory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/NPC.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/Room.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/RoomManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/GamePanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/UserInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/NPCEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inputs/KeyboardInputs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/EscMenu_Screen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Game_Screen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/Load_Screen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/MainMenu_Screen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/End_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Explore_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Go_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Help_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Hint_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Place_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Speak_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Take_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commands/Use_Command.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Constants$Colors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Constants$Directions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Constants$GameStates.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Constants$PlayerConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/DataLoader$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/DataLoader$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/DataLoader$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/DataLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Inventory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/NPC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/Room.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Data/RoomManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Engine/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Engine/GamePanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Engine/UserInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Entities/Entity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Entities/NPCEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Entities/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Communications.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Greenhouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Hallway.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Kryo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Medibay.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Quarantine.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Serverroom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/Rooms/Workshop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/babickaSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/milanSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/playerSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/sparkSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Imgs/viktorSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Inputs/KeyboardInputs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Jsons/NPC.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Jsons/items.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Jsons/rooms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/EscMenu_Screen$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/EscMenu_Screen$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/EscMenu_Screen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/Game_Screen$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/Game_Screen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/Load_Screen$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/Load_Screen$LoadingPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/Load_Screen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Screens/MainMenu_Screen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/CommandFlow_Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Game_Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GoCommand_Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Inventory_Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Room_Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/textovaHra.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ptaky"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ptaky/textovaHra.git",
+    "accountId": "31edfb30-1e71-4ccc-9f40-0d7915d34bcb"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="3EtA0c9DJB6pR25oXkqEsJDdxVQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="jackson-demo" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c4e9ce66-a96b-415e-89a9-0963c2fe22b7" name="Changes" comment="" />
+      <created>1780987269618</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1780987269618</updated>
+    </task>
+    <servers />
+  </component>
+</project>
